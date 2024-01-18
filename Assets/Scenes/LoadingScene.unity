@@ -880,6 +880,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 217239622}
     m_Modifications:
+    - target: {fileID: 2608865710598134472, guid: 7783b36e9760192409b9831728c87cdb, type: 3}
+      propertyPath: buttonObject
+      value: 
+      objectReference: {fileID: 1069995858}
     - target: {fileID: 2608865710598134476, guid: 7783b36e9760192409b9831728c87cdb, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -994,6 +998,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7783b36e9760192409b9831728c87cdb, type: 3}
+--- !u!1 &1069995858 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2608865710598134477, guid: 7783b36e9760192409b9831728c87cdb, type: 3}
+  m_PrefabInstance: {fileID: 1069995857}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1221862235
 GameObject:
   m_ObjectHideFlags: 0
@@ -1357,6 +1366,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 217239622}
     m_Modifications:
+    - target: {fileID: 2608865710598134472, guid: 7783b36e9760192409b9831728c87cdb, type: 3}
+      propertyPath: buttonObject
+      value: 
+      objectReference: {fileID: 1692297082}
     - target: {fileID: 2608865710598134476, guid: 7783b36e9760192409b9831728c87cdb, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
