@@ -132,8 +132,6 @@ public class MapController : MonoBehaviour
 
     IEnumerator FadeInCanvasGroup(CanvasGroup group, float delay, float duration, float startOpacity, float maxOpacity)
     {
-        Debug.Log("FadeINCanvasGroup");
-
         yield return new WaitForSeconds(delay);
         float currentTime = 0;
         

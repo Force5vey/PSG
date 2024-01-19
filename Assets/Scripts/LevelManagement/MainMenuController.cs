@@ -57,6 +57,10 @@ public class MainMenuController : MonoBehaviour
 
         StartCoroutine(FadeIn(fadeDuration));
 
+
+        //TODO: ONly for level testing to skip the menu with default values:
+        OnLaunchGame_Click();
+
     }
 
 
@@ -175,7 +179,8 @@ public class MainMenuController : MonoBehaviour
 
     private void OnLaunchGame_Click()
     {
-        GameController.Instance.sceneController.LoadNextScene(GameController.Instance.sceneController.sceneData.scenes[2].sceneName);
+        //GameController.Instance.sceneController.LoadNextScene(GameController.Instance.sceneController.sceneData.scenes[2].sceneName);
+        GameController.Instance.sceneController.LoadNextScene(GameController.Instance.sceneController.sceneData.scenes[3].sceneName);
     }
 
     private void OnCloseButton_Click()

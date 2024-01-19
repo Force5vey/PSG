@@ -8,10 +8,4 @@ public class UIController : MonoBehaviour
     public Color textColorPressed;
     public Color textColorDisabled;
 
-
-    void Start()
-    {
-   
-    }
-
 }

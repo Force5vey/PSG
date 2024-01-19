@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 using UnityEngine.UI;
 
 public class StandardButtonController : MonoBehaviour
@@ -30,8 +31,6 @@ public class StandardButtonController : MonoBehaviour
 
     private void Start()
     {
-        //originalScale = transform.localScale;
-
         originalPosition = transform.localPosition;
     }
 
@@ -60,6 +59,11 @@ public class StandardButtonController : MonoBehaviour
 
     public void OnSelect()
     {
+        if (GameController.Instance.uiController == null)
+        {
+            Debug.LogError("UIController is not assigned in GameController");
+            return;
+        }
         buttonImage.sprite = selectedImage;
         SetTextColor(GameController.Instance.uiController.textColorSelected);
 

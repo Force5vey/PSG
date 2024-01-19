@@ -24,12 +24,13 @@ public class LoadingSceneController : MonoBehaviour
 
     private void Start()
     {
-        GameController.Instance.InitializeLoadingSceneControllerInGameController();
-        InitiateGameLoadSequence();
+        GameController.Instance.dataController.onLoadingError.AddListener(ShowNotification);
 
         headingText.color = GameController.Instance.uiController.textColorSelected;
         messageText.color = GameController.Instance.uiController.textColorSelected;
         titleText.color = GameController.Instance.uiController.textColorSelected;
+
+        InitiateGameLoadSequence();
     }
 
     private void Update()
@@ -54,6 +55,11 @@ public class LoadingSceneController : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        GameController.Instance.dataController.onLoadingError.RemoveAllListeners();
+    }
+
     IEnumerator FadeOutScene(float duration)
     {
         float currentTime = 0f;
@@ -69,8 +75,9 @@ public class LoadingSceneController : MonoBehaviour
         }
 
         GameController.Instance.sceneController.LoadNextScene(GameController.Instance.sceneController.sceneData.scenes[1].sceneName);
-        GameController.Instance.SetLoadingSceneControllerToNullInGameController();
-
+       
+        //TODO: set this to null on the way out
+        
     }
 
 

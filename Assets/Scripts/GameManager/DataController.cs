@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DataController : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class DataController : MonoBehaviour
 
     private string saveGameDataPath;
     private string saveGameDataPathBackup;
+
+    //Events
+    public UnityEvent<string, string> onLoadingError;
 
     //Loading Flags
     public enum LoadingStatus
@@ -24,6 +28,11 @@ public class DataController : MonoBehaviour
 
     private void Awake()
     {
+        if(onLoadingError == null)
+        {
+            onLoadingError = new UnityEvent<string, string>();
+        }
+
         saveGameDataPath = Path.Combine(Application.dataPath, "PlayerSaveFile.json");
         //TempBack up during testing.
         //TODO: Change this back for builds / deploymnet to: persistentDataPath
@@ -87,7 +96,7 @@ public class DataController : MonoBehaviour
 
             gameDataLoadStatus = LoadingStatus.Success;
             waitingGameDataAcknowledgement = true;
-            GameController.Instance.loadingSceneController.ShowNotification("Notice", "Game save file load error. Initializing default values.");
+            onLoadingError?.Invoke("Notice", "Game save file load error. Initializing default values.");
         }
     }
 

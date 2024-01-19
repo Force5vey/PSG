@@ -4,27 +4,18 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
+    //Set in LevelController script
+    [HideInInspector] public Transform target;
 
-    [SerializeField] private Transform playerTransform;
-    [SerializeField] private float smoothing = 5f;
-    Vector3 offset;
+    public float smoothSpeed = 0.125f;
+    public Vector3 offset;
 
-    // Start is called before the first frame update
-    void Start()
+    void LateUpdate()
     {
-        offset = transform.position - playerTransform.position;
-    }
+        Vector3 desiredPosition = target.position + offset;
+        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+        transform.position = smoothedPosition;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void FixedUpdate()
-    {
-        Vector3 targetCamPos = playerTransform.position + offset;
-
-        transform.position = Vector3.Lerp(transform.position, targetCamPos, smoothing * Time.deltaTime);
+        transform.LookAt(target);
     }
 }

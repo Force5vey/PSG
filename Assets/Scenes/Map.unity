@@ -376,15 +376,15 @@ MonoBehaviour:
   - {fileID: 925762231}
   - {fileID: 469832132}
   fadeInDelays:
-  - 1
-  - 1.5
+  - 0.1
+  - 0.1
   - 0
-  - 1
+  - 0.1
   fadeInDurations:
-  - 2
-  - 2
-  - 1
-  - 2
+  - 0.1
+  - 0.1
+  - 0.1
+  - 0.1
   startOpacities:
   - 0
   - 0
