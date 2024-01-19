@@ -7,13 +7,17 @@ public class InputHandler : MonoBehaviour
     private MainPlayerControls playerControls;
     private Vector2 moveInput;
 
+    public delegate void MoveInput(Vector2 movement);
+    public event MoveInput OnMoveInput;
+
     private void Awake()
     {
         playerControls = new MainPlayerControls();
 
         //Bind move action
-        playerControls.PlayerControl.MovePlayer.performed += context => moveInput = context.ReadValue<Vector2>();
-        playerControls.PlayerControl.MovePlayer.canceled += context => moveInput = Vector2.zero;
+        playerControls.PlayerControl.MovePlayer.performed += context => OnMoveInput?.Invoke(context.ReadValue<Vector2>());
+        playerControls.PlayerControl.MovePlayer.canceled += context => OnMoveInput?.Invoke(Vector2.zero);
+
     }
 
     private void OnEnable()

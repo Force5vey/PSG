@@ -128,7 +128,7 @@ Rigidbody:
   m_GameObject: {fileID: 4344516542909679755}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 10
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0
@@ -164,8 +164,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c63ab89a99209e4db338c57e52ae8eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 100
-  rotationSpeed: 130
+  rb: {fileID: 8349523039194520094}
+  moveSpeed: 150
+  yawSpeed: 300
+  allowRoll: 0
+  allowPitch: 0
+  allowYaw: 1
+  maxRollAngle: 30
+  maxPitchAngle: 30
+  maxAltitudeDeviation: 1
+  rollRecoverySpeed: 150
+  pitchRecoverySpeed: 150
+  altitudeRecoverySpeed: 150
+  altitudeRecoveryStrength: 200
 --- !u!114 &4344516542909679758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -913,8 +924,8 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1644669017886814, guid: e667e03794eaec343a9c06e31d54dc51, type: 3}
   m_PrefabInstance: {fileID: 3821376171678508594}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &969092689799064313
-MeshCollider:
+--- !u!136 &2774305312382049759
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -923,10 +934,10 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300014, guid: b148b613ddc510547be3d1d496b080a6, type: 3}
+  m_Radius: 0.9
+  m_Height: 6
+  m_Direction: 2
+  m_Center: {x: 1.5, y: -0.5, z: -0.35}
 --- !u!1001 &6354227464759346938
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -998,8 +1009,8 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1469740042275192, guid: 74320a9ec8ed78443b2eee7378f59eac, type: 3}
   m_PrefabInstance: {fileID: 6354227464759346938}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &8971895692991857166
-MeshCollider:
+--- !u!136 &257147314505622033
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1008,10 +1019,23 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300050, guid: b148b613ddc510547be3d1d496b080a6, type: 3}
+  m_Radius: 0.9
+  m_Height: 6
+  m_Direction: 2
+  m_Center: {x: -1.5, y: -0.5, z: -0.35}
+--- !u!65 &3538581444203559323
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6353444988342423426}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &6994772471232769292
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1022,6 +1046,10 @@ PrefabInstance:
     - target: {fileID: 1842245085380760, guid: 8f2c5743276c4a544944a62e06067536, type: 3}
       propertyPath: m_Name
       value: Cockpit-A_Green
+      objectReference: {fileID: 0}
+    - target: {fileID: 1842245085380760, guid: 8f2c5743276c4a544944a62e06067536, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4067359224525486, guid: 8f2c5743276c4a544944a62e06067536, type: 3}
       propertyPath: m_RootOrder
