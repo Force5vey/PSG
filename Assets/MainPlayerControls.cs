@@ -56,12 +56,12 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""RightTrigger"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""46f41487-9e87-4ecc-a4fd-4f430420aa7c"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""ButtonSouth"",

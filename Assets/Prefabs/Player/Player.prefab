@@ -167,15 +167,11 @@ MonoBehaviour:
   rb: {fileID: 8349523039194520094}
   moveSpeed: 150
   yawSpeed: 300
-  allowRoll: 0
-  allowPitch: 0
+  maxYawSpeed: 0
   allowYaw: 1
-  maxRollAngle: 30
-  maxPitchAngle: 30
+  constrainPitchAndRoll: 0
+  maintainAltitude: 0
   maxAltitudeDeviation: 1
-  rollRecoverySpeed: 150
-  pitchRecoverySpeed: 150
-  altitudeRecoverySpeed: 150
   altitudeRecoveryStrength: 200
 --- !u!114 &4344516542909679758
 MonoBehaviour:
@@ -924,8 +920,8 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1644669017886814, guid: e667e03794eaec343a9c06e31d54dc51, type: 3}
   m_PrefabInstance: {fileID: 3821376171678508594}
   m_PrefabAsset: {fileID: 0}
---- !u!136 &2774305312382049759
-CapsuleCollider:
+--- !u!64 &5869126002989025775
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -934,10 +930,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.9
-  m_Height: 6
-  m_Direction: 2
-  m_Center: {x: 1.5, y: -0.5, z: -0.35}
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300014, guid: b148b613ddc510547be3d1d496b080a6, type: 3}
 --- !u!1001 &6354227464759346938
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1009,8 +1005,8 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1469740042275192, guid: 74320a9ec8ed78443b2eee7378f59eac, type: 3}
   m_PrefabInstance: {fileID: 6354227464759346938}
   m_PrefabAsset: {fileID: 0}
---- !u!136 &257147314505622033
-CapsuleCollider:
+--- !u!64 &1692768203627060229
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1019,23 +1015,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.9
-  m_Height: 6
-  m_Direction: 2
-  m_Center: {x: -1.5, y: -0.5, z: -0.35}
---- !u!65 &3538581444203559323
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6353444988342423426}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 5, y: 5, z: 5}
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300050, guid: b148b613ddc510547be3d1d496b080a6, type: 3}
 --- !u!1001 &6994772471232769292
 PrefabInstance:
   m_ObjectHideFlags: 0

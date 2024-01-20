@@ -1249,7 +1249,55 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4344516542909679759, guid: a422fefae09047445b75cf815de41a10, type: 3}
       propertyPath: yawSpeed
-      value: 500
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344516542909679759, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: allowRoll
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344516542909679759, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: allowPitch
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344516542909679759, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: maxYawSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344516542909679759, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: maxRollAngle
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344516542909679759, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: maxPitchAngle
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344516542909679759, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: maxRollAmount
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344516542909679759, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: maintainAltitude
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344516542909679759, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: rollRecoverySpeed
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344516542909679759, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: pitchRecoverySpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344516542909679759, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: constrainPitchAndRoll
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344516542909679759, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: allowAltitudeDeviation
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344516542909679759, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: altitudeRecoveryStrength
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4344516543256221936, guid: a422fefae09047445b75cf815de41a10, type: 3}
       propertyPath: m_IsActive

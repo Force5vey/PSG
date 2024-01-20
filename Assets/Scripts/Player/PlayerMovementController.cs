@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class PlayerMovementController : MonoBehaviour
@@ -10,176 +11,122 @@ public class PlayerMovementController : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float moveSpeed;
     [SerializeField] private float yawSpeed;
+    [SerializeField] private float maxYawSpeed;
     private Vector2 currentMoveInput;
+    private float leftTrigger;
+    private float rightTrigger;
 
     [Header("Flight Dynamics")]
-    [Tooltip("Roll: X Axis: Wings dip and rise, axis is from nose to tail.")]
-    [SerializeField] private bool allowRoll;
-    [Tooltip("Pitch: Y Axis: Nose up or down, Climb or descend, the axis is from wing tip to wing tip.")]
-    [SerializeField] private bool allowPitch;
-    [Tooltip("Yah: Z Axis: The nose 'turns' left or right.")]
     [SerializeField] private bool allowYaw;
-    [SerializeField] private float maxRollAngle;
-    [SerializeField] private float maxPitchAngle;
+    //[SerializeField] private bool allowRoll;
+    //[SerializeField] private bool allowPitch;
+    //[SerializeField] private float maxRollAmount;
+    //[SerializeField] private float rollRecoverySpeed;
+    [SerializeField] private bool constrainPitchAndRoll;
+    [SerializeField] private bool maintainAltitude;
     [SerializeField] private float maxAltitudeDeviation;
+
     [Header("Flight Recovery")]
-    [SerializeField] private float rollRecoverySpeed;
-    [SerializeField] private float pitchRecoverySpeed;
-    [SerializeField] private float altitudeRecoverySpeed;
     [SerializeField] private float altitudeRecoveryStrength;
-    private bool isRecoveringRoll = false;
-    private bool isRecoveringPitch = false;
-    private bool isRecoveringAltitude = false;
 
 
     /// Term Definitions:
     /// Rollout: Come out of a roll / bank and return to desired state
     /// Level Off: Come out of a climb or descent and return Pitch to desired State
     /// Recover: Return all axis to desired state.
+    /// Term Definitions:
+    /// Roll - dip wings
+    /// Pitch - climb or dive
+    /// Yaw - spin / nose left / right
 
     private void Awake()
     {
         inputHandler = FindObjectOfType<InputHandler>();
+
+    }
+
+    private void OnEnable()
+    {
         if (inputHandler != null)
         {
             inputHandler.OnMoveInput += HandleMoveInput;
+            inputHandler.OnStrafeInput += HandleYawInput;
         }
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         if (inputHandler != null)
         {
             inputHandler.OnMoveInput -= HandleMoveInput;
+            inputHandler.OnStrafeInput -= HandleYawInput;
         }
-    }
-
-    private void Start()
-    {
-        //TODO: Get start values from the level controller so the ship state can be effected by individual levels
-        //will probably be an addition to LevelData scriptables 
-
     }
 
     private void HandleMoveInput(Vector2 movementInput)
     {
         currentMoveInput = movementInput;
     }
-
-    //private void Update()
-    //{
-    //    Debug.Log("Current Yaw: " + rb.rotation.eulerAngles.z);
-
-    //}
+    void HandleYawInput(float left, float right)
+    {
+        leftTrigger = left;
+        rightTrigger = right;
+    }
 
     private void FixedUpdate()
     {
-        if (inputHandler != null)
+        MovePlayer(currentMoveInput, leftTrigger, rightTrigger);
+
+        if (maintainAltitude)
         {
-            MovePlayer(currentMoveInput);
-            ConstrainAndRecover();
+            ConstrainAltitude();
         }
+
+        if (constrainPitchAndRoll)
+        {
+            ConstrainPitchAndRoll();
+        }
+
     }
 
-    void MovePlayer(Vector2 movementInput)
+    void MovePlayer(Vector2 movementInput, float leftTrigger, float rightTrigger)
     {
+        // Determine forward/backward movement speed based on stick input
         Vector3 moveDirection = new Vector3(movementInput.x, movementInput.y, 0).normalized;
+        Vector3 moveVelocity = moveDirection * moveSpeed * movementInput.magnitude;
 
-        if (moveDirection.magnitude > 0.1f)
-        {
-            Vector3 moveVelocity = moveDirection * moveSpeed;
-            rb.velocity = new Vector3(moveVelocity.x, moveVelocity.y, rb.velocity.z);
+        // Apply movement velocity
+        rb.velocity = new Vector3(moveVelocity.x, moveVelocity.y, rb.velocity.z);
 
-            // Optional: Handle rotation here if needed
-        }
-
+        // Apply yaw rotation based on triggers
         if (allowYaw)
         {
-            YawToTravelDirection();
+            ApplyYawRotation(leftTrigger, rightTrigger);
         }
     }
 
-    void YawToTravelDirection()
+    void ApplyYawRotation(float leftTrigger, float rightTrigger)
     {
-        if (currentMoveInput.sqrMagnitude > 0.01f)
+        // Calculate yaw rotation amount (left: counterclockwise, right: clockwise)
+        float yawRotationAmount = ((leftTrigger - rightTrigger) * yawSpeed);
+
+        if (Mathf.Abs(leftTrigger) > 0.02f || Mathf.Abs(rightTrigger) > 0.02f)
         {
-            float targetAngle = Mathf.Atan2(currentMoveInput.y, currentMoveInput.x) * Mathf.Rad2Deg;
-            Quaternion targetRotation = Quaternion.Euler(0, 0, targetAngle - 90);
-            rb.rotation = Quaternion.RotateTowards(rb.rotation, targetRotation, yawSpeed * Time.deltaTime);
+            if (Mathf.Abs(rb.angularVelocity.z) < maxYawSpeed)
+            {
+                rb.AddTorque(Vector3.forward * yawRotationAmount, ForceMode.VelocityChange);
+            }
+        }
+        else
+        {
+            rb.angularVelocity = Vector3.zero;
         }
     }
 
-    void ConstrainAndRecover()
+    void ConstrainPitchAndRoll()
     {
-        if (!allowRoll)
-        {
-            RecoverRoll();
-        }
-
-        if (!allowPitch)
-        {
-            RecoverPitch();
-        }
-
-        ConstrainAltitude();
-    }
-
-    void RecoverRoll()
-    {
-        float currentRollAngle = rb.rotation.eulerAngles.x;
-        if (!isRecoveringRoll && Mathf.Abs(currentRollAngle) > maxRollAngle)
-        {
-            StartCoroutine(RecoverRollCoroutine());
-        }
-    }
-
-    IEnumerator RecoverRollCoroutine()
-    {
-        isRecoveringRoll = true;
-        Quaternion startRotation = rb.rotation;
-        // Target rotation: keep current yaw and pitch, reset roll
-        Quaternion endRotation = Quaternion.Euler(0, startRotation.eulerAngles.y, startRotation.eulerAngles.z);
-
-        float elapsedTime = 0;
-        while (elapsedTime < rollRecoverySpeed)
-        {
-            rb.rotation = Quaternion.Slerp(startRotation, endRotation, elapsedTime / rollRecoverySpeed);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        rb.rotation = endRotation;
-        isRecoveringRoll = false;
-
-    }
-
-    void RecoverPitch()
-    {
-        float currentPitchAngle = rb.rotation.eulerAngles.y;
-        if (!isRecoveringPitch && Mathf.Abs(currentPitchAngle) > maxPitchAngle)
-        {
-            StartCoroutine(RecoverPitchCoroutine());
-        }
-    }
-
-    IEnumerator RecoverPitchCoroutine()
-    {
-        isRecoveringPitch = true;
-        Quaternion startRotation = rb.rotation;
-        // Target rotation: keep current yaw and roll, reset pitch
-        Quaternion endRotation = Quaternion.Euler(startRotation.eulerAngles.x, 0, startRotation.eulerAngles.z);
-
-        float elapsedTime = 0;
-        while (elapsedTime < pitchRecoverySpeed)
-        {
-            rb.rotation = Quaternion.Slerp(startRotation, endRotation, elapsedTime / pitchRecoverySpeed);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        rb.rotation = endRotation;
-        isRecoveringPitch = false;
-
+        Quaternion constrainedRotation = Quaternion.Euler(0, 0, rb.rotation.eulerAngles.z);
+        rb.rotation = constrainedRotation;
     }
 
     void ConstrainAltitude()
@@ -194,13 +141,4 @@ public class PlayerMovementController : MonoBehaviour
             rb.AddForce(recoveryForce);
         }
     }
-
-
-
-    void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log("Collision Detected. Current Yaw: " + rb.rotation.eulerAngles.z);
-        // Additional debugging and collision handling...
-    }
-
 }
