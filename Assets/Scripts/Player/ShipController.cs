@@ -5,16 +5,46 @@ using UnityEngine;
 public class ShipController : MonoBehaviour
 {
     public float shipVariable = 2f;
+    [SerializeField] PlayerMovementController playerMovementController;
 
-    // Start is called before the first frame update
-    void Start()
+    //Debug stuff
+    [SerializeField] GameObject boundaryIndicator;
+
+    private void OnEnable()
     {
-        
+        playerMovementController.OnBoundaryCrossed += HandleBoundaryCrossed;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDisable()
     {
-        
+        playerMovementController.OnBoundaryCrossed -= HandleBoundaryCrossed;
+    }
+
+
+
+    private void HandleBoundaryCrossed(bool isOutsideBoundary)
+    {
+    if(isOutsideBoundary)
+        {
+            // Deplete air supply
+
+            //For current debugging
+            boundaryIndicator.SetActive(true);
+
+        }
+    else
+        {
+            // stop air depletion and start refill
+            //TODO: decision if the depletion just stops but need to return to T-Drive to replenish.
+
+            //debugging use
+            boundaryIndicator.SetActive(false);
+        }
+    }
+
+    //TODO: CurrentTDriveState needs to be an enum that aligns with repair stages.
+    public float CurrentTDriveState()
+    {
+        return 0f;
     }
 }

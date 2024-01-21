@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEditor.PackageManager;
 using UnityEngine;
 
@@ -29,6 +31,13 @@ public class PlayerMovementController : MonoBehaviour
     [Header("Flight Recovery")]
     [SerializeField] private float altitudeRecoveryStrength;
 
+    [Header("Boundary Control")]
+    private Vector3 centerPoint;
+    private float maxRadius;
+    public bool isOutsideBoundary;
+
+    //Events
+    public event Action<bool> OnBoundaryCrossed;
 
     /// Term Definitions:
     /// Rollout: Come out of a roll / bank and return to desired state
@@ -52,6 +61,11 @@ public class PlayerMovementController : MonoBehaviour
             inputHandler.OnMoveInput += HandleMoveInput;
             inputHandler.OnStrafeInput += HandleYawInput;
         }
+    }
+
+    private void Start()
+    {
+        InitializeBoundary();
     }
 
     private void OnDisable()
@@ -87,6 +101,38 @@ public class PlayerMovementController : MonoBehaviour
             ConstrainPitchAndRoll();
         }
 
+        CheckBoundary();
+
+    }
+
+
+    private void InitializeBoundary()
+    {
+        PlayerSpawner playerSpawner = FindObjectOfType<PlayerSpawner>();
+        if (playerSpawner != null)
+        {
+            centerPoint = playerSpawner.spawnPosition;
+        }
+        else
+        {
+            Debug.LogError("PlayerSpawner not found in the scene.");
+        }
+
+        //TODO: To implement - figuring out T-Drive state and how it effects the max radius
+        float tDriveRadiusExpander = PlayerController.Instance.GetTDriveRadiusExpander();
+
+        maxRadius = PlayerController.Instance.currentLevelData.maxRadius + tDriveRadiusExpander;
+    }
+    private void CheckBoundary()
+    {
+        Vector3 offsetFromCenter = transform.position - centerPoint;
+        bool currentlyOutsideBoundary = offsetFromCenter.sqrMagnitude > maxRadius * maxRadius;
+
+        if (currentlyOutsideBoundary != isOutsideBoundary)
+        {
+            isOutsideBoundary = currentlyOutsideBoundary;
+            OnBoundaryCrossed?.Invoke(isOutsideBoundary); // Trigger event
+        }
     }
 
     void MovePlayer(Vector2 movementInput, float leftTrigger, float rightTrigger)

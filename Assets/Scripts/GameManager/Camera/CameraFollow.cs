@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
@@ -9,13 +7,26 @@ public class CameraFollow : MonoBehaviour
 
     public float smoothSpeed = 0.125f;
     public Vector3 offset;
+    public float deadZoneRadius = 1f; // Radius of the dead zone
 
+  
     void LateUpdate()
     {
-        Vector3 desiredPosition = target.position + offset;
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
-        transform.position = smoothedPosition;
+        if (target == null) return;
 
-        transform.LookAt(target);
+        Vector3 targetPositionWithOffset = target.position + offset;
+        Vector3 cameraToTarget = targetPositionWithOffset - transform.position;
+
+        // Check if the target is outside the dead zone
+        if (cameraToTarget.magnitude > deadZoneRadius)
+        {
+            // Calculate position where the camera should start following
+            Vector3 startFollowingPosition = targetPositionWithOffset - cameraToTarget.normalized * deadZoneRadius;
+            Vector3 newPosition = Vector3.Lerp(transform.position, startFollowingPosition, smoothSpeed * Time.deltaTime);
+            transform.position = newPosition;
+        }
+
+        transform.LookAt(target.position);
     }
+
 }

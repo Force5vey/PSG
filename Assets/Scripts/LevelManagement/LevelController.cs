@@ -19,13 +19,14 @@ public class LevelController : MonoBehaviour
         if (playerSpawner != null && PlayerController.Instance != null)
         {
             cameraFollowScript.target = PlayerController.Instance.transform;
-                        StartLevel();
+            StartLevel();
         }
         else
         {
             Debug.LogError("Critical Error at LevelController Start");
         }
 
+       
     }
 
     void StartLevel()
@@ -35,10 +36,14 @@ public class LevelController : MonoBehaviour
         {
             PlayerController.Instance.gameObject.SetActive(true);
         }
+        //Pass on levelData to player controller for things like position checks compared to boundary
+        PlayerController.Instance.SetLevelData(levelData);
+
         // Position the player at the spawner's location
         PlayerController.Instance.transform.position = playerSpawner.spawnPosition;
 
         StartCoroutine(AlignShipRotation(Quaternion.Euler(-90,0,0), shipAlignDuration));
+
     }
 
     void EndLevel()

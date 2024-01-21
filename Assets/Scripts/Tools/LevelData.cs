@@ -17,5 +17,6 @@ public class LevelData : ScriptableObject
     public string levelDescription;
     public float levelDifficultyMultiplier;
 
-    
+    [Header("Boundary Constraints")]
+    public float maxRadius;
 }

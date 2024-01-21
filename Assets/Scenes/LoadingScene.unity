@@ -1247,6 +1247,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4344516542909679758, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: playerMovementController
+      value: 
+      objectReference: {fileID: 1593630924}
     - target: {fileID: 4344516542909679759, guid: a422fefae09047445b75cf815de41a10, type: 3}
       propertyPath: yawSpeed
       value: 0.5
@@ -1305,6 +1309,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a422fefae09047445b75cf815de41a10, type: 3}
+--- !u!114 &1593630924 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4344516542909679759, guid: a422fefae09047445b75cf815de41a10, type: 3}
+  m_PrefabInstance: {fileID: 1593630923}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c63ab89a99209e4db338c57e52ae8eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1692297082 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2608865710598134477, guid: 7783b36e9760192409b9831728c87cdb, type: 3}

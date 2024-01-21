@@ -5,14 +5,15 @@ public class PlayerController : MonoBehaviour
     //Player is a Singleton Pattern Object
     public static PlayerController Instance { get; private set; }
 
-    //Subordinate script components, assign in Unity inspector.
+   [Header("Subordinate Player Control Scripts")]
     public ShipController shipController;
     public PilotController pilotController;
     public FuelController fuelController;
     public PlayerMovementController playerMovementController;
 
-    //Game objects / components for outside use
+    [Header ("Outside references")]
     [SerializeField] private Transform shipTransform;
+    [HideInInspector] public LevelData currentLevelData;
 
     private void Awake()
     {
@@ -45,4 +46,22 @@ public class PlayerController : MonoBehaviour
         return shipTransform;
     }
 
+    public void SetLevelData(LevelData data)
+    {
+        currentLevelData = data;
+    }
+
+    public float GetTDriveRadiusExpander()
+    {
+        //20 January, this is used in playermovement to get the maxradius to fly away from TDrive, do anything extra here 
+        //once I get "CurrentTDriveState()" from Ship Controller.
+
+        //TODO: This will be an enum
+        float tDriveState = PlayerController.Instance.shipController.CurrentTDriveState();
+
+        //TODO: Do whatever check / switch / math needed to derive how much I want to add to the radius based on the tdrive state.
+        float tDriveRadiusExpander = tDriveState + 0;
+
+        return tDriveRadiusExpander;
+    }
 }

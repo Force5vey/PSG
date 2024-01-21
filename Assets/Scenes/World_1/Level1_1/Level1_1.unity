@@ -168,7 +168,7 @@ MonoBehaviour:
   levelData: {fileID: 11400000, guid: f0bfda07c5b48e4418c37ffde0876d7b, type: 2}
   cameraFollowScript: {fileID: 655402029}
   playerSpawner: {fileID: 1078111624}
-  shipAlignDuration: 1
+  shipAlignDuration: 0.5
 --- !u!4 &3361604
 Transform:
   m_ObjectHideFlags: 0
@@ -284,6 +284,7 @@ MonoBehaviour:
   target: {fileID: 0}
   smoothSpeed: 1
   offset: {x: 0, y: 0, z: -300}
+  deadZoneRadius: 10
 --- !u!1 &1078111623
 GameObject:
   m_ObjectHideFlags: 0
