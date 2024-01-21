@@ -26,7 +26,14 @@ public class LevelController : MonoBehaviour
             Debug.LogError("Critical Error at LevelController Start");
         }
 
-       
+        StartCoroutine(CameraZoom(new Vector3(0, 0, -1500),1,2));
+        StartCoroutine(CameraZoom(new Vector3(0, 0, -300), 5, 1));
+    }
+
+    IEnumerator CameraZoom(Vector3 newZoom, float waitTimeSeconds, float zoomDuration)
+    {
+        yield return new WaitForSeconds(waitTimeSeconds);
+        cameraFollowScript.StartZoom(newZoom, zoomDuration);
     }
 
     void StartLevel()
@@ -75,6 +82,8 @@ public class LevelController : MonoBehaviour
 
         // Ensure the rotation is exactly the target rotation
         shipTransform.rotation = targetRotation;
+
+        
     }
 
 

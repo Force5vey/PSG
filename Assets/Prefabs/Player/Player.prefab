@@ -192,6 +192,7 @@ GameObject:
   - component: {fileID: 4344516542909679758}
   - component: {fileID: 4344516542909679753}
   - component: {fileID: 4344516542909679752}
+  - component: {fileID: 1593630926}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -244,10 +245,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65bbc3a1a06d5d44cbe3b76344145ea3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerMovementController: {fileID: 4344516542909679759}
   shipController: {fileID: 4344516542909679758}
   pilotController: {fileID: 4344516542909679753}
   fuelController: {fileID: 4344516542909679752}
-  playerMovementController: {fileID: 4344516542909679759}
+  attachmentController: {fileID: 1593630926}
   shipTransform: {fileID: 471731416452902278}
   currentLevelData: {fileID: 0}
 --- !u!114 &4344516542909679759
@@ -264,13 +266,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 8349523039194520094}
   moveSpeed: 150
-  yawSpeed: 300
-  maxYawSpeed: 0
+  yawSpeed: 0.5
+  maxYawSpeed: 3
   allowYaw: 1
-  constrainPitchAndRoll: 0
-  maintainAltitude: 0
+  constrainPitchAndRoll: 1
+  maintainAltitude: 1
   maxAltitudeDeviation: 1
-  altitudeRecoveryStrength: 200
+  altitudeRecoveryStrength: 100
   isOutsideBoundary: 0
 --- !u!114 &4344516542909679758
 MonoBehaviour:
@@ -310,6 +312,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 32711c32478e26b4da2d00172dccaf6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1593630926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4344516542909679755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 549e1106d2870b74e88a836c658229d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4344516543094252169
@@ -476,7 +490,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4344516543256221937}
-  - component: {fileID: 4344516543256221942}
   m_Layer: 0
   m_Name: Attachments
   m_TagString: Untagged
@@ -500,18 +513,6 @@ Transform:
   m_Father: {fileID: 471731416452902278}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4344516543256221942
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4344516543256221936}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 549e1106d2870b74e88a836c658229d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4344516543381508197
 GameObject:
   m_ObjectHideFlags: 0

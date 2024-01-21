@@ -6,10 +6,12 @@ public class PlayerController : MonoBehaviour
     public static PlayerController Instance { get; private set; }
 
    [Header("Subordinate Player Control Scripts")]
+    public PlayerMovementController playerMovementController;
     public ShipController shipController;
     public PilotController pilotController;
     public FuelController fuelController;
-    public PlayerMovementController playerMovementController;
+    public AttachmentController attachmentController;
+    
 
     [Header ("Outside references")]
     [SerializeField] private Transform shipTransform;
