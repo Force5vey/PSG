@@ -49,9 +49,7 @@ public class CameraFollow : MonoBehaviour
     }
 
     public void StartZoom(Vector3 newOffset, float zoomDuration)
-    {
-        Debug.Log("in StartZoom");
-
+    {        
         if (currentZoomCoroutine != null)
         {
             StopCoroutine(currentZoomCoroutine);
@@ -61,8 +59,6 @@ public class CameraFollow : MonoBehaviour
 
     private IEnumerator ZoomToOffset(Vector3 newOffset, float duration)
     {
-        Debug.Log("In ZoomToOffset");
-
         float time = 0;
         Vector3 startOffset = offset;
 
@@ -70,8 +66,6 @@ public class CameraFollow : MonoBehaviour
         {
             time += Time.deltaTime;
             offset = Vector3.Lerp(startOffset, newOffset, time / duration);
-
-            Debug.Log($"{offset.z}");
 
             yield return null;
         }

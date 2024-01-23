@@ -1,18 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Level1_1 : MonoBehaviour
+public class Level1_1 : MonoBehaviour, ILevelSpecific
 {
-    // Start is called before the first frame update
-    void Start()
+    public void CustomStart()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Debug.Log($"Running: {nameof(Level1_1)} >> {nameof(CustomStart)}");
     }
 }

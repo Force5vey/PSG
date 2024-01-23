@@ -17,4 +17,4 @@ MonoBehaviour:
   levelName: Level1_1
   levelDescription: First level, required for learning game play.
   levelDifficultyMultiplier: 1
-  maxRadius: 400
+  maxRadius: 500

@@ -18,6 +18,6 @@ MonoBehaviour:
   - sceneIndex: 1
     sceneName: MainMenu
   - sceneIndex: 2
-    sceneName: Map
+    sceneName: Cockpit
   - sceneIndex: 3
     sceneName: Level1_1

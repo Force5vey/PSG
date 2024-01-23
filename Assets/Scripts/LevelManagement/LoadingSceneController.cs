@@ -1,119 +1,140 @@
 using System.Collections;
+using System.Runtime.CompilerServices;
+
 using TMPro;
+
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
-//#if UNITY_EDITOR
 
 public class LoadingSceneController : MonoBehaviour
 {
-    [SerializeField] CanvasGroup notificationCanvasGroup;
-    public TextMeshProUGUI headingText;
-    public TextMeshProUGUI messageText;
-    public TextMeshProUGUI titleText;
+   [Header("UI Elements")]
+   [SerializeField] private CanvasGroup notificationCanvasGroup;
+   public TextMeshProUGUI headingText;
+   public TextMeshProUGUI messageText;
+   public TextMeshProUGUI titleText;
+   [SerializeField] private Button leftButton;
+   [SerializeField] private Button rightButton;
+   [SerializeField] private TextMeshProUGUI leftButtonText;
+   [SerializeField] private TextMeshProUGUI rightButtonText;
 
-    //Scene Transition effects
-    [SerializeField] Image sceneTransitionImage;
-    [SerializeField] float fadeDuration;
+   [Header("Scene Transition")]
+   [SerializeField] private Image sceneTransitionImage;
+   [SerializeField] private float fadeDuration;
 
-    private void Awake()
-    {
-        notificationCanvasGroup.gameObject.SetActive(false);
-        messageText.text = string.Empty;
+   private void Awake()
+   {
+      //ensure Notification group and text is hidden and empty in-case something was left on in the unity editor.
+      notificationCanvasGroup.gameObject.SetActive(false);
+      messageText.text = string.Empty;
+   }
 
-    }
+   private void Start()
+   {
+      if (GameController.Instance != null)
+      {
+         GameController.Instance.dataController.onLoadingError.AddListener(HandleLoadingError);
+         GameController.Instance.dataController.onGameDataLoadedSuccessfully.AddListener(HandleSuccessfulLoad);
+         GameController.Instance.dataController.onGameDataSaveError.AddListener(HandleGameDataSaveError);
+      }
+      else { Debug.LogError($"{nameof(LoadingSceneController)} > {nameof(Start)} \n GameController instance not found."); }
 
-    private void Start()
-    {
-        GameController.Instance.dataController.onLoadingError.AddListener(ShowNotification);
+      if (PlayerController.Instance != null)
+      {
+         headingText.color = GameController.Instance.uiController.textColorSelected;
+         messageText.color = GameController.Instance.uiController.textColorSelected;
+         titleText.color = GameController.Instance.uiController.textColorSelected;
+      }
+      else { Debug.LogError($"{nameof(LoadingSceneController)} > {nameof(Start)} \n PlayerController instance not found."); }
 
-        headingText.color = GameController.Instance.uiController.textColorSelected;
-        messageText.color = GameController.Instance.uiController.textColorSelected;
-        titleText.color = GameController.Instance.uiController.textColorSelected;
+      InitiateGameLoadSequence();
+   }
 
-        InitiateGameLoadSequence();
-    }
+   private void HandleLoadingError()
+   {
+      ShowNotification("Notice", "No save game file found. Loading new game.", HandleSuccessfulLoad, QuitGame, "OK", "Quite");
+   }
+   private void HandleGameDataSaveError()
+   {
+      ShowNotification("Error", "Unable to save file to disk. The cause of this problem is unknown. You can continue to see if it saves later or quit and check the installation.",
+         HandleSuccessfulLoad, QuitGame, "Continue", "Quit");
+   }
 
-    private void Update()
-    {
-        //Keep Debug.Logs while checking for varying data status testing
-        Debug.Log("Reached LoadingScene Controller Update().  >  " + "Game Data Load Status: " + GameController.Instance.dataController.gameDataLoadStatus +
-            "  >  Waiting Game Data Acknowledgement: " + GameController.Instance.dataController.waitingGameDataAcknowledgement);
+   private void HandleSuccessfulLoad()
+   {
+      notificationCanvasGroup.gameObject.SetActive(false);
+      StartCoroutine(FadeOutScene(fadeDuration));
+   }
 
+   private void OnDestroy()
+   {
+      GameController.Instance.dataController.onLoadingError.RemoveAllListeners();
+   }
 
-        if (GameController.Instance.dataController.gameDataLoadStatus == DataController.LoadingStatus.Success &&
-            GameController.Instance.dataController.waitingGameDataAcknowledgement == false)
-        {
-            Debug.Log("All checks validate true. Loading MainMenu Scene");
-            //fade in the scene transition panel
-            StartCoroutine(FadeOutScene(fadeDuration));
+   private IEnumerator FadeOutScene(float duration)
+   {
+      float currentTime = 0f;
+      Color startColor = sceneTransitionImage.color;
 
+      while (currentTime < duration)
+      {
+         float alpha = Mathf.Lerp(0.0f, 1.0f, currentTime / duration);
+         sceneTransitionImage.color = new Color(startColor.r, startColor.g, startColor.b, alpha);
+         currentTime += Time.deltaTime;
 
-        }
-        else
-        {
-            Debug.Log("At least one check validates false. Awaiting Player acknowledgment or other.");
-        }
-    }
+         yield return null;
+      }
 
-    private void OnDestroy()
-    {
-        GameController.Instance.dataController.onLoadingError.RemoveAllListeners();
-    }
+      GameController.Instance.sceneController.LoadNextScene(GameController.Instance.sceneController.sceneData.scenes[1].sceneName);
+   }
 
-    IEnumerator FadeOutScene(float duration)
-    {
-        float currentTime = 0f;
-        Color startColor = sceneTransitionImage.color;
+   private void InitiateGameLoadSequence()
+   {
+      GameController.Instance.dataController.LoadGameData();
 
-        while (currentTime < duration)
-        {
-            float alpha = Mathf.Lerp(0.0f, 1.0f, currentTime / duration);
-            sceneTransitionImage.color = new Color(startColor.r, startColor.g, startColor.b, alpha);
-            currentTime += Time.deltaTime;
+      //Player controller is a singleton, once data is transfered, set inactive until the player game-object is needed again in a level.
+      PlayerController.Instance.gameObject.SetActive(false);
+   }
 
-            yield return null;
-        }
+   public void OnOKButtonClick()
+   {
+      notificationCanvasGroup.gameObject.SetActive(false);
 
-        GameController.Instance.sceneController.LoadNextScene(GameController.Instance.sceneController.sceneData.scenes[1].sceneName);
-       
-        //TODO: set this to null on the way out
-        
-    }
+      HandleSuccessfulLoad();
+   }
 
+   public void QuitGame()
+   {
+#if UNITY_EDITOR
+      // This will only be compiled and executed in the Unity Editor
+      UnityEditor.EditorApplication.isPlaying = false;
+#else
+    // This code will run in a built game
+    Application.Quit();
+#endif
+   }
 
-    private void InitiateGameLoadSequence()
-    {
-        GameController.Instance.dataController.LoadGameData();
+   public void ShowNotification(string title, string message, UnityAction leftAction, UnityAction rightAction, string leftBtnText = "OK", string rightBtnText = "Quit")
+   {
+      titleText.text = title;
+      messageText.text = message;
+      leftButtonText.text = leftBtnText;
+      rightButtonText.text = rightBtnText;
 
-        GameController.Instance.dataController.UpdatePlayerDataWithSavedGameData();
+      leftButton.onClick.RemoveAllListeners();
+      rightButton.onClick.RemoveAllListeners();
+    
 
-        //Player controller is a singleton, once data is tranfered, set inactive until the player gameobject is needed again in a level.
-        PlayerController.Instance.gameObject.SetActive(false);
-    }
+      if (leftAction != null) { leftButton.onClick.AddListener(leftAction); }
+      if (rightAction != null) { rightButton.onClick.AddListener(rightAction); }
 
-    public void OnOKButtonClick()
-    {
-        notificationCanvasGroup.gameObject.SetActive(false);
-        GameController.Instance.dataController.waitingGameDataAcknowledgement = false;
-    }
-
-    public void OnQuitButtonClick()
-    {
-        //#if UNITY_EDITOR
-        //        EditorApplication.isPlaying = false;
-        //#else
-        Application.Quit();
-        //#endif
-    }
-
-    public void ShowNotification(string title, string message)
-    {
-
-        notificationCanvasGroup.gameObject.SetActive(true);
-        messageText.text = message;
-        titleText.text = title;
-    }
-
+      notificationCanvasGroup.gameObject.SetActive(true);
+      if (EventSystem.current != null)
+      {
+         EventSystem.current.SetSelectedGameObject(null);
+         EventSystem.current.SetSelectedGameObject(leftButton.gameObject);
+      }
+   }
 }
-
-//#endif

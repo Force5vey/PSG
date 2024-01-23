@@ -12,8 +12,8 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 1b7c8fa8c86e108429b40a9a7bd65de4
   - enabled: 1
-    path: Assets/Scenes/Map.unity
-    guid: 27eb6fd03e8ff3b49b744fa7b82d0683
+    path: Assets/Scenes/Cockpit/Cockpit.unity
+    guid: cd9734cd96f2130439b884140b616f42
   - enabled: 1
     path: Assets/Scenes/World_1/Level1_1/Level1_1.unity
     guid: 031b5e162282bde459751783f09d7ea9

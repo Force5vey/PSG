@@ -65,7 +65,7 @@ public class PlayerMovementController : MonoBehaviour
 
     private void Start()
     {
-        InitializeBoundary();
+       
     }
 
     private void OnDisable()
@@ -106,7 +106,7 @@ public class PlayerMovementController : MonoBehaviour
     }
 
 
-    private void InitializeBoundary()
+    public void InitializeBoundary()
     {
         PlayerSpawner playerSpawner = FindObjectOfType<PlayerSpawner>();
         if (playerSpawner != null)
@@ -156,7 +156,7 @@ public class PlayerMovementController : MonoBehaviour
         // Calculate yaw rotation amount (left: counterclockwise, right: clockwise)
         float yawRotationAmount = ((leftTrigger - rightTrigger) * yawSpeed);
 
-        if (Mathf.Abs(leftTrigger) > 0.02f || Mathf.Abs(rightTrigger) > 0.02f)
+        if (Mathf.Abs(leftTrigger) > 0.02f || Mathf.Abs(rightTrigger) > 0.01f)
         {
             if (Mathf.Abs(rb.angularVelocity.z) < maxYawSpeed)
             {

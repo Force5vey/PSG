@@ -91,7 +91,7 @@ public class StandardButtonController : MonoBehaviour
         }
         else
         {
-            Debug.LogError($"{nameof(OnSubmit)} in {nameof(StandardButtonController)}: {nameof(mainMenuController)} & or {nameof(buttonAction)} not assigned in Inspector");
+            Debug.Log($"{nameof(OnSubmit)} in {nameof(StandardButtonController)}: {nameof(mainMenuController)} & or {nameof(buttonAction)} not assigned in Inspector");
         }
     }
 

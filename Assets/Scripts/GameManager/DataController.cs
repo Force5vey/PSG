@@ -1,165 +1,164 @@
 using System;
 using System.IO;
+using System.Threading.Tasks;
+
 using UnityEngine;
 using UnityEngine.Events;
 
 public class DataController : MonoBehaviour
 {
-    //GameData
-    public GameData gameData;
+   [Header("Game Data & Paths")]
+   public GameData gameData;
 
-    private string saveGameDataPath;
-    private string saveGameDataPathBackup;
+   private string saveGameDataPath;
+   private string saveGameDataPathBackup;
 
-    //Events
-    public UnityEvent<string, string> onLoadingError;
+   [Header("Events")]
+   public UnityEvent onLoadingError;
 
-    //Loading Flags
-    public enum LoadingStatus
-    {
-        Loading,
-        Success,
-        Failed
-    }
+   public UnityEvent onGameDataLoadedSuccessfully;
+   public UnityEvent onGameDataSavedSuccessfully;
+   public UnityEvent onGameDataSaveError;
 
-    public DataController.LoadingStatus gameDataLoadStatus;
-    public bool waitingGameDataAcknowledgement = false;
+   private void Awake()
+   {
+      InitializeEvents();
+      InitializePaths();
 
+      //Always first create a new gameData instance, this uses default constructor.
+      //if game data loads it will overwrite to saved data info.
+      gameData = new GameData();
+   }
 
-    private void Awake()
-    {
-        if(onLoadingError == null)
-        {
-            onLoadingError = new UnityEvent<string, string>();
-        }
+   private void InitializeEvents()
+   {
+      if (onLoadingError == null) { onLoadingError = new UnityEvent(); }
+      if (onGameDataLoadedSuccessfully == null) { onGameDataLoadedSuccessfully = new UnityEvent(); }
+      if (onGameDataSavedSuccessfully == null) { onGameDataSavedSuccessfully = new UnityEvent(); }
+      if (onGameDataSaveError == null) { onGameDataSaveError = new UnityEvent(); }
+   }
 
-        saveGameDataPath = Path.Combine(Application.dataPath, "PlayerSaveFile.json");
-        //TempBack up during testing.
-        //TODO: Change this back for builds / deploymnet to: persistentDataPath
-        //saveGameDataPathBackup = Path.Combine(Application.dataPath, "PlayerSaveFileBackup.json");
-        //saveGameDataPathBackup = Path.Combine(Application.persistentDataPath, "PlayerSaveFileBackup.json");
+   private void InitializePaths()
+   {
+      saveGameDataPath = Path.Combine(Application.dataPath, "PlayerSaveFile.json");
 
-        //Always create a new one with the default constructor first, update with save data if there is one.
-        gameData = new GameData();
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+      saveGameDataPathBackup = string.Empty; // Disable backup in development
+#else
+    saveGameDataPathBackup = Path.Combine(Application.persistentDataPath, "PlayerSaveFileBackup.json");
+#endif
+   }
 
-        //Initialzie LoadStatus to default of loading, ensures all cases are hit.
-        gameDataLoadStatus = LoadingStatus.Loading;
-    }
+   #region //Game Data Methods
 
+   public async void LoadGameData()
+   {
+      gameData = await TryLoadGameDataAsync(saveGameDataPath) ?? await TryLoadGameDataAsync(saveGameDataPathBackup);
 
-    #region //Game Data Methods
+      if (gameData != null)
+      {
+         await SaveGameDataToDiskAsync(false); // Save backup if primary failed but backup succeeded
+         UpdatePlayerData_With_GameData();
+         onGameDataLoadedSuccessfully.Invoke();
+      }
+      else
+      {
+         gameData = new GameData(); // Use default data
+         await SaveGameDataToDiskAsync(false); // Save default data
+         onLoadingError?.Invoke();
+      }
+   }
 
-    /// <summary>
-    /// Pulls current player data from active classes and updates GameData Class
-    /// </summary>
-    public void UpdateSaveGameDataWithPlayerData()
-    {
-
-        //TODO: Map from real active player classes.
-        
-
-    }
-
-
-    /// <summary>
-    /// Pulls currently loaded Game Data and updates active player data.
-    /// </summary>
-    public void UpdatePlayerDataWithSavedGameData()
-    {
-        //TODO: Ensure this mapping mirrors active classes.
-        
-    }
-
-    /// <summary>
-    /// Load SavedGameData from disk.
-    /// </summary>
-    public void LoadGameData()
-    {
-        if (TryLoadGameData(saveGameDataPath, out gameData))
-        {
-            gameDataLoadStatus = LoadingStatus.Success;
-            waitingGameDataAcknowledgement = false;
-        }
-        else if (TryLoadGameData(saveGameDataPathBackup, out gameData))
-        {
-            // Backup data loaded succesfully. Trigger a rewrite of the primary data file
-            SaveGameDataToDisk();
-
-            gameDataLoadStatus = LoadingStatus.Success;
-            waitingGameDataAcknowledgement = false;
-        }
-        else
-        {
-            //Neither primary or back up data could be loaded, use default data
-            gameData = new GameData();
-            SaveGameDataToDisk();
-
-            gameDataLoadStatus = LoadingStatus.Success;
-            waitingGameDataAcknowledgement = true;
-            onLoadingError?.Invoke("Notice", "Game save file load error. Initializing default values.");
-        }
-    }
-
-    private bool TryLoadGameData(string path, out GameData data)
-    {
-        try
-        {
+   /// <summary>
+   /// Try's to Load Game Data From Disk
+   /// </summary>
+   /// <param name="path">Save Game File</param>
+   /// <param name="data">A reference to the GameData</param>
+   /// <returns>True if successful</returns>
+   private async Task<GameData> TryLoadGameDataAsync(string path)
+   {
+      if (!string.IsNullOrEmpty(path) && File.Exists(path))
+      {
+         try
+         {
             if (File.Exists(path))
             {
-                string jsonData = File.ReadAllText(path);
-                data = JsonUtility.FromJson<GameData>(jsonData);
-                return true;
+               string jsonData = await File.ReadAllTextAsync(path);
+               return JsonUtility.FromJson<GameData>(jsonData);
             }
-        }
-        catch (Exception ex)
-        {
-            //TODO: Log, handle error. 
+         }
+         catch (Exception ex)
+         {
             Debug.LogError("Failed to read from file: " + path + ". Error: " + ex.Message);
-        }
-        data = null;
-        return false;
-    }
+         }
+      }
+      return null;
+   }
 
-    /// <summary>
-    /// Saves the current state of GameData class to disk.
-    /// Remember to Update Game Data with Player Data for most up-to-date save.
-    /// </summary>
-    public void SaveGameDataToDisk()
-    {
-        string jsonData = JsonUtility.ToJson(gameData);
+   /// <summary>
+   /// Saves the current state of GameData class to disk.
+   /// Remember to Update Game Data with Player Data for most up-to-date save.
+   /// </summary>
+   public async Task SaveGameDataToDiskAsync(bool updateData)
+   {
+      if (updateData)
+      {
+         UpdateGameData_With_PlayerData();
+      }
 
-        //Attempt to write to primary file:
-        bool primarySaveSuccess = TryWriteGameDataToDisk(saveGameDataPath, jsonData);
-        if (!primarySaveSuccess)
-        {
-            //TODO: primary save file error, let it continue to the back up and then notify user, retry.
-            Debug.LogWarning($"Primary Save File Write Error. In: {nameof(SaveGameDataToDisk)} : (!primarySaveSuccess)");
-        }
+      string jsonData = JsonUtility.ToJson(gameData);
 
-        //Attempt to write to back up file
-        bool backupSaveSuccess = TryWriteGameDataToDisk(saveGameDataPathBackup, jsonData);
-        if (!backupSaveSuccess)
-        {
-            //TODO: Back up save file error, let the user know, reattempt, allow player to continue playing and trigger a save later in the game.
-            Debug.LogWarning($"Primary Save File Write Error. In: {nameof(SaveGameDataToDisk)} : (!backupSaveSuccess)");
-        }
+      bool primarySuccess = await TryWriteGameDataToDiskAsync(saveGameDataPath, jsonData);
+      bool backupSuccess = true; // Assuming backup is optional
+      if (!string.IsNullOrEmpty(saveGameDataPathBackup))
+      {
+         backupSuccess = await TryWriteGameDataToDiskAsync(saveGameDataPathBackup, jsonData);
+      }
 
-        //TODO: notify player of save success, but only through a non-intrusive UI icon that doesn't require user input / interaction.
-    }
+      if (!primarySuccess || !backupSuccess)
+      {
+         onGameDataSaveError.Invoke();
+      }
+      else { onGameDataSavedSuccessfully.Invoke(); }
+   }
 
-    private bool TryWriteGameDataToDisk(string path, string data)
-    {
-        try
-        {
-            File.WriteAllText(path, data);
-            return true;
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError("Failed to write to file: " + path + ". Error: " + ex.Message);
-            return false;
-        }
-    }
+   /// <summary>
+   /// Try's to write the GameData to Disk
+   /// </summary>
+   /// <param name="path">SavedGame File</param>
+   /// <param name="data">Json formatted String</param>
+   /// <returns></returns>
+   private async Task<bool> TryWriteGameDataToDiskAsync(string path, string data)
+   {
+      try
+      {
+         await File.WriteAllTextAsync(path, data);
+         return true;
+      }
+      catch (Exception ex)
+      {
+         Debug.LogError("Failed to write to file: " + path + ". Error: " + ex.Message);
+         return false;
+      }
+   }
 
-    #endregion
+   /// <summary>
+   /// Pulls current player data from active classes and updates GameData Class
+   /// </summary>
+   private void UpdateGameData_With_PlayerData()
+   {
+      //TODO: Map from active player classes.
+   }
+
+   /// <summary>
+   /// Pulls currently loaded Game Data and updates active player data.
+   /// </summary>
+   public void UpdatePlayerData_With_GameData()
+   {
+      //TODO: Ensure this mapping mirrors active classes.
+
+      PlayerController.Instance.pilotController.selectedPilotIndex = gameData.selectedPilotIndex;
+   }
+
+   #endregion //Game Data Methods
 }
