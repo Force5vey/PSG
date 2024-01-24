@@ -39,16 +39,18 @@ public class PlayerMovementController : MonoBehaviour
     //Events
     public event Action<bool> OnBoundaryCrossed;
 
-    /// Term Definitions:
-    /// Rollout: Come out of a roll / bank and return to desired state
-    /// Level Off: Come out of a climb or descent and return Pitch to desired State
-    /// Recover: Return all axis to desired state.
-    /// Term Definitions:
-    /// Roll - dip wings
-    /// Pitch - climb or dive
-    /// Yaw - spin / nose left / right
+   /// <summary>
+   /// Term Definitions:
+   /// Roll-out: Come out of a roll / bank and return to desired state
+   /// Level Off: Come out of a climb or descent and return Pitch to desired State
+   /// Recover: Return all axis to desired state.
+   /// Term Definitions:
+   /// Roll - dip wings
+   /// Pitch - climb or dive
+   /// Yaw - spin / nose left / right
+   /// </summary>
 
-    private void Awake()
+   private void Awake()
     {
         inputHandler = FindObjectOfType<InputHandler>();
 

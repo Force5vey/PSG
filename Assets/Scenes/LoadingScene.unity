@@ -1277,6 +1277,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4344516542909679753, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: selectedPilotIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344516542909679753, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: lastSelectedRowIndex
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344516542909679753, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: lastSelectedScreenIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344516542909679753, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: lastSelectedScreenIndex.Array.data[0]
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344516542909679753, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: lastSelectedScreenIndex.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4344516542909679755, guid: a422fefae09047445b75cf815de41a10, type: 3}
       propertyPath: m_Name
       value: Player
