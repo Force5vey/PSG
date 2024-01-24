@@ -124,41 +124,114 @@ public class CockpitScreenManager : MonoBehaviour
       }
    }
 
+   //private void NavigateScreens(Vector2 direction)
+   //{
+   //   if (!canNavigate) { return; }
+
+   //   // Handle navigation between screens based on input direction
+   //   if (Mathf.Abs(direction.x) > horizontalThreshold)
+   //   {
+   //      // Horizontal navigation
+   //      int newScreenIndex = currentScreenIndex + (int)Mathf.Sign(direction.x);
+   //      newScreenIndex = Mathf.Clamp(newScreenIndex, 0, screenRows[currentRowIndex].Count - 1);
+   //      UpdateCurrentScreen(newScreenIndex);
+
+   //      timeSinceLastNavigation = 0f;
+   //      canNavigate = false;
+   //   }
+   //   else if (Mathf.Abs(direction.y) > verticalThreshold)
+   //   {
+   //      // Vertical navigation (switching rows)
+   //      int newRow = currentRowIndex - (int)Mathf.Sign(direction.y);
+   //      newRow = Mathf.Clamp(newRow, 0, screenRows.Count - 1);
+   //      if (newRow != currentRowIndex)
+   //      {
+   //         currentRowIndex = newRow;
+   //         if (currentScreenIndex >= screenRows[currentRowIndex].Count - 1)
+   //         {
+   //            currentScreenIndex = screenRows[currentRowIndex].Count - 1;
+   //         }
+
+   //         UpdateCurrentScreen(currentScreenIndex);
+   //      }
+
+   //      timeSinceLastNavigation = 0f;
+   //      canNavigate = false;
+   //   }
+   //}
+
+
    private void NavigateScreens(Vector2 direction)
    {
       if (!canNavigate) { return; }
 
-      // Handle navigation between screens based on input direction
+      // Handle horizontal navigation
       if (Mathf.Abs(direction.x) > horizontalThreshold)
       {
-         // Horizontal navigation
-         int newScreenIndex = currentScreenIndex + (int)Mathf.Sign(direction.x);
-         newScreenIndex = Mathf.Clamp(newScreenIndex, 0, screenRows[currentRowIndex].Count - 1);
-         UpdateCurrentScreen(newScreenIndex);
-
-         timeSinceLastNavigation = 0f;
-         canNavigate = false;
+         NavigateHorizontally((int)Mathf.Sign(direction.x));
       }
+      // Handle vertical navigation
       else if (Mathf.Abs(direction.y) > verticalThreshold)
       {
-         // Vertical navigation (switching rows)
-         int newRow = currentRowIndex - (int)Mathf.Sign(direction.y);
+         NavigateVertically((int)Mathf.Sign(direction.y));
+      }
+
+      timeSinceLastNavigation = 0f;
+      canNavigate = false;
+   }
+
+   private void NavigateHorizontally(int direction)
+   {
+      int newScreenIndex = currentScreenIndex;
+      do
+      {
+         newScreenIndex += direction;
+         newScreenIndex = Mathf.Clamp(newScreenIndex, 0, screenRows[currentRowIndex].Count - 1);
+
+         if (screenRows[currentRowIndex][newScreenIndex].GetComponent<CockpitScreenInfo>().IsActive)
+         {
+            UpdateCurrentScreen(newScreenIndex);
+            return;
+         }
+      } while (newScreenIndex != currentScreenIndex);
+   }
+
+   private void NavigateVertically(int direction)
+   {
+      int newRow = currentRowIndex;
+      do
+      {
+         newRow -= direction;
          newRow = Mathf.Clamp(newRow, 0, screenRows.Count - 1);
-         if (newRow != currentRowIndex)
+
+         if (newRow != currentRowIndex && RowHasActiveScreen(newRow))
          {
             currentRowIndex = newRow;
-            if (currentScreenIndex >= screenRows[currentRowIndex].Count - 1)
+            // Adjust currentScreenIndex if needed
+            if (currentScreenIndex >= screenRows[currentRowIndex].Count)
             {
                currentScreenIndex = screenRows[currentRowIndex].Count - 1;
             }
-
             UpdateCurrentScreen(currentScreenIndex);
+            return;
          }
-
-         timeSinceLastNavigation = 0f;
-         canNavigate = false;
-      }
+      } while (newRow != currentRowIndex);
    }
+
+   private bool RowHasActiveScreen(int rowIndex)
+   {
+      foreach (var screen in screenRows[rowIndex])
+      {
+         if (screen.GetComponent<CockpitScreenInfo>().IsActive)
+         {
+            return true;
+         }
+      }
+      return false;
+   }
+
+
+
 
    private void UpdateCurrentScreen(int newScreenIndex)
    {
@@ -179,11 +252,26 @@ public class CockpitScreenManager : MonoBehaviour
    private void SelectScreen(GameObject screen)
    {
       //TODO: Temp indicator, add animation / light / glow / border / etc
-      screen.GetComponent<MeshRenderer>().enabled = true;
+      CockpitScreenInfo screenInfo = screen.GetComponent<CockpitScreenInfo>();
+        if (screenInfo.spotLight !=null)
+        {
+           screenInfo.spotLight.SetActive(true); 
+        }
+        else
+      {
+         screen.GetComponent<MeshRenderer>().enabled = true;
+      }
+        
+     
    }
 
    private void DeselectScreen(GameObject screen)
    {
+      CockpitScreenInfo screenInfo = screen.GetComponent<CockpitScreenInfo>();
+      if(screenInfo.spotLight != null)
+      {
+         screenInfo.spotLight.SetActive(false);
+      }
       //TODO: temp indicator, deactivate whatever the new update method is.
       screen.GetComponent<MeshRenderer>().enabled = false;
    }
@@ -191,7 +279,7 @@ public class CockpitScreenManager : MonoBehaviour
    private void SelectCurrentScreen()
    {
       // Logic to handle the action when a screen is selected
-      Debug.Log("Selected Screen: " + currentScreen.name);
+      Debug.Log("Selected Screen: " + currentScreen.name + " >> In ScreenManager/SelectCurrentScreen");
 
       var screenInfo = currentScreen.GetComponent<CockpitScreenInfo>();
       if (screenInfo != null)
@@ -257,5 +345,27 @@ public class CockpitScreenManager : MonoBehaviour
             yield return new WaitForSeconds(delayBetweenLights);
          }
       }
+   }
+
+   public bool TryGetScreen(CockpitController.CockpitScreenName screenName, out GameObject screenObj)
+   {
+
+      screenObj = null;
+
+      // Loop through each row and each screen in the nested list
+      foreach (var row in screenRows)
+      {
+         foreach (var screen in row)
+         {
+            var screenInfo = screen.GetComponent<CockpitScreenInfo>();
+            if (screenInfo != null && screenInfo.screenName == screenName)
+            {
+               screenObj = screen;
+               return true; // Screen found
+            }
+         }
+      }
+
+      return false; // Screen not found
    }
 }

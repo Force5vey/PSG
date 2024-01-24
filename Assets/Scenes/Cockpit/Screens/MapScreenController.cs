@@ -1,70 +1,78 @@
 using System.Collections;
 using System.Collections.Generic;
+
+using Unity.VisualScripting;
+
 using UnityEngine;
-public class MapScreenController : MonoBehaviour
+public class MapScreenController : MonoBehaviour, ICockpitScreenController
 {
    public CockpitController.CockpitScreenName assignedScreen;
-   [SerializeField] private CockpitScreenManager screenManager;
+   [SerializeField] private CockpitController cockpitController;
+   [SerializeField] private CockpitScreenManager cockpitScreenManager;
 
+   [SerializeField] private GameObject mapPanel;
 
+   private void Awake()
+   {
+      
+   }
    private void OnEnable()
    {
-      if (screenManager != null)
+      if(cockpitController != null)
       {
-         // Find the screen GameObject that matches the assigned screen
-         GameObject assignedScreenGameObject = FindAssignedScreenGameObject();
-         if (assignedScreenGameObject != null)
-         {
-            var screenInfo = assignedScreenGameObject.GetComponent<CockpitScreenInfo>();
-            if (screenInfo != null)
-            {
-               screenInfo.OnScreenSelected += OnScreenSelected;
-            }
-         }
+         cockpitController.OnMapSelected += InitializeScreen;
       }
    }
 
    private void OnDisable()
    {
-      if (screenManager != null)
+      if (cockpitController != null)
       {
-         GameObject assignedScreenGameObject = FindAssignedScreenGameObject();
-         if (assignedScreenGameObject != null)
-         {
-            var screenInfo = assignedScreenGameObject.GetComponent<CockpitScreenInfo>();
-            if (screenInfo != null)
-            {
-               screenInfo.OnScreenSelected -= OnScreenSelected;
-            }
-         }
+         cockpitController.OnMapSelected -= InitializeScreen;
       }
    }
 
-   private GameObject FindAssignedScreenGameObject()
+   public void InitializeScreen()
    {
-      foreach (var row in screenManager.screenRows)
-      {
-         foreach (var screen in row)
-         {
-            var screenInfo = screen.GetComponent<CockpitScreenInfo>();
-            if (screenInfo != null && screenInfo.screenName == assignedScreen)
-            {
-               return screen; // Return the GameObject that matches the assigned screen
-            }
-         }
-      }
-      return null; // Return null if no matching screen is found
+      DisplayScreen();
    }
 
-   private void OnScreenSelected()
+   public void EnableScreenInteractions()
    {
-      // Logic when the assigned screen is selected
-      DisplayMap();
+      throw new System.NotImplementedException();
    }
 
-   private void DisplayMap()
+   public void DisplayScreen()
    {
-      // Implement the logic to display the map
       Debug.Log("Map Screen Controller: Displaying map on " + assignedScreen);
+      mapPanel.SetActive(true);
+      GameController.Instance.sceneController.LoadNextScene(GameController.Instance.sceneController.sceneData.scenes[3].sceneName);
    }
+
+   public void CloseScreen()
+   {
+      throw new System.NotImplementedException();
+   }
+
+   public void RefreshScreenData()
+   {
+      throw new System.NotImplementedException();
+   }
+
+   public void SaveScreenChanges()
+   {
+      throw new System.NotImplementedException();
+   }
+
+   public void ReceiveExternalInput()
+   {
+      throw new System.NotImplementedException();
+   }
+
+   public void HandleAudioEffects()
+   {
+      throw new System.NotImplementedException();
+   }
+
+
 }

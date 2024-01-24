@@ -11,10 +11,14 @@ public class CockpitScreenInfo : MonoBehaviour
    public int screenIndex;
    public int rowIndex;
    public Transform screenTransform;
+   public bool IsActive;
 
    //Delegates and Events
-   public delegate void ScreenSelectedAction();
+   public delegate void ScreenSelectedAction(CockpitController.CockpitScreenName screenName);
    public event ScreenSelectedAction OnScreenSelected;
+
+   [Header("Selection Effects")]
+   [SerializeField] public GameObject spotLight;
 
    public void SetIndices(int screenIdx, int rowIdx)
    {
@@ -24,6 +28,6 @@ public class CockpitScreenInfo : MonoBehaviour
 
    public void TriggerScreenSelected()
    {
-      OnScreenSelected?.Invoke();
+      OnScreenSelected?.Invoke(screenName);
    }
 }

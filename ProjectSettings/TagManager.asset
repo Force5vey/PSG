@@ -4,22 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Left_Aux_Bottom
-  - Left_Aux_Left
-  - Left_Aux_Right
-  - Console_Left
-  - Console_Center
-  - Console_Right
-  - Right_Aux_Bottom
-  - Right_Aux_Left
-  - Right_Aux_Right
-  - Console_Aux_Right
-  - Console_Aux_Center
-  - Console_Aux_Left
-  - APillar_Left
-  - APillar_Right
-  - Overhead_Right
-  - Overhead_Left
+  - MapCamera
   layers:
   - Default
   - TransparentFX
