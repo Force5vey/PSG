@@ -2,6 +2,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -72,6 +73,8 @@ public class CockpitScreenManager : MonoBehaviour
             if (obj != null)
             {
                obj.gameObject.GetComponent<MeshRenderer>().enabled = false;
+
+               obj.gameObject.GetComponent<CockpitScreenInfo>().IsActive = true;
             }
          }
       }
@@ -124,111 +127,43 @@ public class CockpitScreenManager : MonoBehaviour
       }
    }
 
-   //private void NavigateScreens(Vector2 direction)
-   //{
-   //   if (!canNavigate) { return; }
-
-   //   // Handle navigation between screens based on input direction
-   //   if (Mathf.Abs(direction.x) > horizontalThreshold)
-   //   {
-   //      // Horizontal navigation
-   //      int newScreenIndex = currentScreenIndex + (int)Mathf.Sign(direction.x);
-   //      newScreenIndex = Mathf.Clamp(newScreenIndex, 0, screenRows[currentRowIndex].Count - 1);
-   //      UpdateCurrentScreen(newScreenIndex);
-
-   //      timeSinceLastNavigation = 0f;
-   //      canNavigate = false;
-   //   }
-   //   else if (Mathf.Abs(direction.y) > verticalThreshold)
-   //   {
-   //      // Vertical navigation (switching rows)
-   //      int newRow = currentRowIndex - (int)Mathf.Sign(direction.y);
-   //      newRow = Mathf.Clamp(newRow, 0, screenRows.Count - 1);
-   //      if (newRow != currentRowIndex)
-   //      {
-   //         currentRowIndex = newRow;
-   //         if (currentScreenIndex >= screenRows[currentRowIndex].Count - 1)
-   //         {
-   //            currentScreenIndex = screenRows[currentRowIndex].Count - 1;
-   //         }
-
-   //         UpdateCurrentScreen(currentScreenIndex);
-   //      }
-
-   //      timeSinceLastNavigation = 0f;
-   //      canNavigate = false;
-   //   }
-   //}
-
-
    private void NavigateScreens(Vector2 direction)
    {
       if (!canNavigate) { return; }
 
-      // Handle horizontal navigation
+      // Handle navigation between screens based on input direction
       if (Mathf.Abs(direction.x) > horizontalThreshold)
       {
-         NavigateHorizontally((int)Mathf.Sign(direction.x));
+         // Horizontal navigation
+         int newScreenIndex = currentScreenIndex + (int)Mathf.Sign(direction.x);
+         newScreenIndex = Mathf.Clamp(newScreenIndex, 0, screenRows[currentRowIndex].Count - 1);
+         UpdateCurrentScreen(newScreenIndex);
+
+         timeSinceLastNavigation = 0f;
+         canNavigate = false;
       }
-      // Handle vertical navigation
       else if (Mathf.Abs(direction.y) > verticalThreshold)
       {
-         NavigateVertically((int)Mathf.Sign(direction.y));
-      }
-
-      timeSinceLastNavigation = 0f;
-      canNavigate = false;
-   }
-
-   private void NavigateHorizontally(int direction)
-   {
-      int newScreenIndex = currentScreenIndex;
-      do
-      {
-         newScreenIndex += direction;
-         newScreenIndex = Mathf.Clamp(newScreenIndex, 0, screenRows[currentRowIndex].Count - 1);
-
-         if (screenRows[currentRowIndex][newScreenIndex].GetComponent<CockpitScreenInfo>().IsActive)
-         {
-            UpdateCurrentScreen(newScreenIndex);
-            return;
-         }
-      } while (newScreenIndex != currentScreenIndex);
-   }
-
-   private void NavigateVertically(int direction)
-   {
-      int newRow = currentRowIndex;
-      do
-      {
-         newRow -= direction;
+         // Vertical navigation (switching rows)
+         int newRow = currentRowIndex - (int)Mathf.Sign(direction.y);
          newRow = Mathf.Clamp(newRow, 0, screenRows.Count - 1);
-
-         if (newRow != currentRowIndex && RowHasActiveScreen(newRow))
+         if (newRow != currentRowIndex)
          {
             currentRowIndex = newRow;
-            // Adjust currentScreenIndex if needed
-            if (currentScreenIndex >= screenRows[currentRowIndex].Count)
+            if (currentScreenIndex >= screenRows[currentRowIndex].Count - 1)
             {
                currentScreenIndex = screenRows[currentRowIndex].Count - 1;
             }
+
             UpdateCurrentScreen(currentScreenIndex);
-            return;
          }
-      } while (newRow != currentRowIndex);
+
+         timeSinceLastNavigation = 0f;
+         canNavigate = false;
+      }
    }
 
-   private bool RowHasActiveScreen(int rowIndex)
-   {
-      foreach (var screen in screenRows[rowIndex])
-      {
-         if (screen.GetComponent<CockpitScreenInfo>().IsActive)
-         {
-            return true;
-         }
-      }
-      return false;
-   }
+
 
 
 
