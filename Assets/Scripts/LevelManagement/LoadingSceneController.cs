@@ -6,6 +6,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.XR;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LoadingSceneController : MonoBehaviour
@@ -23,6 +25,7 @@ public class LoadingSceneController : MonoBehaviour
    [Header("Scene Transition")]
    [SerializeField] private Image sceneTransitionImage;
    [SerializeField] private float fadeDuration;
+
 
    private void Awake()
    {
@@ -87,7 +90,7 @@ public class LoadingSceneController : MonoBehaviour
          yield return null;
       }
 
-      GameController.Instance.sceneController.LoadNextScene(GameController.Instance.sceneController.sceneData.scenes[1].sceneName);
+      GameController.Instance.sceneController.LoadNextScene(GameController.Instance.sceneController.sceneData.scenes[2].sceneName);
    }
 
    private void InitiateGameLoadSequence()
@@ -137,4 +140,5 @@ public class LoadingSceneController : MonoBehaviour
          EventSystem.current.SetSelectedGameObject(leftButton.gameObject);
       }
    }
+
 }

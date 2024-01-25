@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class DataController : MonoBehaviour
+public class DataController :MonoBehaviour
 {
    [Header("Game Data & Paths")]
    public GameData gameData;
@@ -14,11 +14,10 @@ public class DataController : MonoBehaviour
    private string saveGameDataPathBackup;
 
    [Header("Events")]
-   public UnityEvent onLoadingError;
-
-   public UnityEvent onGameDataLoadedSuccessfully;
-   public UnityEvent onGameDataSavedSuccessfully;
-   public UnityEvent onGameDataSaveError;
+    public UnityEvent onLoadingError;
+    public UnityEvent onGameDataLoadedSuccessfully;
+    public UnityEvent onGameDataSavedSuccessfully;
+    public UnityEvent onGameDataSaveError;
 
    private void Awake()
    {
@@ -32,10 +31,14 @@ public class DataController : MonoBehaviour
 
    private void InitializeEvents()
    {
-      if (onLoadingError == null) { onLoadingError = new UnityEvent(); }
-      if (onGameDataLoadedSuccessfully == null) { onGameDataLoadedSuccessfully = new UnityEvent(); }
-      if (onGameDataSavedSuccessfully == null) { onGameDataSavedSuccessfully = new UnityEvent(); }
-      if (onGameDataSaveError == null) { onGameDataSaveError = new UnityEvent(); }
+      if ( onLoadingError == null )
+      { onLoadingError = new UnityEvent(); }
+      if ( onGameDataLoadedSuccessfully == null )
+      { onGameDataLoadedSuccessfully = new UnityEvent(); }
+      if ( onGameDataSavedSuccessfully == null )
+      { onGameDataSavedSuccessfully = new UnityEvent(); }
+      if ( onGameDataSaveError == null )
+      { onGameDataSaveError = new UnityEvent(); }
    }
 
    private void InitializePaths()
@@ -55,7 +58,7 @@ public class DataController : MonoBehaviour
    {
       gameData = await TryLoadGameDataAsync(saveGameDataPath) ?? await TryLoadGameDataAsync(saveGameDataPathBackup);
 
-      if (gameData != null)
+      if ( gameData != null )
       {
          await SaveGameDataToDiskAsync(false); // Save backup if primary failed but backup succeeded
          UpdatePlayerData_With_GameData();
@@ -75,19 +78,19 @@ public class DataController : MonoBehaviour
    /// <param name="path">Save Game File</param>
    /// <param name="data">A reference to the GameData</param>
    /// <returns>True if successful</returns>
-   private async Task<GameData> TryLoadGameDataAsync(string path)
+   private async Task<GameData> TryLoadGameDataAsync( string path )
    {
-      if (!string.IsNullOrEmpty(path) && File.Exists(path))
+      if ( !string.IsNullOrEmpty(path) && File.Exists(path) )
       {
          try
          {
-            if (File.Exists(path))
+            if ( File.Exists(path) )
             {
                string jsonData = await File.ReadAllTextAsync(path);
                return JsonUtility.FromJson<GameData>(jsonData);
             }
          }
-         catch (Exception ex)
+         catch ( Exception ex )
          {
             Debug.LogError("Failed to read from file: " + path + ". Error: " + ex.Message);
          }
@@ -99,9 +102,9 @@ public class DataController : MonoBehaviour
    /// Saves the current state of GameData class to disk.
    /// Remember to Update Game Data with Player Data for most up-to-date save.
    /// </summary>
-   public async Task SaveGameDataToDiskAsync(bool updateData)
+   public async Task SaveGameDataToDiskAsync( bool updateData )
    {
-      if (updateData)
+      if ( updateData )
       {
          UpdateGameData_With_PlayerData();
       }
@@ -110,16 +113,17 @@ public class DataController : MonoBehaviour
 
       bool primarySuccess = await TryWriteGameDataToDiskAsync(saveGameDataPath, jsonData);
       bool backupSuccess = true; // Assuming backup is optional
-      if (!string.IsNullOrEmpty(saveGameDataPathBackup))
+      if ( !string.IsNullOrEmpty(saveGameDataPathBackup) )
       {
          backupSuccess = await TryWriteGameDataToDiskAsync(saveGameDataPathBackup, jsonData);
       }
 
-      if (!primarySuccess || !backupSuccess)
+      if ( !primarySuccess || !backupSuccess )
       {
          onGameDataSaveError.Invoke();
       }
-      else { onGameDataSavedSuccessfully.Invoke(); }
+      else
+      { onGameDataSavedSuccessfully.Invoke(); }
    }
 
    /// <summary>
@@ -128,14 +132,14 @@ public class DataController : MonoBehaviour
    /// <param name="path">SavedGame File</param>
    /// <param name="data">Json formatted String</param>
    /// <returns></returns>
-   private async Task<bool> TryWriteGameDataToDiskAsync(string path, string data)
+   private async Task<bool> TryWriteGameDataToDiskAsync( string path, string data )
    {
       try
       {
          await File.WriteAllTextAsync(path, data);
          return true;
       }
-      catch (Exception ex)
+      catch ( Exception ex )
       {
          Debug.LogError("Failed to write to file: " + path + ". Error: " + ex.Message);
          return false;

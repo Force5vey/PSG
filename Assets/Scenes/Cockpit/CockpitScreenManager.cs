@@ -2,34 +2,36 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class CockpitScreenManager : MonoBehaviour
+public class CockpitScreenManager :MonoBehaviour
 {
    #region //Class Level Variables
 
-   [Header("Screen Rows")]
-   public List<GameObject> overheadRow;
+   [Header("Screen Rows - Masters")]
+   [SerializeField] private List<GameObject> overheadRowMaster;
+   [SerializeField] private List<GameObject> aPillarRowMaster;
+   [SerializeField] private List<GameObject> consoleAuxRowMaster;
+   [SerializeField] private List<GameObject> consoleRowMaster;
+   [SerializeField] private List<GameObject> auxRowMaster;
 
-   public List<GameObject> aPillarRow;
-   public List<GameObject> consoleAuxRow;
-   public List<GameObject> consoleRow;
-   public List<GameObject> auxRow;
    private Dictionary<CockpitController.CockpitScreenName, GameObject> screenLookup;
+
+   [Header("Screen Rows - Active")]
+   [HideInInspector] public List<GameObject> overheadRow;
+   [HideInInspector] public List<GameObject> aPillarRow;
+   [HideInInspector] public List<GameObject> consoleAuxRow;
+   [HideInInspector] public List<GameObject> consoleRow;
+   [HideInInspector] public List<GameObject> auxRow;
 
    [Header("Screen Indexes")]
    public List<List<GameObject>> screenRows; // Nested list for organizing screens by rows
-
    private int currentRowIndex; // Current row index
    private int currentScreenIndex; // Current screen index within the row
 
    //Use in the event their was an issue loading from Pilot Script.
-   private int defaultScreenIndex = 1;
-
-   private int defaultRowINdex = 3;
+   [SerializeField] private GameObject defaultScreen;
 
    [Header("Screen Navigation")]
    private MainPlayerControls controls;
@@ -42,54 +44,35 @@ public class CockpitScreenManager : MonoBehaviour
    private bool canNavigate;
 
    [Header("Screen Effects")]
-   [SerializeField] private List<GameObject> screenLights;
-
+   [SerializeField] private List<GameObject> cockpitLights;
    [SerializeField] private float delayBetweenLights;
 
    #endregion //Class Level Variables
 
    private void Awake()
    {
+      //Initialize ScreenRows with active screen Objects
+      InitializeScreenRows();
+
       // Initialize the input system
       controls = new MainPlayerControls();
-      controls.PlayerControl.MovePlayer.performed += ctx => NavigateScreens(ctx.ReadValue<Vector2>());
-      controls.PlayerControl.ButtonSouth.performed += _ => SelectCurrentScreen();
 
-      screenRows = new List<List<GameObject>>
-      {
-         overheadRow,
-         aPillarRow,
-         consoleAuxRow,
-         consoleRow,
-         auxRow
-      };
 
-      //Set the Screen Selection Objects Mesh Renderer to disabled;
-      //TODO: Update this when settled on screen selection indicator.
-      foreach (List<GameObject> list in screenRows)
-      {
-         foreach (GameObject obj in list)
-         {
-            if (obj != null)
-            {
-               obj.gameObject.GetComponent<MeshRenderer>().enabled = false;
-
-               obj.gameObject.GetComponent<CockpitScreenInfo>().IsActive = true;
-            }
-         }
-      }
-
+      //Make sure each screen object has an index assigned according to its position in active screen list.
       AssignScreenIndices();
+      InitializeScreenLookup();
 
       // Initialize the starting screen (use saved data or default)
       SetInitialScreen();
 
-      InitializeScreenLookup();
+      Debug.Log("ScreenManager > end of awake");
    }
 
    private void OnEnable()
    {
       controls.Enable();
+      controls.PlayerControl.MovePlayer.performed += ctx => NavigateScreens(ctx.ReadValue<Vector2>());
+      controls.PlayerControl.ButtonSouth.performed += _ => SelectCurrentScreen();
    }
 
    private void OnDisable()
@@ -105,21 +88,57 @@ public class CockpitScreenManager : MonoBehaviour
    private void Update()
    {
       timeSinceLastNavigation += Time.deltaTime;
-      if (timeSinceLastNavigation >= navigationCooldown)
+      if ( timeSinceLastNavigation >= navigationCooldown )
       {
          canNavigate = true;
       }
    }
 
+   private void InitializeScreenRows()
+   {
+      screenRows = new List<List<GameObject>>();
+
+      AddActiveRow(overheadRowMaster);
+      AddActiveRow(aPillarRowMaster);
+      AddActiveRow(consoleAuxRowMaster);
+      AddActiveRow(consoleRowMaster);
+      AddActiveRow(auxRowMaster);
+
+   }
+
+   private void AddActiveRow( List<GameObject> masterList )
+   {
+      List<GameObject> activeScreens = FilterActiveScreens(masterList);
+      if ( activeScreens.Count > 0 )
+      {
+         screenRows.Add(activeScreens);
+      }
+   }
+
+   private List<GameObject> FilterActiveScreens( List<GameObject> masterList )
+   {
+      List<GameObject> activeScreens = new List<GameObject>();
+      foreach ( GameObject obj in masterList )
+      {
+         CockpitScreenInfo screenInfo = obj.GetComponent<CockpitScreenInfo>();
+
+         if ( screenInfo.IsActive || screenInfo.screenName == CockpitController.CockpitScreenName.Console_Center )
+         {
+            activeScreens.Add(obj);
+         }
+      }
+      return activeScreens;
+   }
+
    private void InitializeScreenLookup()
    {
       screenLookup = new Dictionary<CockpitController.CockpitScreenName, GameObject>();
-      foreach (var row in screenRows)
+      foreach ( var row in screenRows )
       {
-         foreach (var screen in row)
+         foreach ( var screen in row )
          {
             var screenInfo = screen.GetComponent<CockpitScreenInfo>();
-            if (screenInfo != null)
+            if ( screenInfo != null )
             {
                screenLookup[screenInfo.screenName] = screen;
             }
@@ -127,12 +146,13 @@ public class CockpitScreenManager : MonoBehaviour
       }
    }
 
-   private void NavigateScreens(Vector2 direction)
+   private void NavigateScreens( Vector2 direction )
    {
-      if (!canNavigate) { return; }
+      if ( !canNavigate )
+      { return; }
 
       // Handle navigation between screens based on input direction
-      if (Mathf.Abs(direction.x) > horizontalThreshold)
+      if ( Mathf.Abs(direction.x) > horizontalThreshold )
       {
          // Horizontal navigation
          int newScreenIndex = currentScreenIndex + (int)Mathf.Sign(direction.x);
@@ -142,15 +162,15 @@ public class CockpitScreenManager : MonoBehaviour
          timeSinceLastNavigation = 0f;
          canNavigate = false;
       }
-      else if (Mathf.Abs(direction.y) > verticalThreshold)
+      else if ( Mathf.Abs(direction.y) > verticalThreshold )
       {
          // Vertical navigation (switching rows)
          int newRow = currentRowIndex - (int)Mathf.Sign(direction.y);
          newRow = Mathf.Clamp(newRow, 0, screenRows.Count - 1);
-         if (newRow != currentRowIndex)
+         if ( newRow != currentRowIndex )
          {
             currentRowIndex = newRow;
-            if (currentScreenIndex >= screenRows[currentRowIndex].Count - 1)
+            if ( currentScreenIndex >= screenRows[currentRowIndex].Count - 1 )
             {
                currentScreenIndex = screenRows[currentRowIndex].Count - 1;
             }
@@ -163,15 +183,10 @@ public class CockpitScreenManager : MonoBehaviour
       }
    }
 
-
-
-
-
-
-   private void UpdateCurrentScreen(int newScreenIndex)
+   private void UpdateCurrentScreen( int newScreenIndex )
    {
       // Update the currently selected screen based on the new index
-      if (currentScreen != null)
+      if ( currentScreen != null )
       {
          // De-select the current screen
          DeselectScreen(currentScreen);
@@ -184,26 +199,20 @@ public class CockpitScreenManager : MonoBehaviour
       SelectScreen(currentScreen);
    }
 
-   private void SelectScreen(GameObject screen)
+   private void SelectScreen( GameObject screen )
    {
       //TODO: Temp indicator, add animation / light / glow / border / etc
       CockpitScreenInfo screenInfo = screen.GetComponent<CockpitScreenInfo>();
-        if (screenInfo.spotLight !=null)
-        {
-           screenInfo.spotLight.SetActive(true); 
-        }
-        else
+      if ( screenInfo.spotLight != null )
       {
-         screen.GetComponent<MeshRenderer>().enabled = true;
+         screenInfo.spotLight.SetActive(true);
       }
-        
-     
    }
 
-   private void DeselectScreen(GameObject screen)
+   private void DeselectScreen( GameObject screen )
    {
       CockpitScreenInfo screenInfo = screen.GetComponent<CockpitScreenInfo>();
-      if(screenInfo.spotLight != null)
+      if ( screenInfo.spotLight != null )
       {
          screenInfo.spotLight.SetActive(false);
       }
@@ -217,7 +226,7 @@ public class CockpitScreenManager : MonoBehaviour
       Debug.Log("Selected Screen: " + currentScreen.name + " >> In ScreenManager/SelectCurrentScreen");
 
       var screenInfo = currentScreen.GetComponent<CockpitScreenInfo>();
-      if (screenInfo != null)
+      if ( screenInfo != null )
       {
          screenInfo.TriggerScreenSelected();
       }
@@ -225,30 +234,46 @@ public class CockpitScreenManager : MonoBehaviour
 
    private void SetInitialScreen()
    {
-      if (PlayerController.Instance != null)
+      if ( PlayerController.Instance != null )
       {
-         currentScreenIndex = PlayerController.Instance.pilotController.lastSelectedScreenIndex;
-         currentRowIndex = PlayerController.Instance.pilotController.lastSelectedRowIndex;
-         Debug.Log($"{currentRowIndex} <> {currentScreenIndex}");
+         (int savedRowIndex, int savedScreenIndex) = SelectScreenByName(PlayerController.Instance.pilotController.lastSelectedCockpitScreen);
+         if ( savedRowIndex != -1 && savedScreenIndex != -1 )
+         {
+            currentRowIndex = savedRowIndex;
+            currentScreenIndex = savedScreenIndex;
+         }
+         else
+         {
+            // Fall back to default if screen info is not available
+            SetDefaultScreen();
+         }
       }
       else
       {
-         currentScreenIndex = defaultScreenIndex;
-         currentRowIndex = defaultRowINdex;
+         // Fall back to default if player controller instance is not available
+         SetDefaultScreen();
       }
 
       currentScreen = screenRows[currentRowIndex][currentScreenIndex];
       SelectScreen(currentScreen);
    }
 
+   private void SetDefaultScreen()
+   {
+
+      CockpitScreenInfo screenInfo = defaultScreen.GetComponent<CockpitScreenInfo>();
+      currentScreenIndex = screenInfo.screenIndex;
+      currentRowIndex = screenInfo.rowIndex;
+   }
+
    public void AssignScreenIndices()
    {
-      for (int rowIndex = 0; rowIndex < screenRows.Count; rowIndex++)
+      for ( int rowIndex = 0; rowIndex < screenRows.Count; rowIndex++ )
       {
-         for (int screenIndex = 0; screenIndex < screenRows[rowIndex].Count; screenIndex++)
+         for ( int screenIndex = 0; screenIndex < screenRows[rowIndex].Count; screenIndex++ )
          {
             CockpitScreenInfo screenInfo = screenRows[rowIndex][screenIndex].GetComponent<CockpitScreenInfo>();
-            if (screenInfo != null)
+            if ( screenInfo != null )
             {
                screenInfo.SetIndices(screenIndex, rowIndex);
             }
@@ -256,25 +281,28 @@ public class CockpitScreenManager : MonoBehaviour
       }
    }
 
-   public void SelectScreenByName(CockpitController.CockpitScreenName screenName)
+   public (int rowIndex, int screenIndex) SelectScreenByName( CockpitController.CockpitScreenName screenName )
    {
-      if (screenLookup.TryGetValue(screenName, out GameObject screen))
+      if ( screenLookup.TryGetValue(screenName, out GameObject screen) )
       {
+
          var screenInfo = screen.GetComponent<CockpitScreenInfo>();
-         if (screenInfo != null)
+         if ( screenInfo != null )
          {
-            currentRowIndex = screenInfo.rowIndex;
-            currentScreenIndex = screenInfo.screenIndex;
-            SelectCurrentScreen();
+            return (screenInfo.rowIndex, screenInfo.screenIndex);
          }
+
       }
+
+      // Return default values if not found
+      return (-1, -1);
    }
 
    private IEnumerator EnableLightsWithDelay()
    {
-      foreach (var light in screenLights)
+      foreach ( var light in cockpitLights )
       {
-         if (light != null)
+         if ( light != null )
          {
             light.SetActive(true);
             yield return new WaitForSeconds(delayBetweenLights);
@@ -282,18 +310,17 @@ public class CockpitScreenManager : MonoBehaviour
       }
    }
 
-   public bool TryGetScreen(CockpitController.CockpitScreenName screenName, out GameObject screenObj)
+   public bool TryGetScreen( CockpitController.CockpitScreenName screenName, out GameObject screenObj )
    {
-
       screenObj = null;
 
       // Loop through each row and each screen in the nested list
-      foreach (var row in screenRows)
+      foreach ( var row in screenRows )
       {
-         foreach (var screen in row)
+         foreach ( var screen in row )
          {
             var screenInfo = screen.GetComponent<CockpitScreenInfo>();
-            if (screenInfo != null && screenInfo.screenName == screenName)
+            if ( screenInfo != null && screenInfo.screenName == screenName )
             {
                screenObj = screen;
                return true; // Screen found
@@ -302,5 +329,11 @@ public class CockpitScreenManager : MonoBehaviour
       }
 
       return false; // Screen not found
+   }
+
+   public void CloseScreenManager()
+   {
+      Debug.Log($"ScreenManager > CloseScreenManager");
+      PlayerController.Instance.pilotController.lastSelectedCockpitScreen = screenRows[currentRowIndex][currentScreenIndex].gameObject.GetComponent<CockpitScreenInfo>().screenName;
    }
 }

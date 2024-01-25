@@ -5,8 +5,7 @@ using UnityEngine;
 public class PilotController : MonoBehaviour
 {
    public int selectedPilotIndex;
-   public int lastSelectedScreenIndex;
-   public int lastSelectedRowIndex;
+   public CockpitController.CockpitScreenName lastSelectedCockpitScreen;
 
     // Start is called before the first frame update
     void Start()

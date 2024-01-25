@@ -10,6 +10,8 @@ public class SceneController : MonoBehaviour
 
     public void LoadNextScene(string sceneName)
     {
+      Debug.Log("SceneController > LoadNextScene > " + sceneName);
+
         SceneManager.LoadScene(sceneName);
     }
 

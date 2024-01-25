@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scenes:
   - sceneIndex: 0
-    sceneName: LoadingScene
+    sceneName: ErrorScene
   - sceneIndex: 1
-    sceneName: MainMenu
+    sceneName: LoadingScene
   - sceneIndex: 2
-    sceneName: Cockpit
+    sceneName: MainMenu
   - sceneIndex: 3
+    sceneName: Cockpit
+  - sceneIndex: 4
     sceneName: Level1_1

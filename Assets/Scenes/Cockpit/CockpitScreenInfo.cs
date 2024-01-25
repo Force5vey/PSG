@@ -8,17 +8,22 @@ public class CockpitScreenInfo : MonoBehaviour
 {
    [Header("Screen Info")]
    public CockpitController.CockpitScreenName screenName;
+
+   [Header("Selection Indexes")]
    public int screenIndex;
    public int rowIndex;
-   public Transform screenTransform;
    public bool IsActive;
 
+   [Header("Location References")]
+   public Transform screenTransform;
+
    //Delegates and Events
-   public delegate void ScreenSelectedAction(CockpitController.CockpitScreenName screenName);
+   public delegate void ScreenSelectedAction(CockpitController.CockpitScreenName scrnName);
    public event ScreenSelectedAction OnScreenSelected;
 
    [Header("Selection Effects")]
    [SerializeField] public GameObject spotLight;
+   [SerializeField] public GameObject cockpitLight;
 
    public void SetIndices(int screenIdx, int rowIdx)
    {

@@ -46,7 +46,9 @@ public class MapScreenController : MonoBehaviour, ICockpitScreenController
    {
       Debug.Log("Map Screen Controller: Displaying map on " + assignedScreen);
       mapPanel.SetActive(true);
-      GameController.Instance.sceneController.LoadNextScene(GameController.Instance.sceneController.sceneData.scenes[3].sceneName);
+
+      //TODO: Only for testing to go to level while designing cockpit.
+      GameController.Instance.sceneController.LoadNextScene("Level1_1");
    }
 
    public void CloseScreen()
