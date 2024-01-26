@@ -12,12 +12,12 @@ public class ShipController : MonoBehaviour
 
     private void OnEnable()
     {
-        playerMovementController.OnBoundaryCrossed += HandleBoundaryCrossed;
+        //playerMovementController.OnBoundaryCrossed += HandleBoundaryCrossed;
     }
 
     private void OnDisable()
     {
-        playerMovementController.OnBoundaryCrossed -= HandleBoundaryCrossed;
+        //playerMovementController.OnBoundaryCrossed -= HandleBoundaryCrossed;
     }
 
 

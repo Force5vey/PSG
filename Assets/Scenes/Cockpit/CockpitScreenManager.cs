@@ -71,12 +71,14 @@ public class CockpitScreenManager :MonoBehaviour
    private void OnEnable()
    {
       controls.Enable();
-      controls.PlayerControl.MovePlayer.performed += ctx => NavigateScreens(ctx.ReadValue<Vector2>());
+      controls.PlayerControl.LeftStick.performed += ctx => NavigateScreens(ctx.ReadValue<Vector2>());
       controls.PlayerControl.ButtonSouth.performed += _ => SelectCurrentScreen();
    }
 
    private void OnDisable()
    {
+      controls.PlayerControl.LeftStick.performed -= ctx => NavigateScreens(ctx.ReadValue<Vector2>());
+      controls.PlayerControl.ButtonSouth.performed -= _ => SelectCurrentScreen();
       controls.Disable();
    }
 

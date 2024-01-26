@@ -92,6 +92,7 @@ public class CockpitController :MonoBehaviour
    }
    private void OnDisable()
    {
+      mainPlayerControls.PlayerControl.ButtonEast.performed -= _ => HandleBackButton();
       mainPlayerControls.Disable();
    }
 

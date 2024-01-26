@@ -7,7 +7,7 @@ public class LoadingDependencyChecker :MonoBehaviour
 {
    private void Start()
    {
-      Debug.LogWarning("Start() of LoadingDependencyChecker");
+      Debug.Log("Start() of LoadingDependencyChecker");
 
       StartCoroutine(CheckDependencies());
 

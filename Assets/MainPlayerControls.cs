@@ -28,7 +28,7 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
             ""id"": ""c7fba036-ef78-4643-96e3-d2c974db2db3"",
             ""actions"": [
                 {
-                    ""name"": ""MovePlayer"",
+                    ""name"": ""LeftStick"",
                     ""type"": ""Value"",
                     ""id"": ""31ca0709-9618-4847-9288-cc73bdc68973"",
                     ""expectedControlType"": ""Stick"",
@@ -98,6 +98,24 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LeftShoulder"",
+                    ""type"": ""Button"",
+                    ""id"": ""aade8aed-05d6-473b-a1a9-f71a93e457bd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RightShoulder"",
+                    ""type"": ""Button"",
+                    ""id"": ""b821f2d5-035a-498b-9a8f-71718261a4fc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -152,7 +170,7 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MovePlayer"",
+                    ""action"": ""LeftStick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -163,7 +181,7 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MovePlayer"",
+                    ""action"": ""LeftStick"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -174,7 +192,7 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MovePlayer"",
+                    ""action"": ""LeftStick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -185,7 +203,7 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MovePlayer"",
+                    ""action"": ""LeftStick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -196,7 +214,7 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MovePlayer"",
+                    ""action"": ""LeftStick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -207,7 +225,7 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MovePlayer"",
+                    ""action"": ""LeftStick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -218,7 +236,7 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MovePlayer"",
+                    ""action"": ""LeftStick"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -229,7 +247,7 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MovePlayer"",
+                    ""action"": ""LeftStick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -240,7 +258,7 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MovePlayer"",
+                    ""action"": ""LeftStick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -251,7 +269,7 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MovePlayer"",
+                    ""action"": ""LeftStick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -262,7 +280,7 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""MovePlayer"",
+                    ""action"": ""LeftStick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -296,6 +314,28 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""RightTrigger"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8acdfa8d-bb87-4e06-ab92-0fd5452e7141"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftShoulder"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3e4b8bcf-72f5-4a03-976b-79d265d1c1bb"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightShoulder"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -402,7 +442,7 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
 }");
         // PlayerControl
         m_PlayerControl = asset.FindActionMap("PlayerControl", throwIfNotFound: true);
-        m_PlayerControl_MovePlayer = m_PlayerControl.FindAction("MovePlayer", throwIfNotFound: true);
+        m_PlayerControl_LeftStick = m_PlayerControl.FindAction("LeftStick", throwIfNotFound: true);
         m_PlayerControl_RightStick = m_PlayerControl.FindAction("RightStick", throwIfNotFound: true);
         m_PlayerControl_LeftTrigger = m_PlayerControl.FindAction("LeftTrigger", throwIfNotFound: true);
         m_PlayerControl_RightTrigger = m_PlayerControl.FindAction("RightTrigger", throwIfNotFound: true);
@@ -410,6 +450,8 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
         m_PlayerControl_ButtonNorth = m_PlayerControl.FindAction("ButtonNorth", throwIfNotFound: true);
         m_PlayerControl_ButtonWest = m_PlayerControl.FindAction("ButtonWest", throwIfNotFound: true);
         m_PlayerControl_ButtonEast = m_PlayerControl.FindAction("ButtonEast", throwIfNotFound: true);
+        m_PlayerControl_LeftShoulder = m_PlayerControl.FindAction("LeftShoulder", throwIfNotFound: true);
+        m_PlayerControl_RightShoulder = m_PlayerControl.FindAction("RightShoulder", throwIfNotFound: true);
         // GameControl
         m_GameControl = asset.FindActionMap("GameControl", throwIfNotFound: true);
         m_GameControl_Pause = m_GameControl.FindAction("Pause", throwIfNotFound: true);
@@ -479,7 +521,7 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
     // PlayerControl
     private readonly InputActionMap m_PlayerControl;
     private List<IPlayerControlActions> m_PlayerControlActionsCallbackInterfaces = new List<IPlayerControlActions>();
-    private readonly InputAction m_PlayerControl_MovePlayer;
+    private readonly InputAction m_PlayerControl_LeftStick;
     private readonly InputAction m_PlayerControl_RightStick;
     private readonly InputAction m_PlayerControl_LeftTrigger;
     private readonly InputAction m_PlayerControl_RightTrigger;
@@ -487,11 +529,13 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerControl_ButtonNorth;
     private readonly InputAction m_PlayerControl_ButtonWest;
     private readonly InputAction m_PlayerControl_ButtonEast;
+    private readonly InputAction m_PlayerControl_LeftShoulder;
+    private readonly InputAction m_PlayerControl_RightShoulder;
     public struct PlayerControlActions
     {
         private @MainPlayerControls m_Wrapper;
         public PlayerControlActions(@MainPlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @MovePlayer => m_Wrapper.m_PlayerControl_MovePlayer;
+        public InputAction @LeftStick => m_Wrapper.m_PlayerControl_LeftStick;
         public InputAction @RightStick => m_Wrapper.m_PlayerControl_RightStick;
         public InputAction @LeftTrigger => m_Wrapper.m_PlayerControl_LeftTrigger;
         public InputAction @RightTrigger => m_Wrapper.m_PlayerControl_RightTrigger;
@@ -499,6 +543,8 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
         public InputAction @ButtonNorth => m_Wrapper.m_PlayerControl_ButtonNorth;
         public InputAction @ButtonWest => m_Wrapper.m_PlayerControl_ButtonWest;
         public InputAction @ButtonEast => m_Wrapper.m_PlayerControl_ButtonEast;
+        public InputAction @LeftShoulder => m_Wrapper.m_PlayerControl_LeftShoulder;
+        public InputAction @RightShoulder => m_Wrapper.m_PlayerControl_RightShoulder;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControl; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -508,9 +554,9 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_PlayerControlActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_PlayerControlActionsCallbackInterfaces.Add(instance);
-            @MovePlayer.started += instance.OnMovePlayer;
-            @MovePlayer.performed += instance.OnMovePlayer;
-            @MovePlayer.canceled += instance.OnMovePlayer;
+            @LeftStick.started += instance.OnLeftStick;
+            @LeftStick.performed += instance.OnLeftStick;
+            @LeftStick.canceled += instance.OnLeftStick;
             @RightStick.started += instance.OnRightStick;
             @RightStick.performed += instance.OnRightStick;
             @RightStick.canceled += instance.OnRightStick;
@@ -532,13 +578,19 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
             @ButtonEast.started += instance.OnButtonEast;
             @ButtonEast.performed += instance.OnButtonEast;
             @ButtonEast.canceled += instance.OnButtonEast;
+            @LeftShoulder.started += instance.OnLeftShoulder;
+            @LeftShoulder.performed += instance.OnLeftShoulder;
+            @LeftShoulder.canceled += instance.OnLeftShoulder;
+            @RightShoulder.started += instance.OnRightShoulder;
+            @RightShoulder.performed += instance.OnRightShoulder;
+            @RightShoulder.canceled += instance.OnRightShoulder;
         }
 
         private void UnregisterCallbacks(IPlayerControlActions instance)
         {
-            @MovePlayer.started -= instance.OnMovePlayer;
-            @MovePlayer.performed -= instance.OnMovePlayer;
-            @MovePlayer.canceled -= instance.OnMovePlayer;
+            @LeftStick.started -= instance.OnLeftStick;
+            @LeftStick.performed -= instance.OnLeftStick;
+            @LeftStick.canceled -= instance.OnLeftStick;
             @RightStick.started -= instance.OnRightStick;
             @RightStick.performed -= instance.OnRightStick;
             @RightStick.canceled -= instance.OnRightStick;
@@ -560,6 +612,12 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
             @ButtonEast.started -= instance.OnButtonEast;
             @ButtonEast.performed -= instance.OnButtonEast;
             @ButtonEast.canceled -= instance.OnButtonEast;
+            @LeftShoulder.started -= instance.OnLeftShoulder;
+            @LeftShoulder.performed -= instance.OnLeftShoulder;
+            @LeftShoulder.canceled -= instance.OnLeftShoulder;
+            @RightShoulder.started -= instance.OnRightShoulder;
+            @RightShoulder.performed -= instance.OnRightShoulder;
+            @RightShoulder.canceled -= instance.OnRightShoulder;
         }
 
         public void RemoveCallbacks(IPlayerControlActions instance)
@@ -687,7 +745,7 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
     public MouseActions @Mouse => new MouseActions(this);
     public interface IPlayerControlActions
     {
-        void OnMovePlayer(InputAction.CallbackContext context);
+        void OnLeftStick(InputAction.CallbackContext context);
         void OnRightStick(InputAction.CallbackContext context);
         void OnLeftTrigger(InputAction.CallbackContext context);
         void OnRightTrigger(InputAction.CallbackContext context);
@@ -695,6 +753,8 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
         void OnButtonNorth(InputAction.CallbackContext context);
         void OnButtonWest(InputAction.CallbackContext context);
         void OnButtonEast(InputAction.CallbackContext context);
+        void OnLeftShoulder(InputAction.CallbackContext context);
+        void OnRightShoulder(InputAction.CallbackContext context);
     }
     public interface IGameControlActions
     {

@@ -1144,6 +1144,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498365a9d82feab4ea45de6661c2115e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1235648514 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2509616118652597620, guid: 8be4226e07cd7eb4aa7ac0ed75311f37, type: 3}
+  m_PrefabInstance: {fileID: 1235648512}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7076b2b33017804faa604e58190fffd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1545308690
 GameObject:
   m_ObjectHideFlags: 0
@@ -1252,10 +1263,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3788685687856881685, guid: a422fefae09047445b75cf815de41a10, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4344516542909679744, guid: a422fefae09047445b75cf815de41a10, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -1300,36 +1307,135 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4344516542909679753, guid: a422fefae09047445b75cf815de41a10, type: 3}
-      propertyPath: selectedPilotIndex
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4344516542909679753, guid: a422fefae09047445b75cf815de41a10, type: 3}
-      propertyPath: lastSelectedRowIndex
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4344516542909679753, guid: a422fefae09047445b75cf815de41a10, type: 3}
-      propertyPath: lastSelectedScreenIndex
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4344516542909679753, guid: a422fefae09047445b75cf815de41a10, type: 3}
-      propertyPath: lastSelectedCockpitScreen
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4344516542909679753, guid: a422fefae09047445b75cf815de41a10, type: 3}
-      propertyPath: lastSelectedScreenIndex.Array.data[0]
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4344516542909679753, guid: a422fefae09047445b75cf815de41a10, type: 3}
-      propertyPath: lastSelectedScreenIndex.Array.data[1]
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4344516542909679755, guid: a422fefae09047445b75cf815de41a10, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4344516542909679759, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: yawTorque
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344516542909679759, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: thrustForce
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344516542909679759, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: inputHandler
+      value: 
+      objectReference: {fileID: 1235648514}
+    - target: {fileID: 4344516542909679759, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: rotationSpeed
+      value: 225
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344516542909679759, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: shipRigidbody
+      value: 
+      objectReference: {fileID: 1593630924}
+    - target: {fileID: 4344516542909679759, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: flightRollTorque
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344516542909679759, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: flightPitchTorque
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344516542909679759, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: flightThrustForce
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344516542909679759, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: currentControlMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4344516542909679759, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: hoverModeController
+      value: 
+      objectReference: {fileID: 1593630925}
+    - target: {fileID: 4344516542909679759, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: flightModeController
+      value: 
+      objectReference: {fileID: 1593630926}
+    - target: {fileID: 4344516542909679759, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: flightBreakingDragMultiplier
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: defaultDrag
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: inputHandler
+      value: 
+      objectReference: {fileID: 1235648514}
+    - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: shipRigidbody
+      value: 
+      objectReference: {fileID: 1593630924}
+    - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: flightRollTorque
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: flightPitchTorque
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: flightThrustForce
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: flightBreakingForce
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: flightDragMultiplier
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: flightBreakingDragMultiplier
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349523039194520094, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: m_Drag
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349523039194520094, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: m_Mass
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349523039194520094, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: m_AngularDrag
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a422fefae09047445b75cf815de41a10, type: 3}
+--- !u!54 &1593630924 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 8349523039194520094, guid: a422fefae09047445b75cf815de41a10, type: 3}
+  m_PrefabInstance: {fileID: 1593630923}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1593630925 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1696505992571659813, guid: a422fefae09047445b75cf815de41a10, type: 3}
+  m_PrefabInstance: {fileID: 1593630923}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92d53bebfab412146bee0eb81c0c06f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1593630926 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
+  m_PrefabInstance: {fileID: 1593630923}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ef0d398c11b584fa32849a6f2e90cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1692297082 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2608865710598134477, guid: 7783b36e9760192409b9831728c87cdb, type: 3}

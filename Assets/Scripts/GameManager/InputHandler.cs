@@ -1,58 +1,77 @@
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
-public class InputHandler : MonoBehaviour
+public class InputHandler :MonoBehaviour
 {
-    [Header("Move Assets")]
-    private MainPlayerControls playerControls;
+   [Header("Input Assets")]
+   private MainPlayerControls playerControls;
 
-    [Header("Movement Values")]
-    private Vector2 moveInput;
-    private float leftTriggerInput;
-    private float rightTriggerInput;
+   [Header("Movement Values")]
+   private Vector2 moveInput;
+   private Vector2 orientationInput;
+   private float leftTriggerInput;
+   private float rightTriggerInput;
 
-    //Movement Delegates
-    public delegate void MoveInput(Vector2 movement);
-    public delegate void StrafeInput(float leftTrigger, float rightTrigger);
+   //Movement and Orientation Delegates
+   public delegate void LeftStickInput( Vector2 LeftStickInput );
+   public delegate void RightStickInput( Vector2 RightStickInput );
+   public delegate void LeftTriggerInput( float leftTriggerInput );
+   public delegate void RightTriggerInput( float rightTriggerInput );
+   public delegate void LeftShoulderInput();
+   public delegate void RightShoulderInput();
 
-    //Movement Events
-    public event MoveInput OnMoveInput;
-    public event StrafeInput OnStrafeInput;
+   //Movement and Orientation Events
+   public event LeftStickInput OnLeftStickInput;
+   public event RightStickInput OnRightStickInput;
+   public event LeftTriggerInput OnLeftTriggerInput;
+   public event RightTriggerInput OnRightTriggerInput;
+   public event LeftShoulderInput OnLeftShoulderPressed;
+   public event RightShoulderInput OnRightShoulderPressed;
 
-    private void Awake()
-    {
-        playerControls = new MainPlayerControls();
 
-        //Bind move action
-        playerControls.PlayerControl.MovePlayer.performed += context => OnMoveInput?.Invoke(context.ReadValue<Vector2>());
-        playerControls.PlayerControl.MovePlayer.canceled += context => OnMoveInput?.Invoke(Vector2.zero);
+   private void Awake()
+   {
+      playerControls = new MainPlayerControls();
 
-        // Bind trigger actions
-        playerControls.PlayerControl.LeftTrigger.performed += context => leftTriggerInput = context.ReadValue<float>();
-        playerControls.PlayerControl.LeftTrigger.canceled += context => leftTriggerInput = 0;
-        playerControls.PlayerControl.RightTrigger.performed += context => rightTriggerInput = context.ReadValue<float>();
-        playerControls.PlayerControl.RightTrigger.canceled += context => rightTriggerInput = 0;
+      //Bind Left Stick
+      playerControls.PlayerControl.LeftStick.performed += context => OnLeftStickInput?.Invoke(context.ReadValue<Vector2>());
+      playerControls.PlayerControl.LeftStick.canceled += _ => OnLeftStickInput?.Invoke(Vector2.zero);
 
-    }
+      // Bind Right Stick
+      playerControls.PlayerControl.RightStick.performed += context => OnRightStickInput?.Invoke(context.ReadValue<Vector2>());
+      playerControls.PlayerControl.RightStick.canceled += _ => OnRightStickInput?.Invoke(Vector2.zero);
 
-    private void Update()
-    {
-        OnStrafeInput?.Invoke(leftTriggerInput, rightTriggerInput);
-    }
+      // Bind Triggers
+      playerControls.PlayerControl.LeftTrigger.performed += context => OnLeftTriggerInput?.Invoke(context.ReadValue<float>());
+      playerControls.PlayerControl.LeftTrigger.canceled += _ => OnLeftTriggerInput?.Invoke(0);
 
-    private void OnEnable()
-    {
-        playerControls.Enable();
-    }
+      playerControls.PlayerControl.RightTrigger.performed += context => OnRightTriggerInput?.Invoke(context.ReadValue<float>());
+      playerControls.PlayerControl.RightTrigger.canceled += _ => OnRightTriggerInput?.Invoke(0);
 
-    private void OnDisable()
-    {
-        playerControls.Disable();
-    }
+      //Bind Shoulder Buttons
+      playerControls.PlayerControl.LeftShoulder.performed += _ => OnLeftShoulderPressed?.Invoke();
 
-    public Vector2 GetMoveInput()
-    {
-        return moveInput;
-    }
+      playerControls.PlayerControl.RightShoulder.performed += _ => OnRightShoulderPressed?.Invoke();
+
+
+      //Bind Face Buttons
+
+      //Bind Menu and Pause Buttons
+
+      //Bind D-Pad Directions
+      //TODO: Create D-Pad Mappings
+
+   }
+
+   private void OnEnable()
+   {
+      playerControls.Enable();
+   }
+
+   private void OnDisable()
+   {
+      playerControls.Disable();
+   }
 }

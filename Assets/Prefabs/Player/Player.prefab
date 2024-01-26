@@ -189,6 +189,9 @@ GameObject:
   - component: {fileID: 8349523039194520094}
   - component: {fileID: 4344516542909679756}
   - component: {fileID: 4344516542909679759}
+  - component: {fileID: 7370704467041106783}
+  - component: {fileID: 1696505992571659813}
+  - component: {fileID: 8962891791046067089}
   - component: {fileID: 4344516542909679758}
   - component: {fileID: 4344516542909679753}
   - component: {fileID: 4344516542909679752}
@@ -264,16 +267,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c63ab89a99209e4db338c57e52ae8eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 8349523039194520094}
-  moveSpeed: 150
-  yawSpeed: 0.5
-  maxYawSpeed: 3
-  allowYaw: 1
-  constrainPitchAndRoll: 1
-  maintainAltitude: 1
-  maxAltitudeDeviation: 1
-  altitudeRecoveryStrength: 100
-  isOutsideBoundary: 0
+  inputHandler: {fileID: 0}
+  shipRigidbody: {fileID: 0}
+  currentControlMode: 0
+  flightThrustForce: 0
+  flightBreakingDragMultiplier: 0
+  flightRollTorque: 0
+  flightPitchTorque: 0
+--- !u!114 &7370704467041106783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4344516542909679755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ef0d398c11b584fa32849a6f2e90cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1696505992571659813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4344516542909679755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92d53bebfab412146bee0eb81c0c06f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8962891791046067089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4344516542909679755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcfc080b7db86d046bf7b05e1a57b299, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4344516542909679758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,7 +337,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da1a28bd5dc750a4dbae92fab607e274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedPilotIndex: 0
+  selectedPilotIndex: 1
+  lastSelectedCockpitScreen: 5
 --- !u!114 &4344516542909679752
 MonoBehaviour:
   m_ObjectHideFlags: 0

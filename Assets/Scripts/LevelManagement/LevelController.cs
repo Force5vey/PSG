@@ -7,7 +7,7 @@ public class LevelController : MonoBehaviour
      [Header("Level Scripts")]
      public LevelData levelData;
 
-     public CameraFollow cameraFollowScript;
+     public CameraFollowController cameraFollowScript;
 
      [Header("Player Scripts")]
      public PlayerSpawner playerSpawner;
@@ -18,23 +18,23 @@ public class LevelController : MonoBehaviour
 
      private void Start()
      {
-          if (playerSpawner != null && PlayerController.Instance != null)
-          {
-               cameraFollowScript.target = PlayerController.Instance.transform;
-               StartLevel();
-          }
-          else
-          {
-               Debug.LogError("Critical Error at LevelController Start");
-          }
-     }
+      if ( playerSpawner != null && PlayerController.Instance != null )
+      {
+         cameraFollowScript.target = PlayerController.Instance.transform;
+         StartLevel();
+      }
+      else
+      {
+         Debug.LogError("Critical Error at LevelController Start");
+      }
+   }
 
-     /// <summary>
-     /// Focused on standard level starts that happen for every level
-     /// Use Level Data for level specific variables
-     /// Overly specific level logic should be handled in the level specific controller.
-     /// </summary>
-     private void StartLevel()
+   /// <summary>
+   /// Focused on standard level starts that happen for every level
+   /// Use Level Data for level specific variables
+   /// Overly specific level logic should be handled in the level specific controller.
+   /// </summary>
+   private void StartLevel()
      {
           // Activate the player object if it's not already active
           if (!PlayerController.Instance.gameObject.activeSelf)
@@ -47,16 +47,8 @@ public class LevelController : MonoBehaviour
           // Position the player at the spawner's location
           PlayerController.Instance.transform.position = playerSpawner.spawnPosition;
 
-      StartCoroutine(AlignShipRotation(Quaternion.Euler(-90, 0, 0), shipAlignDuration));
-
-      //TODO: The zoom levels should be pulled from LevelData so it can properly zoom to each level's level size.
-      //TODO: When the zoom levels start changing will have to start factoring in an offset for position to align the angled camera.
-
-      StartCoroutine(CameraZoom(new Vector3(0, 0, -800), 1, 2));
-      StartCoroutine(CameraZoom(new Vector3(0, 0, -200), 5, 1));
-
       //Tell the ship to initialize its boundary
-      PlayerController.Instance.playerMovementController.InitializeBoundary();
+      //PlayerController.Instance.playerMovementController.InitializeBoundary();
 
           //Run this last or when ready for level specific controller to initialize
           RunLevelSpecificControllerStartRoutine();
@@ -95,8 +87,7 @@ public class LevelController : MonoBehaviour
 
      private void EndLevel()
      {
-          StartCoroutine(AlignShipRotation(Quaternion.Euler(0, 0, 0), shipAlignDuration));
-
+       
           //TODO: Everything should be 'saved' with the player and game data, but when switching scenes trigger a save to disk game save.
           //this will need to be managed between loading the cockpit scene async and if actually switching levels.
      }
