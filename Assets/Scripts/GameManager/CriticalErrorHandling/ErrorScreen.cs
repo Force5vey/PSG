@@ -18,9 +18,9 @@ public class ErrorScreen : MonoBehaviour
       else
       {
          // Handle the case where no object with PlayerController was found
+         //Shouldn't need to, if not found then its part of the reason we are here.
       }
-
-   }
+         }
    public void QuitGame()
    {
 #if UNITY_EDITOR

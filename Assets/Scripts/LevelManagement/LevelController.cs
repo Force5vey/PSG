@@ -14,6 +14,7 @@ public class LevelController : MonoBehaviour
 
      [Header("Player Effects")]
      [SerializeField] private float shipAlignDuration = 1.0f;
+   //[SerializeField] private Quaternion shipRotation;
 
      private void Start()
      {
@@ -46,14 +47,16 @@ public class LevelController : MonoBehaviour
           // Position the player at the spawner's location
           PlayerController.Instance.transform.position = playerSpawner.spawnPosition;
 
-          StartCoroutine(AlignShipRotation(Quaternion.Euler(-90, 0, 0), shipAlignDuration));
+      StartCoroutine(AlignShipRotation(Quaternion.Euler(-90, 0, 0), shipAlignDuration));
 
-          //TODO: The zoom levels should be pulled from LevelData so it can properly zoom to each level's level size.
-          StartCoroutine(CameraZoom(new Vector3(0, 0, -800), 1, 2));
-          StartCoroutine(CameraZoom(new Vector3(0, 0, -300), 5, 1));
+      //TODO: The zoom levels should be pulled from LevelData so it can properly zoom to each level's level size.
+      //TODO: When the zoom levels start changing will have to start factoring in an offset for position to align the angled camera.
 
-          //Tell the ship to initialize its boundary
-          PlayerController.Instance.playerMovementController.InitializeBoundary();
+      StartCoroutine(CameraZoom(new Vector3(0, 0, -800), 1, 2));
+      StartCoroutine(CameraZoom(new Vector3(0, 0, -200), 5, 1));
+
+      //Tell the ship to initialize its boundary
+      PlayerController.Instance.playerMovementController.InitializeBoundary();
 
           //Run this last or when ready for level specific controller to initialize
           RunLevelSpecificControllerStartRoutine();

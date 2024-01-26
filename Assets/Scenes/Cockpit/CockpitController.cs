@@ -87,20 +87,18 @@ public class CockpitController :MonoBehaviour
    private void OnEnable()
    {
       mainPlayerControls.Enable();
-      mainPlayerControls.PlayerControl.ButtonEast.performed += _ => HandleCloseButton();
+      mainPlayerControls.PlayerControl.ButtonEast.performed += _ => HandleBackButton();
 
    }
    private void OnDisable()
    {
-      CloseCockpit();
-
       mainPlayerControls.Disable();
    }
 
-   private void HandleCloseButton()
+   private void HandleBackButton()
    {
       Debug.Log("CockpitController > HandleCloseButton");
-      CloseCockpit();
+      BackToPreviousScene(SceneController.CoreScene.MainMenu);
    }
 
    private void SubscribeToScreenSelectionEvents()
@@ -161,19 +159,22 @@ public class CockpitController :MonoBehaviour
 
             default:
 
-            // Handle unassigned or default case
+            //TODO: Decide on default / error case
             break;
          }
       }
    }
 
-   public void CloseCockpit()
+
+   //TODO: Update to either have two depending on core or level or break into two methods to separate going to main menu and back to a level
+   //will need to make sure I am sending in a level index when I load the cockpit.
+   public void BackToPreviousScene(SceneController.CoreScene sceneEnum)
    {
       Debug.Log($"CockpitController > CloseCockpit > Pre-Close Screen Manager");
       screenManager.CloseScreenManager();
 
       Debug.Log($"CockpitController > CloseCockpit > Post-Close Screen Manager");
       //Go back to level, for now just go to scene-load of level1_1
-      GameController.Instance.sceneController.LoadNextScene(GameController.Instance.sceneController.sceneData.scenes[4].sceneName);
+      GameController.Instance.sceneController.LoadCoreScene(sceneEnum);
    }
 }

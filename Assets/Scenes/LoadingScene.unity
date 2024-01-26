@@ -1123,8 +1123,27 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2509616118652597627, guid: 8be4226e07cd7eb4aa7ac0ed75311f37, type: 3}
+      propertyPath: sceneTransitionScreen
+      value: 
+      objectReference: {fileID: 1235648513}
+    - target: {fileID: 7928955061279386538, guid: 8be4226e07cd7eb4aa7ac0ed75311f37, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8be4226e07cd7eb4aa7ac0ed75311f37, type: 3}
+--- !u!114 &1235648513 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4296804625745542635, guid: 8be4226e07cd7eb4aa7ac0ed75311f37, type: 3}
+  m_PrefabInstance: {fileID: 1235648512}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 498365a9d82feab4ea45de6661c2115e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1545308690
 GameObject:
   m_ObjectHideFlags: 0
@@ -1157,7 +1176,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1033190753}
-  - {fileID: 1895308065}
   m_Father: {fileID: 1693067056}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1519,82 +1537,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1895308064
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1895308065}
-  - component: {fileID: 1895308067}
-  - component: {fileID: 1895308066}
-  m_Layer: 5
-  m_Name: SceneTransitionColor
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1895308065
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1895308064}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1545308691}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1895308066
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1895308064}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1895308067
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1895308064}
-  m_CullTransparentMesh: 1
 --- !u!1001 &6514858994548896054
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1702,7 +1644,7 @@ PrefabInstance:
     - target: {fileID: 8990212482569380525, guid: 157510a9ecd1a284aaeb195a1fc9151a, type: 3}
       propertyPath: sceneTransitionImage
       value: 
-      objectReference: {fileID: 1895308066}
+      objectReference: {fileID: 0}
     - target: {fileID: 8990212482569380525, guid: 157510a9ecd1a284aaeb195a1fc9151a, type: 3}
       propertyPath: notificationCanvasGroup
       value: 

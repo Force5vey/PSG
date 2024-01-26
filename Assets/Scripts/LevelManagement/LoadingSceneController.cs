@@ -22,14 +22,9 @@ public class LoadingSceneController : MonoBehaviour
    [SerializeField] private TextMeshProUGUI leftButtonText;
    [SerializeField] private TextMeshProUGUI rightButtonText;
 
-   [Header("Scene Transition")]
-   [SerializeField] private Image sceneTransitionImage;
-   [SerializeField] private float fadeDuration;
-
-
    private void Awake()
    {
-      //ensure Notification group and text is hidden and empty in-case something was left on in the unity editor.
+      //ensure Notification group and text is hidden and empty in case something was left on in the unity editor.
       notificationCanvasGroup.gameObject.SetActive(false);
       messageText.text = string.Empty;
    }
@@ -68,29 +63,13 @@ public class LoadingSceneController : MonoBehaviour
    private void HandleSuccessfulLoad()
    {
       notificationCanvasGroup.gameObject.SetActive(false);
-      StartCoroutine(FadeOutScene(fadeDuration));
+
+      GameController.Instance.sceneController.LoadCoreScene(SceneController.CoreScene.MainMenu);
    }
 
    private void OnDestroy()
    {
       GameController.Instance.dataController.onLoadingError.RemoveAllListeners();
-   }
-
-   private IEnumerator FadeOutScene(float duration)
-   {
-      float currentTime = 0f;
-      Color startColor = sceneTransitionImage.color;
-
-      while (currentTime < duration)
-      {
-         float alpha = Mathf.Lerp(0.0f, 1.0f, currentTime / duration);
-         sceneTransitionImage.color = new Color(startColor.r, startColor.g, startColor.b, alpha);
-         currentTime += Time.deltaTime;
-
-         yield return null;
-      }
-
-      GameController.Instance.sceneController.LoadNextScene(GameController.Instance.sceneController.sceneData.scenes[2].sceneName);
    }
 
    private void InitiateGameLoadSequence()
@@ -111,10 +90,8 @@ public class LoadingSceneController : MonoBehaviour
    public void QuitGame()
    {
 #if UNITY_EDITOR
-      // This will only be compiled and executed in the Unity Editor
       UnityEditor.EditorApplication.isPlaying = false;
 #else
-    // This code will run in a built game
     Application.Quit();
 #endif
    }

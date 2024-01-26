@@ -48,7 +48,7 @@ public class MapScreenController : MonoBehaviour, ICockpitScreenController
       mapPanel.SetActive(true);
 
       //TODO: Only for testing to go to level while designing cockpit.
-      GameController.Instance.sceneController.LoadNextScene("Level1_1");
+      GameController.Instance.sceneController.LoadLevelByIndex(GameController.Instance.sceneController.sceneData.scenes[4].sceneIndex);
    }
 
    public void CloseScreen()

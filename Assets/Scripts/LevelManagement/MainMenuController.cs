@@ -31,10 +31,6 @@ public class MainMenuController :MonoBehaviour
    [SerializeField] private GameObject selectPilotButton;
    [SerializeField] private GameObject optionsButton;
 
-   [Header("Transition Effects")]
-   [SerializeField] private Image sceneTransitionColor;
-   [SerializeField] private float fadeDuration;
-
    [Header("Pilot Selection Panel")]
    [SerializeField] private GameObject pilotSelectionPanel;
    [SerializeField] private CanvasGroup pilotSelectionGroup;
@@ -44,7 +40,6 @@ public class MainMenuController :MonoBehaviour
 
    private void Awake()
    {
-      sceneTransitionColor.color = new Color(sceneTransitionColor.color.r, sceneTransitionColor.color.g, sceneTransitionColor.color.b, 1f);
       pilotSelectionPanel.SetActive(false);
 
       inputActions = new MainPlayerControls();
@@ -55,9 +50,6 @@ public class MainMenuController :MonoBehaviour
    {
       verifyCloseMessagePanel.SetActive(false);
       titleText.color = GameController.Instance.uiController.textColorEnabled;
-
-
-      StartCoroutine(FadeIn(fadeDuration));
 
    }
 
@@ -81,24 +73,6 @@ public class MainMenuController :MonoBehaviour
       inputActions.PlayerControl.ButtonEast.performed -= CancelButton_Click;
       inputActions.Disable();
    }
-
-
-   IEnumerator FadeIn( float duration )
-   {
-      float currentTime = 0f;
-      Color startColor = sceneTransitionColor.color;
-
-      while ( currentTime < duration )
-      {
-         float alpha = Mathf.Lerp(1.0f, 0.0f, currentTime / duration);
-         sceneTransitionColor.color = new Color(startColor.r, startColor.g, startColor.b, alpha);
-         currentTime += Time.deltaTime;
-         yield return null;
-      }
-
-      sceneTransitionColor.color = new Color(startColor.r, startColor.g, startColor.b, 0.0f);
-   }
-
 
    public void ExecuteButtonAction( string buttonActionName )
    {
@@ -178,7 +152,7 @@ public class MainMenuController :MonoBehaviour
    private void OnLaunchGame_Click()
    {
       //Launch into the cockpit...the central game navigation environment.
-      GameController.Instance.sceneController.LoadNextScene(GameController.Instance.sceneController.sceneData.scenes[3].sceneName);
+      GameController.Instance.sceneController.LoadCoreScene(SceneController.CoreScene.Cockpit);
 
    }
 
@@ -199,7 +173,7 @@ public class MainMenuController :MonoBehaviour
 
    private void OnQuitYesButton_Click()
    {
-      //TODO: This needs to be centralized to avoid duplication for the ingame pause menu (I might make it so you go to the main menu then quit).
+      //TODO: This needs to be centralized to avoid duplication for the in game pause menu (I might make it so you go to the main menu then quit).
       //TODO: Make sure any save functions are called first.
 
       //#if UNITY_EDITOR

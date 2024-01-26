@@ -1,3 +1,5 @@
+using Unity.VisualScripting;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,6 +13,7 @@ public class GameController :MonoBehaviour
    public DataController dataController;
    public SceneController sceneController;
    public UIController uiController;
+   public SceneTransitionScreen sceneTransitionScreen;
 
 
    private void Awake()
@@ -24,8 +27,6 @@ public class GameController :MonoBehaviour
       {
          Destroy(gameObject);
       }
+      sceneTransitionScreen.HideLoadingScreen();
    }
-
-
-
 }

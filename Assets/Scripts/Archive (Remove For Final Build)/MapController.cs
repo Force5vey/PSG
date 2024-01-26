@@ -77,7 +77,7 @@ public class MapController : MonoBehaviour
 
     private void OnWorld1_1_Click()
     {
-        GameController.Instance.sceneController.LoadNextScene(GameController.Instance.sceneController.sceneData.scenes[3].sceneName);
+        GameController.Instance.sceneController.LoadLevelByIndex(GameController.Instance.sceneController.sceneData.scenes[3].sceneIndex);
     }
 
     private void OnNavigateButton_Click()
@@ -94,7 +94,7 @@ public class MapController : MonoBehaviour
 
     private void OnMapBackButton_Click()
     {
-        GameController.Instance.sceneController.LoadNextScene(GameController.Instance.sceneController.sceneData.scenes[1].sceneName);
+        //GameController.Instance.sceneController.LoadNextScene(GameController.Instance.sceneController.sceneData.scenes[1].sceneName);
     }
 
     IEnumerator ZoomOut(GameObject zoomTarget)

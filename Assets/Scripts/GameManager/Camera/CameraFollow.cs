@@ -1,75 +1,102 @@
 using System.Collections;
+
 using UnityEngine;
 
-public class CameraFollow : MonoBehaviour
+public class CameraFollow :MonoBehaviour
 {
-    [HideInInspector] public Transform target;
+   [HideInInspector] public Transform target;
 
-    public float smoothSpeed = 0.125f;
-    public Vector3 offset;
-    public float deadZoneRadius = 1f;
+   public float smoothSpeed = 0.125f;
+   public Vector3 offset;
+   public float deadZoneRadius = 1f;
 
-    private Vector3 targetOffset;
-    private float zoomSpeed;
-    private bool isZooming;
+   private Vector3 targetOffset;
+   private float zoomSpeed;
+   private bool isZooming;
 
-    private Coroutine currentZoomCoroutine;
+   private Coroutine currentZoomCoroutine;
 
-    private void Start()
-    {
-        if (target != null)
-        {
-            transform.position = offset;
-            targetOffset = offset;
-        }
-    }
+   private void Start()
+   {
+      if ( target != null )
+      {
+         transform.position = offset;
+         targetOffset = offset;
+      }
+   }
 
-    void LateUpdate()
-    {
-        if (target == null) return;
+   //void LateUpdate()
+   //{
+   //   if ( target == null )
+   //      return;
 
-        transform.position = new Vector3(transform.position.x, transform.position.y, offset.z);
+   //   transform.position = new Vector3(transform.position.x, transform.position.y + offset.y, offset.z);
 
-        Vector3 targetPositionWithoutZOffset = new Vector3(target.position.x, target.position.y, offset.z);
-        Vector3 cameraPositionWithoutZOffset = new Vector3(transform.position.x, transform.position.y, offset.z);
+   //   Vector3 targetPositionWithoutZOffset = new Vector3(target.position.x, transform.position.y + offset.y, offset.z);
+   //   Vector3 cameraPositionWithoutZOffset = new Vector3(transform.position.x, transform.position.y + offset.y, offset.z);
 
-        // Calculate the distance in the X and Y plane
-        Vector3 cameraToTargetXY = targetPositionWithoutZOffset - cameraPositionWithoutZOffset;
+   //   // Calculate the distance in the X and Y plane
+   //   Vector3 cameraToTargetXY = targetPositionWithoutZOffset - cameraPositionWithoutZOffset;
 
-        // Check if the target is outside the dead zone in the X and Y plane
-        if (cameraToTargetXY.magnitude > deadZoneRadius)
-        {
-            // Calculate new X and Y positions for the camera
-            Vector3 newPositionXY = Vector3.Lerp(cameraPositionWithoutZOffset, targetPositionWithoutZOffset, smoothSpeed * Time.deltaTime);
+   //   // Check if the target is outside the dead zone in the X and Y plane
+   //   if ( cameraToTargetXY.magnitude > deadZoneRadius )
+   //   {
+   //      // Calculate new X and Y positions for the camera
+   //      Vector3 newPositionXY = Vector3.Lerp(cameraPositionWithoutZOffset, targetPositionWithoutZOffset, smoothSpeed * Time.deltaTime);
 
-            // Update the camera's position
-            transform.position = new Vector3(newPositionXY.x, newPositionXY.y, offset.z); // Maintain static Z
-        }
+   //      // Update the camera's position
+   //      transform.position = new Vector3(newPositionXY.x, newPositionXY.y + offset.y, offset.z); // Maintain static Z
+   //   }
 
-    }
+   //}
 
-    public void StartZoom(Vector3 newOffset, float zoomDuration)
-    {        
-        if (currentZoomCoroutine != null)
-        {
-            StopCoroutine(currentZoomCoroutine);
-        }
-        currentZoomCoroutine = StartCoroutine(ZoomToOffset(newOffset, zoomDuration));
-    }
+   void LateUpdate()
+   {
+      if ( target == null )
+         return;
 
-    private IEnumerator ZoomToOffset(Vector3 newOffset, float duration)
-    {
-        float time = 0;
-        Vector3 startOffset = offset;
+      transform.position = new Vector3(transform.position.x, transform.position.y, offset.z);
 
-        while (time < duration)
-        {
-            time += Time.deltaTime;
-            offset = Vector3.Lerp(startOffset, newOffset, time / duration);
+      Vector3 targetPositionWithoutZOffset = new Vector3(target.position.x, target.position.y, offset.z);
+      Vector3 cameraPositionWithoutZOffset = new Vector3(transform.position.x, transform.position.y, offset.z);
 
-            yield return null;
-        }
+      // Calculate the distance in the X and Y plane
+      Vector3 cameraToTargetXY = targetPositionWithoutZOffset - cameraPositionWithoutZOffset;
 
-        offset = newOffset;
-    }
+      // Check if the target is outside the dead zone in the X and Y plane
+      if ( cameraToTargetXY.magnitude > deadZoneRadius )
+      {
+         // Calculate new X and Y positions for the camera
+         Vector3 newPositionXY = Vector3.Lerp(cameraPositionWithoutZOffset, targetPositionWithoutZOffset, smoothSpeed * Time.deltaTime);
+
+         // Update the camera's position
+         transform.position = new Vector3(newPositionXY.x, newPositionXY.y, offset.z); // Maintain static Z
+      }
+
+   }
+
+   public void StartZoom( Vector3 newOffset, float zoomDuration )
+   {
+      if ( currentZoomCoroutine != null )
+      {
+         StopCoroutine(currentZoomCoroutine);
+      }
+      currentZoomCoroutine = StartCoroutine(ZoomToOffset(newOffset, zoomDuration));
+   }
+
+   private IEnumerator ZoomToOffset( Vector3 newOffset, float duration )
+   {
+      float time = 0;
+      Vector3 startOffset = offset;
+
+      while ( time < duration )
+      {
+         time += Time.deltaTime;
+         offset = Vector3.Lerp(startOffset, newOffset, time / duration);
+
+         yield return null;
+      }
+
+      offset = newOffset;
+   }
 }

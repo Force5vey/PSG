@@ -1,12 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
-
-using Unity.VisualScripting;
-
-using UnityEditor.Experimental.GraphView;
 
 using UnityEngine;
-using UnityEngine.InputSystem.XR;
 using UnityEngine.SceneManagement;
 
 public class LoadingDependencyChecker :MonoBehaviour
@@ -21,13 +15,12 @@ public class LoadingDependencyChecker :MonoBehaviour
    private IEnumerator CheckDependencies()
    {
       // Initial delay before the first check
-      yield return new WaitForSeconds(5);
-      LoadingSceneController loadingScene = GetComponent<LoadingSceneController>();
-
-      if(GameController.Instance == null || loadingScene == null)
+      yield return new WaitForSeconds(2);
+      if ( GameController.Instance == null )
       {
-         HandleCriticalError("Critical Error, Shutting Down");
+         HandleCriticalError("Critical Error.");
       }
+
       yield return null;
    }
 
