@@ -15,7 +15,7 @@ public class LoadingDependencyChecker :MonoBehaviour
    private IEnumerator CheckDependencies()
    {
       // Initial delay before the first check
-      yield return new WaitForSeconds(2);
+      yield return new WaitForSeconds(10);
       if ( GameController.Instance == null )
       {
          HandleCriticalError("Critical Error.");

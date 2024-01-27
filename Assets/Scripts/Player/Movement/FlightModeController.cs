@@ -106,7 +106,7 @@ public class FlightModeController :MonoBehaviour
 
    private void ProcessFlightModeThrust()
    {
-      float totalThrust = inFastMode ? fastThrustForce : slowThrustForce;
+      float totalThrust = inFastMode ? fastThrustForce*2 : slowThrustForce;
 
       shipRigidbody.AddForce(currentRightTriggerInput * totalThrust * transform.forward, ForceMode.Acceleration);
    }

@@ -1,7 +1,4 @@
-using Unity.VisualScripting;
-
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameController :MonoBehaviour
 {
@@ -14,6 +11,7 @@ public class GameController :MonoBehaviour
    public SceneController sceneController;
    public UIController uiController;
    public SceneTransitionScreen sceneTransitionScreen;
+   public InputLogger inputlogger;
 
 
    private void Awake()

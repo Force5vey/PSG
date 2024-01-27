@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7911ff0dc1011447a2df0d34423423c, type: 3}
+  m_Name: 27_Jan_PSG_Notes
+  m_EditorClassIdentifier: 
+  notes:
+  - creationDate: 27_Jan - 05:59
+    title: 
+    category: 1
+    completed: 0
+    priority: 3
+    status: 0
+    dependencies: 
+    text: 
+    fileName: Assets/Scenes/Cockpit/CockpitScreenInfo.cs
+    lineNumber: 0
+    isExpanded: 1
+  - creationDate: 27_Jan - 05:59
+    title: 
+    category: 2
+    completed: 0
+    priority: 2
+    status: 0
+    dependencies: 
+    text: 
+    fileName: 
+    lineNumber: 0
+    isExpanded: 1
+  - creationDate: 27_Jan - 05:59
+    title: 
+    category: 3
+    completed: 0
+    priority: 1
+    status: 0
+    dependencies: 
+    text: 
+    fileName: 
+    lineNumber: 0
+    isExpanded: 1
+  - creationDate: 27_Jan - 05:59
+    title: 
+    category: 0
+    completed: 0
+    priority: 0
+    status: 0
+    dependencies: 
+    text: 
+    fileName: 
+    lineNumber: 0
+    isExpanded: 1
+  - creationDate: 27_Jan - 05:59
+    title: 
+    category: 0
+    completed: 0
+    priority: 0
+    status: 0
+    dependencies: 
+    text: 
+    fileName: 
+    lineNumber: 0
+    isExpanded: 1

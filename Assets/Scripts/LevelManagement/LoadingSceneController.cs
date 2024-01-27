@@ -1,13 +1,7 @@
-using System.Collections;
-using System.Runtime.CompilerServices;
-
 using TMPro;
-
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem.XR;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LoadingSceneController : MonoBehaviour

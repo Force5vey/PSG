@@ -1,9 +1,3 @@
-using System;
-using System.Collections;
-using System.Runtime.CompilerServices;
-
-using UnityEditor.PackageManager;
-
 using UnityEngine;
 
 public class PlayerMovementController :MonoBehaviour

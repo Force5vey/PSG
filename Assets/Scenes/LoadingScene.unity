@@ -1138,7 +1138,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4296804625745542635, guid: 8be4226e07cd7eb4aa7ac0ed75311f37, type: 3}
   m_PrefabInstance: {fileID: 1235648512}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1235648515}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 498365a9d82feab4ea45de6661c2115e, type: 3}
@@ -1149,10 +1149,27 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2509616118652597620, guid: 8be4226e07cd7eb4aa7ac0ed75311f37, type: 3}
   m_PrefabInstance: {fileID: 1235648512}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1235648515}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7076b2b33017804faa604e58190fffd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1235648515 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2509616118652597616, guid: 8be4226e07cd7eb4aa7ac0ed75311f37, type: 3}
+  m_PrefabInstance: {fileID: 1235648512}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1235648516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235648515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04bfa1f1bd90ac54fb79ec9319fbbc5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1545308690
@@ -1389,7 +1406,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
       propertyPath: fastDefaultDrag
-      value: 0.5
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
       propertyPath: fastPitchTorque
@@ -1405,7 +1422,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
       propertyPath: slowDefaultDrag
-      value: 0.1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
       propertyPath: slowPitchTorque
@@ -1417,7 +1434,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
       propertyPath: fastBrakingForce
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
       propertyPath: flightPulseForce
@@ -1429,7 +1446,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
       propertyPath: slowBrakingForce
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
       propertyPath: flightPitchTorque
