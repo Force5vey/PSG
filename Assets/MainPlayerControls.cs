@@ -37,6 +37,15 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""L3"",
+                    ""type"": ""Button"",
+                    ""id"": ""e2bc1694-f61b-4cdf-8639-47b56c8909fa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""RightStick"",
                     ""type"": ""Value"",
                     ""id"": ""e4710576-bf22-4585-aac4-70920752ed8a"",
@@ -44,6 +53,15 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""R3"",
+                    ""type"": ""Button"",
+                    ""id"": ""dd6bc191-a9a8-47b0-ab13-e3e739a55259"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""LeftTrigger"",
@@ -64,42 +82,6 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""ButtonSouth"",
-                    ""type"": ""Button"",
-                    ""id"": ""92c87bd9-3006-4896-be03-bfb3b10bb43e"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ButtonNorth"",
-                    ""type"": ""Button"",
-                    ""id"": ""e8689b59-1031-4aa8-bc54-7b00220b2acb"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ButtonWest"",
-                    ""type"": ""Button"",
-                    ""id"": ""2600cf12-6637-483f-9663-af584f8750ba"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ButtonEast"",
-                    ""type"": ""Button"",
-                    ""id"": ""30bc61ab-9800-4b40-8b0a-a0255605723e"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""LeftShoulder"",
                     ""type"": ""Button"",
                     ""id"": ""aade8aed-05d6-473b-a1a9-f71a93e457bd"",
@@ -116,6 +98,69 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""D-Pad"",
+                    ""type"": ""Value"",
+                    ""id"": ""1da9c23a-e9f9-4d1b-9786-c5ebe8b12a5a"",
+                    ""expectedControlType"": ""Dpad"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SouthButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""92c87bd9-3006-4896-be03-bfb3b10bb43e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NorthButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""e8689b59-1031-4aa8-bc54-7b00220b2acb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EastButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""30bc61ab-9800-4b40-8b0a-a0255605723e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""WestButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""2600cf12-6637-483f-9663-af584f8750ba"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""fc7cabbe-0336-428a-88da-c9100ca9d117"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Menu"",
+                    ""type"": ""Button"",
+                    ""id"": ""8d81cd4b-903a-466d-b2f4-094f9df93001"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -126,7 +171,7 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ButtonSouth"",
+                    ""action"": ""SouthButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -137,7 +182,7 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ButtonNorth"",
+                    ""action"": ""NorthButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -148,18 +193,7 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ButtonWest"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c90ab411-2179-4348-a3a2-6cbb7b62c649"",
-                    ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ButtonEast"",
+                    ""action"": ""WestButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -319,6 +353,39 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""c90ab411-2179-4348-a3a2-6cbb7b62c649"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EastButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""30c9de80-e411-4494-97b7-b805c2332180"",
+                    ""path"": ""<Gamepad>/leftStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""L3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e21b4ad1-4652-4445-8c6b-54642ab02ecc"",
+                    ""path"": ""<Gamepad>/rightStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""R3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""8acdfa8d-bb87-4e06-ab92-0fd5452e7141"",
                     ""path"": ""<Gamepad>/leftShoulder"",
                     ""interactions"": """",
@@ -336,6 +403,39 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""RightShoulder"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e73e9962-d8d1-43bf-bb64-ab8b5b44eab8"",
+                    ""path"": ""<Gamepad>/dpad"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""D-Pad"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aa9aa063-c1bc-4366-b43b-1a520b6e6034"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2ccbe4c5-6be1-4684-9838-ef7f1b2dba22"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Menu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -443,15 +543,20 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
         // PlayerControl
         m_PlayerControl = asset.FindActionMap("PlayerControl", throwIfNotFound: true);
         m_PlayerControl_LeftStick = m_PlayerControl.FindAction("LeftStick", throwIfNotFound: true);
+        m_PlayerControl_L3 = m_PlayerControl.FindAction("L3", throwIfNotFound: true);
         m_PlayerControl_RightStick = m_PlayerControl.FindAction("RightStick", throwIfNotFound: true);
+        m_PlayerControl_R3 = m_PlayerControl.FindAction("R3", throwIfNotFound: true);
         m_PlayerControl_LeftTrigger = m_PlayerControl.FindAction("LeftTrigger", throwIfNotFound: true);
         m_PlayerControl_RightTrigger = m_PlayerControl.FindAction("RightTrigger", throwIfNotFound: true);
-        m_PlayerControl_ButtonSouth = m_PlayerControl.FindAction("ButtonSouth", throwIfNotFound: true);
-        m_PlayerControl_ButtonNorth = m_PlayerControl.FindAction("ButtonNorth", throwIfNotFound: true);
-        m_PlayerControl_ButtonWest = m_PlayerControl.FindAction("ButtonWest", throwIfNotFound: true);
-        m_PlayerControl_ButtonEast = m_PlayerControl.FindAction("ButtonEast", throwIfNotFound: true);
         m_PlayerControl_LeftShoulder = m_PlayerControl.FindAction("LeftShoulder", throwIfNotFound: true);
         m_PlayerControl_RightShoulder = m_PlayerControl.FindAction("RightShoulder", throwIfNotFound: true);
+        m_PlayerControl_DPad = m_PlayerControl.FindAction("D-Pad", throwIfNotFound: true);
+        m_PlayerControl_SouthButton = m_PlayerControl.FindAction("SouthButton", throwIfNotFound: true);
+        m_PlayerControl_NorthButton = m_PlayerControl.FindAction("NorthButton", throwIfNotFound: true);
+        m_PlayerControl_EastButton = m_PlayerControl.FindAction("EastButton", throwIfNotFound: true);
+        m_PlayerControl_WestButton = m_PlayerControl.FindAction("WestButton", throwIfNotFound: true);
+        m_PlayerControl_Pause = m_PlayerControl.FindAction("Pause", throwIfNotFound: true);
+        m_PlayerControl_Menu = m_PlayerControl.FindAction("Menu", throwIfNotFound: true);
         // GameControl
         m_GameControl = asset.FindActionMap("GameControl", throwIfNotFound: true);
         m_GameControl_Pause = m_GameControl.FindAction("Pause", throwIfNotFound: true);
@@ -522,29 +627,39 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_PlayerControl;
     private List<IPlayerControlActions> m_PlayerControlActionsCallbackInterfaces = new List<IPlayerControlActions>();
     private readonly InputAction m_PlayerControl_LeftStick;
+    private readonly InputAction m_PlayerControl_L3;
     private readonly InputAction m_PlayerControl_RightStick;
+    private readonly InputAction m_PlayerControl_R3;
     private readonly InputAction m_PlayerControl_LeftTrigger;
     private readonly InputAction m_PlayerControl_RightTrigger;
-    private readonly InputAction m_PlayerControl_ButtonSouth;
-    private readonly InputAction m_PlayerControl_ButtonNorth;
-    private readonly InputAction m_PlayerControl_ButtonWest;
-    private readonly InputAction m_PlayerControl_ButtonEast;
     private readonly InputAction m_PlayerControl_LeftShoulder;
     private readonly InputAction m_PlayerControl_RightShoulder;
+    private readonly InputAction m_PlayerControl_DPad;
+    private readonly InputAction m_PlayerControl_SouthButton;
+    private readonly InputAction m_PlayerControl_NorthButton;
+    private readonly InputAction m_PlayerControl_EastButton;
+    private readonly InputAction m_PlayerControl_WestButton;
+    private readonly InputAction m_PlayerControl_Pause;
+    private readonly InputAction m_PlayerControl_Menu;
     public struct PlayerControlActions
     {
         private @MainPlayerControls m_Wrapper;
         public PlayerControlActions(@MainPlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @LeftStick => m_Wrapper.m_PlayerControl_LeftStick;
+        public InputAction @L3 => m_Wrapper.m_PlayerControl_L3;
         public InputAction @RightStick => m_Wrapper.m_PlayerControl_RightStick;
+        public InputAction @R3 => m_Wrapper.m_PlayerControl_R3;
         public InputAction @LeftTrigger => m_Wrapper.m_PlayerControl_LeftTrigger;
         public InputAction @RightTrigger => m_Wrapper.m_PlayerControl_RightTrigger;
-        public InputAction @ButtonSouth => m_Wrapper.m_PlayerControl_ButtonSouth;
-        public InputAction @ButtonNorth => m_Wrapper.m_PlayerControl_ButtonNorth;
-        public InputAction @ButtonWest => m_Wrapper.m_PlayerControl_ButtonWest;
-        public InputAction @ButtonEast => m_Wrapper.m_PlayerControl_ButtonEast;
         public InputAction @LeftShoulder => m_Wrapper.m_PlayerControl_LeftShoulder;
         public InputAction @RightShoulder => m_Wrapper.m_PlayerControl_RightShoulder;
+        public InputAction @DPad => m_Wrapper.m_PlayerControl_DPad;
+        public InputAction @SouthButton => m_Wrapper.m_PlayerControl_SouthButton;
+        public InputAction @NorthButton => m_Wrapper.m_PlayerControl_NorthButton;
+        public InputAction @EastButton => m_Wrapper.m_PlayerControl_EastButton;
+        public InputAction @WestButton => m_Wrapper.m_PlayerControl_WestButton;
+        public InputAction @Pause => m_Wrapper.m_PlayerControl_Pause;
+        public InputAction @Menu => m_Wrapper.m_PlayerControl_Menu;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControl; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -557,33 +672,48 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
             @LeftStick.started += instance.OnLeftStick;
             @LeftStick.performed += instance.OnLeftStick;
             @LeftStick.canceled += instance.OnLeftStick;
+            @L3.started += instance.OnL3;
+            @L3.performed += instance.OnL3;
+            @L3.canceled += instance.OnL3;
             @RightStick.started += instance.OnRightStick;
             @RightStick.performed += instance.OnRightStick;
             @RightStick.canceled += instance.OnRightStick;
+            @R3.started += instance.OnR3;
+            @R3.performed += instance.OnR3;
+            @R3.canceled += instance.OnR3;
             @LeftTrigger.started += instance.OnLeftTrigger;
             @LeftTrigger.performed += instance.OnLeftTrigger;
             @LeftTrigger.canceled += instance.OnLeftTrigger;
             @RightTrigger.started += instance.OnRightTrigger;
             @RightTrigger.performed += instance.OnRightTrigger;
             @RightTrigger.canceled += instance.OnRightTrigger;
-            @ButtonSouth.started += instance.OnButtonSouth;
-            @ButtonSouth.performed += instance.OnButtonSouth;
-            @ButtonSouth.canceled += instance.OnButtonSouth;
-            @ButtonNorth.started += instance.OnButtonNorth;
-            @ButtonNorth.performed += instance.OnButtonNorth;
-            @ButtonNorth.canceled += instance.OnButtonNorth;
-            @ButtonWest.started += instance.OnButtonWest;
-            @ButtonWest.performed += instance.OnButtonWest;
-            @ButtonWest.canceled += instance.OnButtonWest;
-            @ButtonEast.started += instance.OnButtonEast;
-            @ButtonEast.performed += instance.OnButtonEast;
-            @ButtonEast.canceled += instance.OnButtonEast;
             @LeftShoulder.started += instance.OnLeftShoulder;
             @LeftShoulder.performed += instance.OnLeftShoulder;
             @LeftShoulder.canceled += instance.OnLeftShoulder;
             @RightShoulder.started += instance.OnRightShoulder;
             @RightShoulder.performed += instance.OnRightShoulder;
             @RightShoulder.canceled += instance.OnRightShoulder;
+            @DPad.started += instance.OnDPad;
+            @DPad.performed += instance.OnDPad;
+            @DPad.canceled += instance.OnDPad;
+            @SouthButton.started += instance.OnSouthButton;
+            @SouthButton.performed += instance.OnSouthButton;
+            @SouthButton.canceled += instance.OnSouthButton;
+            @NorthButton.started += instance.OnNorthButton;
+            @NorthButton.performed += instance.OnNorthButton;
+            @NorthButton.canceled += instance.OnNorthButton;
+            @EastButton.started += instance.OnEastButton;
+            @EastButton.performed += instance.OnEastButton;
+            @EastButton.canceled += instance.OnEastButton;
+            @WestButton.started += instance.OnWestButton;
+            @WestButton.performed += instance.OnWestButton;
+            @WestButton.canceled += instance.OnWestButton;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
+            @Menu.started += instance.OnMenu;
+            @Menu.performed += instance.OnMenu;
+            @Menu.canceled += instance.OnMenu;
         }
 
         private void UnregisterCallbacks(IPlayerControlActions instance)
@@ -591,33 +721,48 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
             @LeftStick.started -= instance.OnLeftStick;
             @LeftStick.performed -= instance.OnLeftStick;
             @LeftStick.canceled -= instance.OnLeftStick;
+            @L3.started -= instance.OnL3;
+            @L3.performed -= instance.OnL3;
+            @L3.canceled -= instance.OnL3;
             @RightStick.started -= instance.OnRightStick;
             @RightStick.performed -= instance.OnRightStick;
             @RightStick.canceled -= instance.OnRightStick;
+            @R3.started -= instance.OnR3;
+            @R3.performed -= instance.OnR3;
+            @R3.canceled -= instance.OnR3;
             @LeftTrigger.started -= instance.OnLeftTrigger;
             @LeftTrigger.performed -= instance.OnLeftTrigger;
             @LeftTrigger.canceled -= instance.OnLeftTrigger;
             @RightTrigger.started -= instance.OnRightTrigger;
             @RightTrigger.performed -= instance.OnRightTrigger;
             @RightTrigger.canceled -= instance.OnRightTrigger;
-            @ButtonSouth.started -= instance.OnButtonSouth;
-            @ButtonSouth.performed -= instance.OnButtonSouth;
-            @ButtonSouth.canceled -= instance.OnButtonSouth;
-            @ButtonNorth.started -= instance.OnButtonNorth;
-            @ButtonNorth.performed -= instance.OnButtonNorth;
-            @ButtonNorth.canceled -= instance.OnButtonNorth;
-            @ButtonWest.started -= instance.OnButtonWest;
-            @ButtonWest.performed -= instance.OnButtonWest;
-            @ButtonWest.canceled -= instance.OnButtonWest;
-            @ButtonEast.started -= instance.OnButtonEast;
-            @ButtonEast.performed -= instance.OnButtonEast;
-            @ButtonEast.canceled -= instance.OnButtonEast;
             @LeftShoulder.started -= instance.OnLeftShoulder;
             @LeftShoulder.performed -= instance.OnLeftShoulder;
             @LeftShoulder.canceled -= instance.OnLeftShoulder;
             @RightShoulder.started -= instance.OnRightShoulder;
             @RightShoulder.performed -= instance.OnRightShoulder;
             @RightShoulder.canceled -= instance.OnRightShoulder;
+            @DPad.started -= instance.OnDPad;
+            @DPad.performed -= instance.OnDPad;
+            @DPad.canceled -= instance.OnDPad;
+            @SouthButton.started -= instance.OnSouthButton;
+            @SouthButton.performed -= instance.OnSouthButton;
+            @SouthButton.canceled -= instance.OnSouthButton;
+            @NorthButton.started -= instance.OnNorthButton;
+            @NorthButton.performed -= instance.OnNorthButton;
+            @NorthButton.canceled -= instance.OnNorthButton;
+            @EastButton.started -= instance.OnEastButton;
+            @EastButton.performed -= instance.OnEastButton;
+            @EastButton.canceled -= instance.OnEastButton;
+            @WestButton.started -= instance.OnWestButton;
+            @WestButton.performed -= instance.OnWestButton;
+            @WestButton.canceled -= instance.OnWestButton;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
+            @Menu.started -= instance.OnMenu;
+            @Menu.performed -= instance.OnMenu;
+            @Menu.canceled -= instance.OnMenu;
         }
 
         public void RemoveCallbacks(IPlayerControlActions instance)
@@ -746,15 +891,20 @@ public partial class @MainPlayerControls: IInputActionCollection2, IDisposable
     public interface IPlayerControlActions
     {
         void OnLeftStick(InputAction.CallbackContext context);
+        void OnL3(InputAction.CallbackContext context);
         void OnRightStick(InputAction.CallbackContext context);
+        void OnR3(InputAction.CallbackContext context);
         void OnLeftTrigger(InputAction.CallbackContext context);
         void OnRightTrigger(InputAction.CallbackContext context);
-        void OnButtonSouth(InputAction.CallbackContext context);
-        void OnButtonNorth(InputAction.CallbackContext context);
-        void OnButtonWest(InputAction.CallbackContext context);
-        void OnButtonEast(InputAction.CallbackContext context);
         void OnLeftShoulder(InputAction.CallbackContext context);
         void OnRightShoulder(InputAction.CallbackContext context);
+        void OnDPad(InputAction.CallbackContext context);
+        void OnSouthButton(InputAction.CallbackContext context);
+        void OnNorthButton(InputAction.CallbackContext context);
+        void OnEastButton(InputAction.CallbackContext context);
+        void OnWestButton(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
+        void OnMenu(InputAction.CallbackContext context);
     }
     public interface IGameControlActions
     {

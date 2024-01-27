@@ -15,6 +15,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "L3",
+                    "type": "Button",
+                    "id": "e2bc1694-f61b-4cdf-8639-47b56c8909fa",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "RightStick",
                     "type": "Value",
                     "id": "e4710576-bf22-4585-aac4-70920752ed8a",
@@ -22,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "R3",
+                    "type": "Button",
+                    "id": "dd6bc191-a9a8-47b0-ab13-e3e739a55259",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "LeftTrigger",
@@ -42,42 +60,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "ButtonSouth",
-                    "type": "Button",
-                    "id": "92c87bd9-3006-4896-be03-bfb3b10bb43e",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ButtonNorth",
-                    "type": "Button",
-                    "id": "e8689b59-1031-4aa8-bc54-7b00220b2acb",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ButtonWest",
-                    "type": "Button",
-                    "id": "2600cf12-6637-483f-9663-af584f8750ba",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ButtonEast",
-                    "type": "Button",
-                    "id": "30bc61ab-9800-4b40-8b0a-a0255605723e",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "LeftShoulder",
                     "type": "Button",
                     "id": "aade8aed-05d6-473b-a1a9-f71a93e457bd",
@@ -94,6 +76,69 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "D-Pad",
+                    "type": "Value",
+                    "id": "1da9c23a-e9f9-4d1b-9786-c5ebe8b12a5a",
+                    "expectedControlType": "Dpad",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "SouthButton",
+                    "type": "Button",
+                    "id": "92c87bd9-3006-4896-be03-bfb3b10bb43e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "NorthButton",
+                    "type": "Button",
+                    "id": "e8689b59-1031-4aa8-bc54-7b00220b2acb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "EastButton",
+                    "type": "Button",
+                    "id": "30bc61ab-9800-4b40-8b0a-a0255605723e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "WestButton",
+                    "type": "Button",
+                    "id": "2600cf12-6637-483f-9663-af584f8750ba",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "fc7cabbe-0336-428a-88da-c9100ca9d117",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Menu",
+                    "type": "Button",
+                    "id": "8d81cd4b-903a-466d-b2f4-094f9df93001",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -104,7 +149,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ButtonSouth",
+                    "action": "SouthButton",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -115,7 +160,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ButtonNorth",
+                    "action": "NorthButton",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -126,18 +171,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ButtonWest",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c90ab411-2179-4348-a3a2-6cbb7b62c649",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ButtonEast",
+                    "action": "WestButton",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -297,6 +331,39 @@
                 },
                 {
                     "name": "",
+                    "id": "c90ab411-2179-4348-a3a2-6cbb7b62c649",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EastButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "30c9de80-e411-4494-97b7-b805c2332180",
+                    "path": "<Gamepad>/leftStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "L3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e21b4ad1-4652-4445-8c6b-54642ab02ecc",
+                    "path": "<Gamepad>/rightStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "R3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "8acdfa8d-bb87-4e06-ab92-0fd5452e7141",
                     "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
@@ -314,6 +381,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "RightShoulder",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e73e9962-d8d1-43bf-bb64-ab8b5b44eab8",
+                    "path": "<Gamepad>/dpad",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "D-Pad",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "aa9aa063-c1bc-4366-b43b-1a520b6e6034",
+                    "path": "<Gamepad>/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2ccbe4c5-6be1-4684-9838-ef7f1b2dba22",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Menu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

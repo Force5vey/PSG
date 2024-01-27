@@ -12,15 +12,14 @@ public class LevelController : MonoBehaviour
      [Header("Player Scripts")]
      public PlayerSpawner playerSpawner;
 
-     [Header("Player Effects")]
-     [SerializeField] private float shipAlignDuration = 1.0f;
-   //[SerializeField] private Quaternion shipRotation;
+     //[Header("Player Effects")]
+
 
      private void Start()
      {
       if ( playerSpawner != null && PlayerController.Instance != null )
       {
-         cameraFollowScript.target = PlayerController.Instance.transform;
+         //cameraFollowScript.target = PlayerController.Instance.transform;
          StartLevel();
       }
       else
@@ -36,7 +35,8 @@ public class LevelController : MonoBehaviour
    /// </summary>
    private void StartLevel()
      {
-          // Activate the player object if it's not already active
+
+                // Activate the player object if it's not already active
           if (!PlayerController.Instance.gameObject.activeSelf)
           {
                PlayerController.Instance.gameObject.SetActive(true);
@@ -50,11 +50,39 @@ public class LevelController : MonoBehaviour
       //Tell the ship to initialize its boundary
       //PlayerController.Instance.playerMovementController.InitializeBoundary();
 
+
+      SetPlayerCameraAsMain();
+
           //Run this last or when ready for level specific controller to initialize
           RunLevelSpecificControllerStartRoutine();
      }
 
-     private void RunLevelSpecificControllerStartRoutine()
+   private void SetPlayerCameraAsMain()
+   {
+      if ( PlayerController.Instance != null )
+      {
+         // Find the camera child in the player GameObject
+         Camera playerCamera = PlayerController.Instance.GetComponentInChildren<Camera>();
+
+         if ( playerCamera != null )
+         {
+            // Enable the player's camera
+            playerCamera.gameObject.SetActive(true);
+            playerCamera.tag = "MainCamera"; // Optionally, ensure it's tagged as MainCamera
+
+            // Disable other cameras if necessary
+            foreach ( var cam in Camera.allCameras )
+            {
+               if ( cam != playerCamera )
+               {
+                  cam.gameObject.SetActive(false);
+               }
+            }
+         }
+      }
+   }
+
+   private void RunLevelSpecificControllerStartRoutine()
      {
           ILevelSpecific[] levelSpecificScripts = GetComponents<ILevelSpecific>();
           if (levelSpecificScripts.Length == 1)
@@ -82,7 +110,7 @@ public class LevelController : MonoBehaviour
      private IEnumerator CameraZoom(Vector3 newZoom, float waitTimeSeconds, float zoomDuration)
      {
           yield return new WaitForSeconds(waitTimeSeconds);
-          cameraFollowScript.StartZoom(newZoom, zoomDuration);
+          //cameraFollowScript.StartZoom(newZoom, zoomDuration);
      }
 
      private void EndLevel()

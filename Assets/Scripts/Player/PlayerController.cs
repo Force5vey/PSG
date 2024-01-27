@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public PilotController pilotController;
     public FuelController fuelController;
     public AttachmentController attachmentController;
+   public CameraFollowController cameraFollowController;
     
 
     [Header ("Outside references")]
