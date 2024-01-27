@@ -34,7 +34,7 @@ public class CockpitScreenManager :MonoBehaviour
    [SerializeField] private GameObject defaultScreen;
 
    [Header("Screen Navigation")]
-   private MainPlayerControls controls;
+   private InputHandler inputHandler;
 
    private GameObject currentScreen; // Currently selected screen
    [SerializeField] private float horizontalThreshold;
@@ -51,12 +51,10 @@ public class CockpitScreenManager :MonoBehaviour
 
    private void Awake()
    {
+      inputHandler = GameController.Instance.inputHandler;
+
       //Initialize ScreenRows with active screen Objects
       InitializeScreenRows();
-
-      // Initialize the input system
-      controls = new MainPlayerControls();
-
 
       //Make sure each screen object has an index assigned according to its position in active screen list.
       AssignScreenIndices();
@@ -70,16 +68,30 @@ public class CockpitScreenManager :MonoBehaviour
 
    private void OnEnable()
    {
-      controls.Enable();
-      controls.PlayerControl.LeftStick.performed += ctx => NavigateScreens(ctx.ReadValue<Vector2>());
-      controls.PlayerControl.ButtonSouth.performed += _ => SelectCurrentScreen();
+      //TODO: Update these to subscribe straight to inputHandler and accept the context values.
+     if(inputHandler != null)
+      {
+         inputHandler.OnLeftStickInput += HandleLeftStickInput;
+         inputHandler.OnSouthButtonInput += HandleSouthButtonInput;
+      }
+   }
+
+   private void HandleLeftStickInput(Vector2 value)
+   {
+      NavigateScreens(value);
+   }
+
+   private void HandleSouthButtonInput(bool isPressed)
+   {
+      if ( isPressed )
+      { SelectCurrentScreen(); }
    }
 
    private void OnDisable()
    {
-      controls.PlayerControl.LeftStick.performed -= ctx => NavigateScreens(ctx.ReadValue<Vector2>());
-      controls.PlayerControl.ButtonSouth.performed -= _ => SelectCurrentScreen();
-      controls.Disable();
+      inputHandler.OnLeftStickInput -= HandleLeftStickInput;
+      inputHandler.OnSouthButtonInput -= HandleSouthButtonInput;
+
    }
 
    private void Start()

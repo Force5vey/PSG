@@ -18,7 +18,7 @@ public class MainMenuController :MonoBehaviour
    [SerializeField] private CanvasGroup mainMenuGroup;
    [SerializeField] private TextMeshProUGUI titleText;
 
-   private MainPlayerControls inputActions;
+   private InputHandler inputHandler;
 
    [Header("Close Game Panel and Buttons")]
    [SerializeField] private GameObject verifyCloseMessagePanel;
@@ -42,7 +42,7 @@ public class MainMenuController :MonoBehaviour
    {
       pilotSelectionPanel.SetActive(false);
 
-      inputActions = new MainPlayerControls();
+      inputHandler = GameController.Instance.inputHandler;
 
    }
 
@@ -61,17 +61,26 @@ public class MainMenuController :MonoBehaviour
 
    private void OnEnable()
    {
-      inputActions.PlayerControl.Enable();
-
-      inputActions.PlayerControl.ButtonEast.performed += CancelButton_Click;
-
-
+      if ( inputHandler != null )
+      {
+         inputHandler.OnEastButtonInput += OnHandleEastButtonInput;
+      }
    }
 
    private void OnDisable()
    {
-      inputActions.PlayerControl.ButtonEast.performed -= CancelButton_Click;
-      inputActions.Disable();
+      if ( inputHandler != null )
+      {
+         inputHandler.OnEastButtonInput -= OnHandleEastButtonInput;
+      }
+   }
+
+   private void OnHandleEastButtonInput( bool isPressed )
+   {
+      if ( isPressed )
+      {
+         CancelButton_Click();
+      }
    }
 
    public void ExecuteButtonAction( string buttonActionName )
@@ -232,7 +241,7 @@ public class MainMenuController :MonoBehaviour
 
    }
 
-   public void CancelButton_Click( InputAction.CallbackContext context )
+   public void CancelButton_Click()
    {
       // Return to main menu
       //ensure pilot selection is closed

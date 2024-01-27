@@ -50,10 +50,17 @@ public class FlightModeController :MonoBehaviour
    {
       if ( inputHandler != null )
       {
+         //Sticks
          inputHandler.OnLeftStickInput += HandleLeftStickInput;
          inputHandler.OnRightStickInput += HandleRightStickInput;
+         inputHandler.OnLeftStickClickInput += HandleLeftStickClickInput;
+         inputHandler.OnRightStickClickInput += HandleRightStickClickInput;
+
+         //Triggers
+         inputHandler.OnLeftTriggerInput += HandleLeftTriggerInput;
          inputHandler.OnRightTriggerInput += HandleRightTriggerInput;
-         inputHandler.OnLeftShoulderPressed += HandleLeftShoulderPressed;
+         inputHandler.OnLeftShoulderInput += HandleLeftShoulderPressed;
+
       }
    }
 
@@ -64,7 +71,8 @@ public class FlightModeController :MonoBehaviour
          inputHandler.OnLeftStickInput -= HandleLeftStickInput;
          inputHandler.OnRightStickInput -= HandleRightStickInput;
          inputHandler.OnRightTriggerInput -= HandleRightTriggerInput;
-         inputHandler.OnLeftShoulderPressed -= HandleLeftShoulderPressed;
+         inputHandler.OnLeftShoulderInput -= HandleLeftShoulderPressed;
+         
       }
    }
 
@@ -142,9 +150,16 @@ public class FlightModeController :MonoBehaviour
 
    }
 
+   #region // Handle Controller Input
+
    private void HandleLeftStickInput( Vector2 leftStickInput )
    {
       currentLeftStickInput = leftStickInput;
+   }
+
+   private void HandleLeftStickClickInput(bool isPressed)
+   {
+
    }
 
    private void HandleRightStickInput( Vector2 rightStickInput )
@@ -152,12 +167,22 @@ public class FlightModeController :MonoBehaviour
       currentRightStickInput = rightStickInput;
    }
 
+   private void HandleRightStickClickInput(bool isPressed)
+   {
+
+   }
+
+   private void HandleLeftTriggerInput(float  leftTriggerInput)
+   {
+
+   }
+
    private void HandleRightTriggerInput( float rightTriggerInput )
    {
       currentRightTriggerInput = rightTriggerInput;
    }
 
-   private void HandleLeftShoulderPressed()
+   private void HandleLeftShoulderPressed(bool isPressed )
    {
       inFastMode = !inFastMode;
 
@@ -173,4 +198,6 @@ public class FlightModeController :MonoBehaviour
 
       Debug.Log($"inHighSpeed bool Value: {inFastMode}");
    }
+
+   #endregion
 }

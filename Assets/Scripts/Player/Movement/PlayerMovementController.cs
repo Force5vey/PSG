@@ -9,7 +9,7 @@ using UnityEngine;
 public class PlayerMovementController :MonoBehaviour
 {
    [Header("Scripts")]
-   [SerializeField] private InputHandler inputHandler;
+   private InputHandler inputHandler;
    [SerializeField] private FlightModeController flightModeController;
    [SerializeField] private HoverModeController hoverModeController;
 
@@ -23,20 +23,28 @@ public class PlayerMovementController :MonoBehaviour
 
    private void Awake()
    {
-
+      
    }
 
    private void OnEnable()
    {
       if ( inputHandler != null )
       {
-         inputHandler.OnRightShoulderPressed += HandleRightShoulderPressed;
+         inputHandler.OnRightShoulderInput += HandleRightShoulderInput;
       }
    }
 
    private void OnDisable()
    {
-      inputHandler.OnRightShoulderPressed -= HandleRightShoulderPressed;
+      if ( inputHandler != null )
+      {
+         inputHandler.OnRightShoulderInput -= HandleRightShoulderInput;
+      }
+   }
+
+   private void Start()
+   {
+      inputHandler = GameController.Instance.inputHandler;
    }
 
    void Update()
@@ -78,15 +86,23 @@ public class PlayerMovementController :MonoBehaviour
       hoverModeController.enabled = true;
    }
 
-   private void HandleRightShoulderPressed()
+   private void HandleRightShoulderInput(bool isPressed)
    {
-      if ( currentControlMode == ControlMode.FlightMode )
+      if ( isPressed )
       {
-         currentControlMode = ControlMode.HoverMode;
+         if ( currentControlMode == ControlMode.FlightMode )
+         {
+            currentControlMode = ControlMode.HoverMode;
+         }
+         else if ( currentControlMode == ControlMode.HoverMode )
+         {
+            currentControlMode = ControlMode.FlightMode;
+         }
       }
-      else if ( currentControlMode == ControlMode.HoverMode )
-      {
-         currentControlMode = ControlMode.FlightMode;
-      }
+   }
+
+   internal void InitializeBoundary()
+   {
+      Debug.Log("TODO: Initialize Play Level Boundary for the player.");
    }
 }

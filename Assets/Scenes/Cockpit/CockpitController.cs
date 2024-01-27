@@ -9,7 +9,7 @@ public class CockpitController :MonoBehaviour
 
    [SerializeField] private CockpitScreenManager screenManager;
 
-   private MainPlayerControls mainPlayerControls;
+   private InputHandler inputHandler;
 
    //Individual Screen Open Events
    public event Action OnMapSelected;
@@ -75,8 +75,7 @@ public class CockpitController :MonoBehaviour
       };
 
 
-      mainPlayerControls = new MainPlayerControls();
-      Debug.Log("Cockpit Controller > Awake > Just after mainPlayerControls = new");
+      inputHandler = GameController.Instance.inputHandler;
    }
 
    private void Start()
@@ -86,20 +85,27 @@ public class CockpitController :MonoBehaviour
 
    private void OnEnable()
    {
-      mainPlayerControls.Enable();
-      mainPlayerControls.PlayerControl.ButtonEast.performed += _ => HandleBackButton();
+      if ( inputHandler != null )
+      {
+         inputHandler.OnEastButtonInput += HandleBackButton;
+      }
 
    }
    private void OnDisable()
    {
-      mainPlayerControls.PlayerControl.ButtonEast.performed -= _ => HandleBackButton();
-      mainPlayerControls.Disable();
+      if ( inputHandler != null )
+      {
+         inputHandler.OnEastButtonInput -= HandleBackButton;
+      }
    }
 
-   private void HandleBackButton()
+   private void HandleBackButton( bool isPressed )
    {
-      Debug.Log("CockpitController > HandleCloseButton");
-      BackToPreviousScene(SceneController.CoreScene.MainMenu);
+      if ( isPressed )
+      {
+         Debug.Log("CockpitController > HandleCloseButton");
+         BackToPreviousScene(SceneController.CoreScene.MainMenu);
+      }
    }
 
    private void SubscribeToScreenSelectionEvents()
@@ -169,7 +175,7 @@ public class CockpitController :MonoBehaviour
 
    //TODO: Update to either have two depending on core or level or break into two methods to separate going to main menu and back to a level
    //will need to make sure I am sending in a level index when I load the cockpit.
-   public void BackToPreviousScene(SceneController.CoreScene sceneEnum)
+   public void BackToPreviousScene( SceneController.CoreScene sceneEnum )
    {
       Debug.Log($"CockpitController > CloseCockpit > Pre-Close Screen Manager");
       screenManager.CloseScreenManager();
