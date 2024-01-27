@@ -10,10 +10,13 @@ public class FlightModeController :MonoBehaviour
    private Vector2 currentLeftStickInput;
    private Vector2 currentRightStickInput;
    private float currentRightTriggerInput;
+   private float currentLeftTriggerInput;
 
    [Header("Flight Mode Settings")]
    [SerializeField] private Transform shipTransform;
    private bool inFastMode = false;
+   private bool isDodging = false;
+   private bool isReversing = false;
 
    [Header("Ship Flight - Fast")]
    [SerializeField] private float fastThrustForce;
@@ -68,11 +71,17 @@ public class FlightModeController :MonoBehaviour
    {
       if ( inputHandler != null )
       {
+         //Sticks
          inputHandler.OnLeftStickInput -= HandleLeftStickInput;
          inputHandler.OnRightStickInput -= HandleRightStickInput;
+         inputHandler.OnLeftStickClickInput -= HandleLeftStickClickInput;
+         inputHandler.OnRightStickClickInput -= HandleRightStickClickInput;
+
+         //Triggers
+         inputHandler.OnLeftTriggerInput -= HandleLeftTriggerInput;
          inputHandler.OnRightTriggerInput -= HandleRightTriggerInput;
          inputHandler.OnLeftShoulderInput -= HandleLeftShoulderPressed;
-         
+
       }
    }
 
@@ -84,42 +93,60 @@ public class FlightModeController :MonoBehaviour
    {
 
       ProcessFlightModeThrust();
+      ProcessBreaking();
       ProcessPitch();
       ProcessRoll();
       ProcessYaw();
       ProcessVisualPitch();
       ProcessVisualRoll();
+      ProcessDodge();
+      ProcessReversal();
       ProcessVisualYaw();
    }
 
    private void ProcessFlightModeThrust()
    {
-      //Got rid of pulse force and instead this will be fast or slow flight mode differences
-      float totalThrust = currentRightTriggerInput > 0.98f ? fastThrustForce : slowThrustForce;
+      float totalThrust = inFastMode ? fastThrustForce : slowThrustForce;
+
       shipRigidbody.AddForce(currentRightTriggerInput * totalThrust * transform.forward, ForceMode.Acceleration);
    }
+   private void ProcessBreaking()
+   {
+      float totalBraking;
 
+      if ( currentLeftTriggerInput !=0 )
+      {
+         totalBraking = inFastMode ? fastBrakingForce : slowBrakingForce;
+      }
+      else
+      {
+         totalBraking = inFastMode ? fastDefaultDrag : slowDefaultDrag;
+      }
+      shipRigidbody.drag = totalBraking;
+   }
 
    private void ProcessPitch()
    {
-      //update to use slow pitch and fast pitch instead of math.
-      float pitchRate = inFastMode ? fastPitchTorque * 2 : fastPitchTorque;
+      float pitchRate = inFastMode ? fastPitchTorque : slowPitchTorque;
       transform.Rotate(Vector3.right, currentLeftStickInput.y * pitchRate * Time.fixedDeltaTime, Space.Self);
    }
 
    private void ProcessRoll()
    {
-      transform.Rotate(Vector3.forward, -currentRightStickInput.x * fastRollTorque * Time.fixedDeltaTime, Space.Self);
+      float rollRate = inFastMode ? fastRollTorque : slowRollTorque;
+      transform.Rotate(Vector3.forward, -currentLeftStickInput.x * rollRate * Time.fixedDeltaTime, Space.Self);
    }
 
    private void ProcessYaw()
    {
-      transform.Rotate(Vector3.up, currentLeftStickInput.x * fastYawTorque * Time.fixedDeltaTime, Space.Self);
+      float yawRate = inFastMode ? fastYawTorque : slowYawTorque;
+      transform.Rotate(Vector3.up, currentRightStickInput.x * yawRate * Time.fixedDeltaTime, Space.Self);
    }
+
 
    private void ProcessVisualPitch()
    {
-      float visualPitchLimit = inFastMode ? 30f : 50f;
+      float visualPitchLimit = inFastMode ? visualFastPitchTorque : visualSlowPitchTorque;
       float targetVisualPitch = Mathf.Clamp(currentLeftStickInput.y * visualPitchLimit, -visualPitchLimit, visualPitchLimit);
 
       // Calculate the visual rotation in local space
@@ -133,11 +160,25 @@ public class FlightModeController :MonoBehaviour
 
    private void ProcessVisualRoll()
    {
-      float visualRollLimit = 60f;
-      float targetVisualRoll = Mathf.Clamp(-currentRightStickInput.x * visualRollLimit, -visualRollLimit, visualRollLimit);
+      float visualRollLimit = inFastMode ? visualFastRollTorque : visualSlowRollTorque;
+      float targetVisualRoll = Mathf.Clamp(-currentLeftStickInput.x * visualRollLimit, -visualRollLimit, visualRollLimit);
 
       // Calculate the visual rotation in local space
       Quaternion visualTargetRotation = Quaternion.Euler(0, 0, targetVisualRoll);
+
+      // Apply visual rotation
+      shipTransform.localRotation = currentLeftStickInput.x != 0
+          ? Quaternion.Slerp(shipTransform.localRotation, visualTargetRotation, Time.deltaTime)
+          : Quaternion.Slerp(shipTransform.localRotation, Quaternion.identity, Time.deltaTime);
+   }
+
+   private void ProcessVisualYaw()
+   {
+      float visualYawLimit = inFastMode ? visualFastYawTorque : visualSlowYawTorque;
+      float targetVisualYaw = Mathf.Clamp(currentRightStickInput.x * visualYawLimit, -visualYawLimit, visualYawLimit);
+
+      // Calculate the visual rotation in local space
+      Quaternion visualTargetRotation = Quaternion.Euler(0, targetVisualYaw, 0);
 
       // Apply visual rotation
       shipTransform.localRotation = currentRightStickInput.x != 0
@@ -145,10 +186,22 @@ public class FlightModeController :MonoBehaviour
           : Quaternion.Slerp(shipTransform.localRotation, Quaternion.identity, Time.deltaTime);
    }
 
-   private void ProcessVisualYaw()
+   private void ProcessDodge()
    {
-
+      if ( isDodging )
+      {
+         //TODO: create CoRoutine that temp disables controls and performs a short altitude jump
+      }
    }
+
+   private void ProcessReversal()
+   {
+      if ( isReversing )
+      {
+         //TODO: create a coroutine that temp disables controls and performs a flight direction reversal
+      }
+   }
+
 
    #region // Handle Controller Input
 
@@ -157,9 +210,12 @@ public class FlightModeController :MonoBehaviour
       currentLeftStickInput = leftStickInput;
    }
 
-   private void HandleLeftStickClickInput(bool isPressed)
+   private void HandleLeftStickClickInput( bool isPressed )
    {
-
+      if ( isPressed )
+      {
+         isDodging = !isDodging;
+      }
    }
 
    private void HandleRightStickInput( Vector2 rightStickInput )
@@ -167,14 +223,17 @@ public class FlightModeController :MonoBehaviour
       currentRightStickInput = rightStickInput;
    }
 
-   private void HandleRightStickClickInput(bool isPressed)
+   private void HandleRightStickClickInput( bool isPressed )
    {
-
+      if ( isPressed )
+      {
+         isReversing = !isReversing;
+      }
    }
 
-   private void HandleLeftTriggerInput(float  leftTriggerInput)
+   private void HandleLeftTriggerInput( float leftTriggerInput )
    {
-
+      currentLeftTriggerInput = leftTriggerInput;
    }
 
    private void HandleRightTriggerInput( float rightTriggerInput )
@@ -182,21 +241,24 @@ public class FlightModeController :MonoBehaviour
       currentRightTriggerInput = rightTriggerInput;
    }
 
-   private void HandleLeftShoulderPressed(bool isPressed )
+   private void HandleLeftShoulderPressed( bool isPressed )
    {
-      inFastMode = !inFastMode;
-
-      if ( inFastMode )
+      if ( isPressed )
       {
-         //sett more distant camera
+         inFastMode = !inFastMode;
 
-      }
-      else
-      {
-         //set close camera.         
-      }
+         if ( inFastMode )
+         {
+            //sett more distant camera
 
-      Debug.Log($"inHighSpeed bool Value: {inFastMode}");
+         }
+         else
+         {
+            //set close camera.         
+         }
+
+         Debug.Log($"inHighSpeed bool Value: {inFastMode}");
+      }
    }
 
    #endregion

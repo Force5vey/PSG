@@ -1283,6 +1283,10 @@ PrefabInstance:
       propertyPath: rotationOffset.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3676001158402854400, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: m_Depth
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4344516542909679744, guid: a422fefae09047445b75cf815de41a10, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -1368,8 +1372,52 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1235648514}
     - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: fastYawTorque
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: slowYawTorque
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: fastRollTorque
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: slowRollTorque
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: fastDefaultDrag
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: fastPitchTorque
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: fastThrustForce
+      value: 1600
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
       propertyPath: flightYawTorque
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: slowDefaultDrag
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: slowPitchTorque
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: slowThrustForce
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: fastBrakingForce
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
       propertyPath: flightPulseForce
@@ -1380,12 +1428,40 @@ PrefabInstance:
       value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: slowBrakingForce
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
       propertyPath: flightPitchTorque
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
       propertyPath: flightThrustForce
       value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: visualFastYawTorque
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: visualSlowYawTorque
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: visualFastRollTorque
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: visualSlowRollTorque
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: visualFastPitchTorque
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7370704467041106783, guid: a422fefae09047445b75cf815de41a10, type: 3}
+      propertyPath: visualSlowPitchTorque
+      value: 80
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a422fefae09047445b75cf815de41a10, type: 3}
