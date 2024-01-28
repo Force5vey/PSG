@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scenes:
   - sceneIndex: 0
-    sceneName: ErrorScene
-  - sceneIndex: 1
     sceneName: LoadingScene
+  - sceneIndex: 1
+    sceneName: ErrorScene
   - sceneIndex: 2
     sceneName: MainMenu
   - sceneIndex: 3

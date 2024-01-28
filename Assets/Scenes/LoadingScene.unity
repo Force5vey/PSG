@@ -1124,6 +1124,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2509616118652597627, guid: 8be4226e07cd7eb4aa7ac0ed75311f37, type: 3}
+      propertyPath: inputlogger
+      value: 
+      objectReference: {fileID: 1235648516}
+    - target: {fileID: 2509616118652597627, guid: 8be4226e07cd7eb4aa7ac0ed75311f37, type: 3}
       propertyPath: sceneTransitionScreen
       value: 
       objectReference: {fileID: 1235648513}
