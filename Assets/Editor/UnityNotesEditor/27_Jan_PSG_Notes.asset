@@ -13,19 +13,54 @@ MonoBehaviour:
   m_Name: 27_Jan_PSG_Notes
   m_EditorClassIdentifier: 
   notes:
-  - creationDate: 28_Jan - 11:03
-    title: Work on Cockpit
-    category: 0
-    completed: 1
-    priority: 1
-    status: 1
-    text: 
-    fileName: Assets/Scripts/GameManager/GameController.cs
-    lineNumber: 0
+  - creationDate: '29_Jan - 02: 37'
+    title: 'TODO: GameData.cs: Line 12'
+    category: 1
+    completed: 0
+    priority: 0
+    status: 0
+    text: 'Ensure this is synced with active play classes: Player, Ship, Pilot'
+    fileName: Assets/Scripts/GameData.cs
+    lineNumber: 12
     linkedGameObject: {fileID: 0}
+    linkedGameObjectPath: 
+    linkedSceneName: 
+    linkedScriptPaths: []
     isExpanded: 1
-  - creationDate: 28_Jan - 11:41
-    title: Title
+    isSelected: 1
+  - creationDate: '29_Jan - 02: 37'
+    title: 'TODO: GameData.cs: Line 13'
+    category: 4
+    completed: 0
+    priority: 0
+    status: 0
+    text: 'Method: UpdateSaveGameDataWithPlayerData() & UpdatePlayerDataWithSavedGameData()
+      in DataController'
+    fileName: Assets/Scripts/GameData.cs
+    lineNumber: 13
+    linkedGameObject: {fileID: 0}
+    linkedGameObjectPath: 
+    linkedSceneName: 
+    linkedScriptPaths: []
+    isExpanded: 1
+    isSelected: 1
+  - creationDate: '29_Jan - 02: 37'
+    title: 'TODO: CockpitController.cs: Line 56'
+    category: 6
+    completed: 0
+    priority: 0
+    status: 0
+    text: Update this to the master dictionary from GameData when that is implemented.
+    fileName: Assets/Scenes/Cockpit/CockpitController.cs
+    lineNumber: 56
+    linkedGameObject: {fileID: 0}
+    linkedGameObjectPath: 
+    linkedSceneName: 
+    linkedScriptPaths: []
+    isExpanded: 1
+    isSelected: 1
+  - creationDate: 29_Jan - 02:39
+    title: 
     category: 0
     completed: 0
     priority: 0
@@ -34,4 +69,233 @@ MonoBehaviour:
     fileName: 
     lineNumber: 0
     linkedGameObject: {fileID: 0}
-    isExpanded: 0
+    linkedGameObjectPath: 
+    linkedSceneName: 
+    linkedScriptPaths: []
+    isExpanded: 1
+    isSelected: 0
+  - creationDate: 29_Jan - 02:39
+    title: 
+    category: 0
+    completed: 0
+    priority: 0
+    status: 0
+    text: 
+    fileName: 
+    lineNumber: 0
+    linkedGameObject: {fileID: 0}
+    linkedGameObjectPath: 
+    linkedSceneName: 
+    linkedScriptPaths: []
+    isExpanded: 1
+    isSelected: 0
+  - creationDate: 29_Jan - 02:39
+    title: 
+    category: 0
+    completed: 0
+    priority: 0
+    status: 0
+    text: 
+    fileName: 
+    lineNumber: 0
+    linkedGameObject: {fileID: 0}
+    linkedGameObjectPath: 
+    linkedSceneName: 
+    linkedScriptPaths: []
+    isExpanded: 1
+    isSelected: 0
+  - creationDate: 29_Jan - 02:39
+    title: 
+    category: 0
+    completed: 0
+    priority: 0
+    status: 0
+    text: 
+    fileName: 
+    lineNumber: 0
+    linkedGameObject: {fileID: 0}
+    linkedGameObjectPath: 
+    linkedSceneName: 
+    linkedScriptPaths: []
+    isExpanded: 1
+    isSelected: 0
+  - creationDate: 29_Jan - 02:39
+    title: 
+    category: 0
+    completed: 0
+    priority: 0
+    status: 0
+    text: 
+    fileName: 
+    lineNumber: 0
+    linkedGameObject: {fileID: 0}
+    linkedGameObjectPath: 
+    linkedSceneName: 
+    linkedScriptPaths: []
+    isExpanded: 1
+    isSelected: 0
+  - creationDate: 29_Jan - 02:39
+    title: 
+    category: 0
+    completed: 0
+    priority: 0
+    status: 0
+    text: 
+    fileName: 
+    lineNumber: 0
+    linkedGameObject: {fileID: 0}
+    linkedGameObjectPath: 
+    linkedSceneName: 
+    linkedScriptPaths: []
+    isExpanded: 1
+    isSelected: 0
+  - creationDate: 29_Jan - 02:39
+    title: 
+    category: 0
+    completed: 0
+    priority: 0
+    status: 0
+    text: 
+    fileName: 
+    lineNumber: 0
+    linkedGameObject: {fileID: 0}
+    linkedGameObjectPath: 
+    linkedSceneName: 
+    linkedScriptPaths: []
+    isExpanded: 1
+    isSelected: 0
+  - creationDate: 29_Jan - 02:39
+    title: 
+    category: 0
+    completed: 0
+    priority: 0
+    status: 0
+    text: 
+    fileName: 
+    lineNumber: 0
+    linkedGameObject: {fileID: 0}
+    linkedGameObjectPath: 
+    linkedSceneName: 
+    linkedScriptPaths: []
+    isExpanded: 1
+    isSelected: 0
+  - creationDate: 29_Jan - 02:39
+    title: 
+    category: 0
+    completed: 0
+    priority: 0
+    status: 0
+    text: 
+    fileName: 
+    lineNumber: 0
+    linkedGameObject: {fileID: 0}
+    linkedGameObjectPath: 
+    linkedSceneName: 
+    linkedScriptPaths: []
+    isExpanded: 1
+    isSelected: 0
+  - creationDate: 29_Jan - 02:39
+    title: 
+    category: 0
+    completed: 0
+    priority: 0
+    status: 0
+    text: 
+    fileName: 
+    lineNumber: 0
+    linkedGameObject: {fileID: 0}
+    linkedGameObjectPath: 
+    linkedSceneName: 
+    linkedScriptPaths: []
+    isExpanded: 1
+    isSelected: 0
+  - creationDate: 29_Jan - 02:39
+    title: 
+    category: 0
+    completed: 0
+    priority: 0
+    status: 0
+    text: 
+    fileName: 
+    lineNumber: 0
+    linkedGameObject: {fileID: 0}
+    linkedGameObjectPath: 
+    linkedSceneName: 
+    linkedScriptPaths: []
+    isExpanded: 1
+    isSelected: 0
+  - creationDate: 29_Jan - 02:39
+    title: 
+    category: 0
+    completed: 0
+    priority: 0
+    status: 0
+    text: 
+    fileName: 
+    lineNumber: 0
+    linkedGameObject: {fileID: 0}
+    linkedGameObjectPath: 
+    linkedSceneName: 
+    linkedScriptPaths: []
+    isExpanded: 1
+    isSelected: 0
+  - creationDate: 29_Jan - 02:39
+    title: 
+    category: 0
+    completed: 0
+    priority: 0
+    status: 0
+    text: 
+    fileName: 
+    lineNumber: 0
+    linkedGameObject: {fileID: 0}
+    linkedGameObjectPath: 
+    linkedSceneName: 
+    linkedScriptPaths: []
+    isExpanded: 1
+    isSelected: 0
+  - creationDate: 29_Jan - 02:39
+    title: 
+    category: 0
+    completed: 0
+    priority: 0
+    status: 0
+    text: 
+    fileName: 
+    lineNumber: 0
+    linkedGameObject: {fileID: 0}
+    linkedGameObjectPath: 
+    linkedSceneName: 
+    linkedScriptPaths: []
+    isExpanded: 1
+    isSelected: 0
+  - creationDate: 29_Jan - 02:39
+    title: 
+    category: 0
+    completed: 0
+    priority: 0
+    status: 0
+    text: 
+    fileName: 
+    lineNumber: 0
+    linkedGameObject: {fileID: 0}
+    linkedGameObjectPath: 
+    linkedSceneName: 
+    linkedScriptPaths: []
+    isExpanded: 1
+    isSelected: 0
+  - creationDate: 29_Jan - 02:39
+    title: 
+    category: 0
+    completed: 0
+    priority: 0
+    status: 0
+    text: 
+    fileName: 
+    lineNumber: 0
+    linkedGameObject: {fileID: 0}
+    linkedGameObjectPath: 
+    linkedSceneName: 
+    linkedScriptPaths: []
+    isExpanded: 1
+    isSelected: 0

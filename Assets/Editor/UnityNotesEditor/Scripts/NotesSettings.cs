@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NotesSettings", menuName = "Notes/Settings")]
@@ -20,5 +22,9 @@ public class NotesSettings :ScriptableObject
 
    [Tooltip("Icon for Critical Priority")]
    public Texture2D criticalPriorityIcon;
+
+   [Tooltip("One per Element, Tool scans for any instance of the tag, and pulls that line. \n Avoid escape and special characters.")]
+   public List<string> commentTags = new List<string>() { "//TODO", "//UNITY NOTE" };
+
 }
 

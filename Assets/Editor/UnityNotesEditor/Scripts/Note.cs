@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System;
 
 using UnityEngine;
@@ -21,8 +22,10 @@ public class Note
    public GameObject linkedGameObject;
    public string linkedGameObjectPath;
    public string linkedSceneName;
+   public List<string> linkedScriptPaths = new List<string>();
 
    public bool isExpanded;
+   public bool isSelected;
 
    /// <summary>
    /// Edit string formatting if you want a different default date / time format.
