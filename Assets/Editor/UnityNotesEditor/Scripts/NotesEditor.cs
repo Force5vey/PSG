@@ -3,7 +3,7 @@ using UnityEditor;
 using System.Collections.Generic;
 using System.Linq;
 
-public class NotesEditorWindow :EditorWindow
+public class NotesEditor :EditorWindow
 {
    // Supporting Classes
    public NotesEditorRenderer Renderer { get; private set; }
@@ -45,7 +45,7 @@ public class NotesEditorWindow :EditorWindow
    [MenuItem("Tools/Notes Editor (Window)")]
    public static void ShowWindow()
    {
-      GetWindow<NotesEditorWindow>("Notes Editor");
+      GetWindow<NotesEditor>("Notes Editor");
    }
 
    //TODO: NOTES: This is my tasky task.
@@ -60,6 +60,21 @@ public class NotesEditorWindow :EditorWindow
       UpdateNotesCollectionsList();
       InitializeCategoryColors();
       InitializePriorityIcons();
+
+      if ( CachedSettings != null && CachedSettings.currentCollectionIndex >= 0 && CachedSettings.currentCollectionIndex < NotesCollectionPaths.Length )
+      {
+         SelectedNotesCollectionIndex = CachedSettings.currentCollectionIndex;
+         Functions.LoadSelectedNotesCollection();
+      }
+   }
+
+   private void OnDisable()
+   {
+      if ( CachedSettings != null && SelectedNotesCollectionIndex >= 0 )
+      {
+         CachedSettings.currentCollectionIndex = SelectedNotesCollectionIndex;
+         EditorUtility.SetDirty(CachedSettings);
+      }
    }
 
    private void CacheNotesSettings()
@@ -91,6 +106,9 @@ public class NotesEditorWindow :EditorWindow
       NotesCollectionPaths = guids.Select(AssetDatabase.GUIDToAssetPath)
                                   .Select(System.IO.Path.GetFileNameWithoutExtension)
                                   .ToArray();
+
+      CachedSettings.allNotesCollectionPaths = new List<string>(NotesCollectionPaths);
+      EditorUtility.SetDirty(CachedSettings);
    }
 
 

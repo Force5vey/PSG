@@ -1,5 +1,5 @@
 
-public class TodoItem
+public class TaggedComment
 {
    public string FilePath { get; set; }
    public int LineNumber { get; set; }

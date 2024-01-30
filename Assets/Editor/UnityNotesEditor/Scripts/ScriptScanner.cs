@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-public class TodoScannerWindow :EditorWindow
+public class ScriptScanner :EditorWindow
 {
    //TODO: IMPORT: This is my tasky task
 
@@ -25,9 +25,12 @@ public class TodoScannerWindow :EditorWindow
    // UI color mappings for note categories.
    public Dictionary<NoteCategory, Color> CategoryColors { get; set; }
 
+   public bool AllNotesExpanded { get; set; }
+   public bool AllNotesSelected { get; set; }
+
    public static void ShowWindow()
    {
-      GetWindow<TodoScannerWindow>("TODO Scanner");
+      GetWindow<ScriptScanner>("TODO Scanner");
    }
 
    private void OnEnable()
@@ -35,19 +38,18 @@ public class TodoScannerWindow :EditorWindow
       todoScanner = ScriptableObject.CreateInstance<NotesCollection>();
       CacheNotesSettings();
       InitializeCategoryColors();
-
    }
-   
+
    private void OnGUI()
    {
       RenderTopBar();
+      RenderControlBar();
       RenderTodoNotesList();
    }
 
    public void SetMainCollection( NotesCollection collection )
    {
       mainCollection = collection;
-      Debug.Log("MainCollection set in TodoScannerWindow: " + (mainCollection != null));
    }
 
    /// <summary>
@@ -75,7 +77,7 @@ public class TodoScannerWindow :EditorWindow
    /// </summary>
    private void ScanForTodoComments()
    {
-      var todoItems = new List<TodoItem>();
+      var taggedComments = new List<TaggedComment>();
 
       foreach ( string tag in CachedSettings.commentTags )
       {
@@ -89,20 +91,18 @@ public class TodoScannerWindow :EditorWindow
             {
                if ( regex.IsMatch(lines[i]) )
                {
-                  todoItems.Add(new TodoItem
+                  taggedComments.Add(new TaggedComment
                   {
                      FilePath = file,
                      LineNumber = i + 1,
                      TodoText = lines[i].Trim(),
                      TagUsed = tag
                   });
-
-                  Debug.Log($"{tag}");
                }
             }
          }
       }
-      PopulateTodoScanner(todoItems);
+      PopulateTodoScanner(taggedComments);
    }
 
 
@@ -110,23 +110,24 @@ public class TodoScannerWindow :EditorWindow
    /// Populate Todo Scanner with the found TODOs.
    /// </summary>
    /// <param name="todoItems"></param>
-   private void PopulateTodoScanner( List<TodoItem> todoItems )
+   private void PopulateTodoScanner( List<TaggedComment> taggedComments )
    {
-      if ( todoItems == null )
+      if ( taggedComments == null )
          return;
 
       todoScanner.notes.Clear(); // Clear existing items
 
-      foreach ( var item in todoItems )
+      foreach ( var taggedComment in taggedComments )
       {
-         string relativePath = item.FilePath.Replace(Application.dataPath, "Assets");
+         string relativePath = taggedComment.FilePath.Replace(Application.dataPath, "Assets");
 
          Note newNote = new Note
          {
-            title = $"{item.TagUsed}: {Path.GetFileName(item.FilePath)}: Line {item.LineNumber}",
-            text = item.TodoText,
+            title = $"{taggedComment.TagUsed}: {Path.GetFileName(taggedComment.FilePath)}: Line {taggedComment.LineNumber}",
+            text = taggedComment.TodoText,
             fileName = relativePath,
-            lineNumber = item.LineNumber,
+            lineNumber = taggedComment.LineNumber,
+            isSelected = false
             // Set other Note properties as needed
          };
 
@@ -179,16 +180,41 @@ public class TodoScannerWindow :EditorWindow
    private void RenderTopBar()
    {
       GUILayout.BeginHorizontal();
-      if ( GUILayout.Button("Scan for TODOs") )
+      if ( GUILayout.Button("Scan Scripts for Tags", GUILayout.Width(150)) )
       {
          ScanForTodoComments();
       }
-      if ( GUILayout.Button("Import Selected") )
+      if ( GUILayout.Button("Import Selected", GUILayout.Width(150)) )
       {
          ImportSelectedTodoNotes();
       }
+
+      EditorGUILayout.LabelField("   Settings:", GUILayout.Width(75));
+      if ( GUILayout.Button("Edit Tags", GUILayout.Width(150)) )
+      {
+         OpenNotesSettings();
+      }
       GUILayout.EndHorizontal();
    }
+
+   private void RenderControlBar()
+   {
+      GUILayout.BeginHorizontal();
+
+      if ( GUILayout.Button(AllNotesExpanded ? "Collapse" : "Expand", GUILayout.Width(75)) )
+      {
+         ToggleAllNotes();
+      }
+
+      if ( GUILayout.Button(AllNotesSelected ? "Deselect All" : "Select All", GUILayout.Width(100)) )
+      {
+         SetAllNotesSelected();
+      }
+
+
+      GUILayout.EndHorizontal();
+   }
+
 
    /// <summary>
    /// Render the list of notes with foldouts and detailed editing fields.
@@ -326,4 +352,49 @@ public class TodoScannerWindow :EditorWindow
 
       note.text = EditorGUILayout.TextArea(note.text, textAreaStyle, GUILayout.MinHeight(60), GUILayout.ExpandHeight(true));
    }
+
+   private void SetAllNotesExpanded( bool expanded )
+   {
+      foreach ( var note in todoScanner.notes )
+      {
+         note.isExpanded = expanded;
+      }
+   }
+
+   private void SetAllNotesSelected()
+   {
+      AllNotesSelected = !AllNotesSelected;
+      foreach ( var note in todoScanner.notes )
+      {
+         note.isSelected = AllNotesSelected;
+      }
+   }
+
+   /// <summary>
+   /// Toggle the expansion state of all notes.
+   /// </summary>
+   public void ToggleAllNotes()
+   {
+      if ( todoScanner != null )
+      {
+         AllNotesExpanded = !AllNotesExpanded;
+         foreach ( var note in todoScanner.notes )
+         {
+            note.isExpanded = AllNotesExpanded;
+         }
+      }
+   }
+
+   private void OpenNotesSettings()
+   {
+      if ( CachedSettings != null )
+      {
+         Selection.activeObject = CachedSettings;
+      }
+      else
+      {
+         Debug.LogError("Notes settings not found.");
+      }
+   }
+
 }
