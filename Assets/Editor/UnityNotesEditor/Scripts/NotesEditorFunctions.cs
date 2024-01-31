@@ -23,7 +23,7 @@ public class NotesEditorFunctions
          EditorUtility.SetDirty(notesEditor.CurrentNotesCollection);
       }
    }
-   //TODO: This is a new note I am adding .
+
    /// <summary>
    /// Add a new note to the current collection.
    /// </summary>

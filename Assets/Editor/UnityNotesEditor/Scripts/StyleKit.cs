@@ -7,25 +7,6 @@ public static class StyleKit
 {
    private static string _texturesPath;
 
-   //// Toolbar Buttons (Tabs)
-   //public static Color ToolbarButtonNormalText = new Color(0.6f, 0.75f, 1.0f); // Soft blue
-   //public static Color ToolbarButtonHoverText = new Color(0.7f, 0.85f, 1.0f); // Brighter blue
-   //public static Color ToolbarButtonActiveText = new Color(1.0f, 0.4f, 0.4f); // Vibrant red
-
-   //// Header Buttons and Labels
-   //public static Color HeaderButtonNormalText = new Color(0.5f, 0.65f, 0.8f); // Darker blue
-   //public static Color HeaderButtonHoverText = new Color(0.6f, 0.75f, 0.9f); // Medium blue
-   //public static Color HeaderButtonActiveText = new Color(0.8f, 0.9f, 1.0f); // Light blue
-   //public static Color HeaderLabelText = new Color(0.7f, 0.85f, 1.0f); // Bright blue
-
-   //// Note Buttons and Labels
-   //public static Color NoteButtonNormalText = new Color(0.5f, 0.65f, 0.8f); // Darker blue
-   //public static Color NoteButtonHoverText = new Color(0.65f, 0.8f, 0.95f); // Medium blue
-   //public static Color NoteButtonActiveText = new Color(0.75f, 0.9f, 1.0f); // Light blue
-   //public static Color NoteLabelText = new Color(0.6f, 0.75f, 0.9f); // Soft blue
-
-
-
    // Colors
    public static Color ToolbarButtonNormalText = new Color(0.8f, 0.8f, 0.8f); // Light gray
    public static Color ToolbarButtonHoverText = new Color(0.7f, 0.85f, 1.0f); // Brighter gray
@@ -69,7 +50,7 @@ public static class StyleKit
    public static float ButtonHeightLarge = 50;
 
    public static float ButtonWidthMedium = 100;
-   public static float ButtonHeightMedium = 50;
+   public static float ButtonHeightMedium = 25;
 
    public static float ButtonWidthSmall = 50;
    public static float ButtonHeightSmall = 50;
@@ -111,6 +92,7 @@ public static class StyleKit
 
    // Cached GUIStyle Fields
    private static GUIStyle _mainToolbarButton = null;
+   private static GUIStyle _mainToolbarButtonSelected = null;
 
    private static GUIStyle _headerButton = null;
    private static GUIStyle _headerLabel = null;
@@ -120,6 +102,22 @@ public static class StyleKit
 
 
    // Main Toolbar Styles
+   //public static GUIStyle MainToolbarButton
+   //{
+   //   get
+   //   {
+   //      if ( _mainToolbarButton == null )
+   //      {
+   //         _mainToolbarButton = new GUIStyle(GUI.skin.button);
+   //         _mainToolbarButton.fontSize = FontSizeMedium;
+   //         _mainToolbarButton.normal.textColor = ToolbarButtonNormalText;
+   //         _mainToolbarButton.hover.textColor = ToolbarButtonHoverText;
+   //         _mainToolbarButton.active.textColor = ToolbarButtonActiveText;
+   //      }
+   //      return _mainToolbarButton;
+   //   }
+   //}
+
    public static GUIStyle MainToolbarButton
    {
       get
@@ -128,11 +126,42 @@ public static class StyleKit
          {
             _mainToolbarButton = new GUIStyle(GUI.skin.button);
             _mainToolbarButton.fontSize = FontSizeMedium;
+
+            // Set the background texture for normal, hover, and active states
+            _mainToolbarButton.normal.background = toolbarButtonNormalTexture;
+            _mainToolbarButton.hover.background = toolbarButtonHoverTexture; // Assuming you have this texture
+            _mainToolbarButton.active.background = toolbarButtonActiveTexture; // Can be same as normal or different
+
+            // Set the text color for normal, hover, and active states
             _mainToolbarButton.normal.textColor = ToolbarButtonNormalText;
             _mainToolbarButton.hover.textColor = ToolbarButtonHoverText;
             _mainToolbarButton.active.textColor = ToolbarButtonActiveText;
          }
          return _mainToolbarButton;
+      }
+   }
+
+   public static GUIStyle MainToolbarButtonSelected
+   {
+      get
+      {
+         if ( _mainToolbarButtonSelected == null )
+         {
+            _mainToolbarButtonSelected = new GUIStyle(GUI.skin.button);
+            _mainToolbarButtonSelected.fontSize = FontSizeLarge;
+            _mainToolbarButtonSelected.fixedHeight = 25;
+
+            // Set the background texture for normal, hover, and active states
+            _mainToolbarButtonSelected.normal.background = toolbarButtonActiveTexture;
+            _mainToolbarButtonSelected.hover.background = toolbarButtonHoverTexture; // Assuming you have this texture
+            _mainToolbarButtonSelected.active.background = toolbarButtonActiveTexture; // Can be same as normal or different
+
+            // Set the text color for normal, hover, and active states
+            _mainToolbarButtonSelected.normal.textColor = ToolbarButtonActiveText;
+            _mainToolbarButtonSelected.hover.textColor = ToolbarButtonHoverText;
+            _mainToolbarButtonSelected.active.textColor = ToolbarButtonActiveText;
+         }
+         return _mainToolbarButtonSelected;
       }
    }
 
@@ -226,7 +255,7 @@ public static class StyleKit
       if ( !LoadTexture(textureName, ref textureVar) )
       {
          // LoadTexture failed, assign a default texture
-         textureVar = EditorGUIUtility.whiteTexture;
+         textureVar = Texture2D.linearGrayTexture;
       }
    }
 

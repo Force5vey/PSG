@@ -110,6 +110,8 @@ public class NotesEditor :EditorWindow
 
    private void OnGUI()
    {
+      //RenderTabButtonRow();
+
       // Get TabNames
       string[] tabNames = Enum.GetNames(typeof(EditorTab));
       GUILayout.Space(5);
@@ -120,6 +122,7 @@ public class NotesEditor :EditorWindow
       GUILayout.BeginHorizontal();
       for ( int i = 0; i < tabNames.Length; i++ )
       {
+         GUIStyle buttonStyle = (CurrentTab == (EditorTab)i) ? StyleKit.MainToolbarButtonSelected : StyleKit.MainToolbarButton;
          if ( GUILayout.Button(tabNames[i], StyleKit.MainToolbarButton, GUILayout.Width(StyleKit.ButtonWidthLarge)) )
          {
             CurrentTab = (EditorTab)i;
@@ -127,8 +130,8 @@ public class NotesEditor :EditorWindow
       }
       GUILayout.EndHorizontal();
 
-      rect = GUILayoutUtility.GetRect(1, StyleKit.BarHeightMedium, GUILayout.ExpandWidth(true));
-      EditorGUI.DrawRect(rect, Color.black);
+      //rect = GUILayoutUtility.GetRect(1, StyleKit.BarHeightMedium, GUILayout.ExpandWidth(true));
+      //EditorGUI.DrawRect(rect, Color.black);
       GUILayout.Space(5);
 
       // Handle the rendering based on the current tab
@@ -141,11 +144,35 @@ public class NotesEditor :EditorWindow
          SSRenderer.InitializeScriptScannerRendering();
          break;
          case EditorTab.Settings:
+         
          // Render Settings Tab Content
          break;
       }
 
    }
+
+
+   //private void OnGUI()
+   //{
+   //   RenderTabButtonRow();
+
+
+   //   // Handle the rendering based on the current tab
+   //   switch ( CurrentTab )
+   //   {
+   //      case EditorTab.Notes:
+
+   //      Renderer.InitializeWindowRendering();
+   //      break;
+   //      case EditorTab.ScriptScanner:
+   //      SSRenderer.InitializeScriptScannerRendering();
+   //      break;
+   //      case EditorTab.Settings:
+   //      // Render Settings Tab Content
+   //      break;
+   //   }
+
+   //}
 
 
    private void OnDisable()
@@ -208,33 +235,6 @@ public class NotesEditor :EditorWindow
 
    #endregion
 
-
-   /* ------------------------------------------------------------------------------------------------------------- */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   private void SetAllNotesExpanded( bool expanded )
-   {
-      foreach ( var note in FoundTaggedCommentsCollection.notes )
-      {
-         note.isExpanded = expanded;
-      }
-   }
-
-
-
    /// <summary>
    /// Toggle the expansion state of all notes.
    /// </summary>
@@ -250,19 +250,29 @@ public class NotesEditor :EditorWindow
       }
    }
 
-
-   //NotesRefactor: Won't be needed until I implement settings tab
-   private void OpenNotesSettings()
+   private void RenderTabButtonRow()
    {
-      if ( CachedSettings != null )
-      {
-         Selection.activeObject = CachedSettings;
-      }
-      else
-      {
-         Debug.LogError("Notes settings not found.");
-      }
-   }
+      // Get TabNames
+      string[] tabNames = Enum.GetNames(typeof(EditorTab));
+      GUILayout.Space(5);
+      Rect rect = GUILayoutUtility.GetRect(1, StyleKit.BarHeightSmall, GUILayout.ExpandWidth(true));
+      EditorGUI.DrawRect(rect, Color.black);
 
+
+      GUILayout.BeginHorizontal();
+      for ( int i = 0; i < tabNames.Length; i++ )
+      {
+         GUIStyle buttonStyle = (CurrentTab == (EditorTab)i) ? StyleKit.MainToolbarButtonSelected : StyleKit.MainToolbarButton;
+         if ( GUILayout.Button(tabNames[i], StyleKit.MainToolbarButton, GUILayout.Width(StyleKit.ButtonWidthLarge)) )
+         {
+            CurrentTab = (EditorTab)i;
+         }
+      }
+      GUILayout.EndHorizontal();
+
+      //rect = GUILayoutUtility.GetRect(1, StyleKit.BarHeightMedium, GUILayout.ExpandWidth(true));
+      //EditorGUI.DrawRect(rect, Color.black);
+      GUILayout.Space(5);
+   }
 
 }
