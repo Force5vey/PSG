@@ -5,6 +5,7 @@ using System.Linq;
 using System.IO;
 using System.Text.RegularExpressions;
 using System;
+using Unity.VisualScripting;
 
 public class NotesEditor :EditorWindow
 {
@@ -120,10 +121,11 @@ public class NotesEditor :EditorWindow
 
 
       GUILayout.BeginHorizontal();
+
       for ( int i = 0; i < tabNames.Length; i++ )
       {
          GUIStyle buttonStyle = (CurrentTab == (EditorTab)i) ? StyleKit.MainToolbarButtonSelected : StyleKit.MainToolbarButton;
-         if ( GUILayout.Button(tabNames[i], StyleKit.MainToolbarButton, GUILayout.Width(StyleKit.ButtonWidthLarge)) )
+         if ( GUILayout.Button(tabNames[i], buttonStyle, GUILayout.Width(StyleKit.ButtonWidthLarge)) )
          {
             CurrentTab = (EditorTab)i;
          }
@@ -144,36 +146,16 @@ public class NotesEditor :EditorWindow
          SSRenderer.InitializeScriptScannerRendering();
          break;
          case EditorTab.Settings:
-         
+
          // Render Settings Tab Content
          break;
       }
 
+      //Required (as of now) for mouse hover effects.
+      Repaint();
+
+
    }
-
-
-   //private void OnGUI()
-   //{
-   //   RenderTabButtonRow();
-
-
-   //   // Handle the rendering based on the current tab
-   //   switch ( CurrentTab )
-   //   {
-   //      case EditorTab.Notes:
-
-   //      Renderer.InitializeWindowRendering();
-   //      break;
-   //      case EditorTab.ScriptScanner:
-   //      SSRenderer.InitializeScriptScannerRendering();
-   //      break;
-   //      case EditorTab.Settings:
-   //      // Render Settings Tab Content
-   //      break;
-   //   }
-
-   //}
-
 
    private void OnDisable()
    {

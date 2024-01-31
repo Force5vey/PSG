@@ -28,8 +28,8 @@ public class NotesEditorRenderer
    }
 
    public void RenderNotesCollection()
-   {   
-      GUILayout.Label("Notes Collection", EditorStyles.boldLabel);
+   {
+      GUILayout.Label("Notes Collection", StyleKit.HeaderTitleLabel);
    }
 
    public void RenderNoteSelectionRow()
@@ -38,10 +38,10 @@ public class NotesEditorRenderer
 
       int newIndex = EditorGUILayout.Popup(notesEditor.SelectedNotesCollectionIndex, notesEditor.NotesCollectionPaths);
 
-      if(newIndex != notesEditor.SelectedNotesCollectionIndex)
+      if ( newIndex != notesEditor.SelectedNotesCollectionIndex )
       {
          notesEditor.SelectedNotesCollectionIndex = newIndex;
-        notesEditor.Functions.LoadSelectedNotesCollection();
+         notesEditor.Functions.LoadSelectedNotesCollection();
       }
 
       if ( GUILayout.Button("Refresh", GUILayout.Width(StyleKit.ButtonWidthMedium)) )
@@ -63,18 +63,22 @@ public class NotesEditorRenderer
    {
       GUILayout.BeginHorizontal();
 
-      if ( GUILayout.Button(notesEditor.AllNotesExpanded ? "Collapse" : "Expand", GUILayout.Width(75)) )
+      //TODO: This ends up being called on everyt OnGUI cycle, if things get performance intensive
+      //tag this for changing to event, or making two buttons to avoid the iteration through notes collections every update.
+      bool anyNoteExpanded = notesEditor.Functions.CheckIfAnyNoteIsExpanded(notesEditor.CurrentNotesCollection);
+
+      if ( GUILayout.Button(anyNoteExpanded ? "Collapse" : "Expand", GUILayout.Width(StyleKit.ButtonWidthMedium)) )
       {
          notesEditor.Functions.ToggleAllNotes(notesEditor.CurrentNotesCollection);
       }
 
-      if ( GUILayout.Button("New Note", GUILayout.Width(75)) )
+      if ( GUILayout.Button("New Note", GUILayout.Width(StyleKit.ButtonWidthMedium)) )
       {
          notesEditor.Functions.AddNewNote();
       }
 
 
-      if ( GUILayout.Button(new GUIContent("Delete", "Delete Checked / Completed Notes"), GUILayout.Width(75)) )
+      if ( GUILayout.Button(new GUIContent("Delete", "Delete Checked / Completed Notes"), GUILayout.Width(StyleKit.ButtonWidthMedium)) )
       {
          notesEditor.Functions.RemoveCompletedNotes();
       }
@@ -88,7 +92,7 @@ public class NotesEditorRenderer
       GUILayout.BeginHorizontal();
 
       if ( GUILayout.Button(new GUIContent("Filter:", "Apply Filter based on selected Priority, Category, and Status"
-         ), GUILayout.Width(75)) )
+         ), GUILayout.Width(StyleKit.ButtonWidthMedium)) )
       {
          notesEditor.Functions.ApplyFilterAndSort();
       }
@@ -283,7 +287,7 @@ public class NotesEditorRenderer
       }
 
       EditorGUILayout.LabelField("LN", GUILayout.Width(StyleKit.LabelWidthSmall));
-      note.lineNumber = EditorGUILayout.IntField(note.lineNumber,GUILayout.Width(StyleKit.LabelWidthMedium));
+      note.lineNumber = EditorGUILayout.IntField(note.lineNumber, GUILayout.Width(StyleKit.LabelWidthMedium));
 
       GUILayout.EndHorizontal();
 
@@ -321,10 +325,14 @@ public class NotesEditorRenderer
          int selectedScriptIndex = EditorGUILayout.Popup(0, note.linkedScriptPaths.ToArray());
       }
 
-    
+
 
       GUILayout.EndHorizontal();
    }
+
+
+   //TODO: Scroll bar is there and has an effect on the text area but does not work.
+   private Vector2 textScrollPosition;
 
    /// <summary>
    /// Render Notes Area.
@@ -335,13 +343,22 @@ public class NotesEditorRenderer
 
       GUIStyle textAreaStyle = new GUIStyle(EditorStyles.textArea)
       {
-         wordWrap = true
+         wordWrap = true,
+         richText = true // Enable rich text formatting
       };
 
-      note.text = EditorGUILayout.TextArea(note.text,textAreaStyle, GUILayout.MinHeight(60), GUILayout.ExpandHeight(true));
+      // Begin a scroll view and use the textScrollPosition to track the scroll position
+      textScrollPosition = EditorGUILayout.BeginScrollView(textScrollPosition, GUILayout.MinHeight(StyleKit.NoteTextAreaHeightMedium));
+
+      // Place the text area inside the scroll view
+      note.text = EditorGUILayout.TextArea(note.text, textAreaStyle, GUILayout.ExpandHeight(true));
+
+      // End the scroll view
+      EditorGUILayout.EndScrollView();
    }
+
 
    #endregion
 
-   
+
 }

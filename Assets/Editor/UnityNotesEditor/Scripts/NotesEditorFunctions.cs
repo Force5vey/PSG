@@ -62,12 +62,24 @@ public class NotesEditorFunctions
    {
       if ( collectionToToggle != null )
       {
-         notesEditor.AllNotesExpanded = !notesEditor.AllNotesExpanded;
+         bool anyNoteExpanded = notesEditor.Functions.CheckIfAnyNoteIsExpanded(collectionToToggle);
+         bool newExpansionState = !anyNoteExpanded;
+
          foreach ( var note in collectionToToggle.notes )
          {
-            note.isExpanded = notesEditor.AllNotesExpanded;
+            note.isExpanded = newExpansionState;
          }
+         notesEditor.AllNotesExpanded = newExpansionState;
       }
+   }
+
+   /// <summary>
+   /// Helper method to set Expand/Collapse button to correct state.
+   /// </summary>
+   /// <returns></returns>
+   public bool CheckIfAnyNoteIsExpanded(NotesCollection collectionToCheck)
+   {
+      return collectionToCheck != null && collectionToCheck.notes.Any(note => note.isExpanded);
    }
 
    public void ApplyFilterAndSort()
@@ -84,7 +96,10 @@ public class NotesEditorFunctions
       UpdateNotesCollection(filteredNotes);
 
       // Reflect changes in the editor window
-      notesEditor.Repaint();
+
+      //TODO: I added repaint to ongui for ui effects, removed this to ensure I'm not doing too much repainting
+      //if there is an issue with how filtered notes are displayed check here.
+      //notesEditor.Repaint();
    }
 
 
